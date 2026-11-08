@@ -1,11 +1,11 @@
-"""after the try3 training finishes: push the trained model + results to the private repo.
+"""after the full-recipe training (try4 in the repo) finishes: push the trained model + results to the private repo.
 
 python -m pipeline.publish_try3 --work B:/AI_cpu_087910_20261108/work
 
 #code: already in the repo (the exact recipe the run used)
 #model: every fitted model file from the work folder, zipped into <=1.9 GB parts and attached to a private
-#       github release "try3-models" (too big for git); try3/MODEL_FILES.json lists every file + sha256
-#results: cpu_validation.json, model.json, submission.csv, inference notebook -> try3/, README updated
+#       github release "try4-models" (too big for git); try4/MODEL_FILES.json lists every file + sha256
+#results: cpu_validation.json, model.json, submission.csv, inference notebook -> try4/, README updated
 #feature tables, raw data, logs and step records stay local (they are competition-data derived / huge)
 """
 import argparse
@@ -83,15 +83,15 @@ def main():
     if z:
         z.close()
     auc = report["local_auc"]
-    notes = (f"try3: full 0.879 recipe retrained from the raw competition files (RTX 5070 + Intel Arc + CPU).\n"
+    notes = (f"try4: full 0.879 recipe retrained from the raw competition files (RTX 5070 + Intel Arc + CPU).\n"
              f"Local out-of-fold AUC {auc:.5f}. Unzip all parts into the training work folder, then run\n"
              f"python -m pipeline.predict_new --models <work> --series test_series.parquet --out predict_run --csv submission.csv")
-    subprocess.run(["gh", "release", "delete", "try3-models", "-R", REPO, "--yes"], capture_output=True)
-    subprocess.run(["gh", "release", "create", "try3-models", "-R", REPO, "--title", f"try3 models (AUC {auc:.5f})",
+    subprocess.run(["gh", "release", "delete", "try4-models", "-R", REPO, "--yes"], capture_output=True)
+    subprocess.run(["gh", "release", "create", "try4-models", "-R", REPO, "--title", f"try4 models (AUC {auc:.5f})",
                     "--notes", notes, *map(str, parts)], check=True)
 
     #2 results + notebook into try3/
-    t3 = clone / "try3"
+    t3 = clone / "try4"
     t3.mkdir(exist_ok=True)
     (t3 / "MODEL_FILES.json").write_text(json.dumps(listing, indent=1))
     for name in ("cpu_validation.json", "model.json"):
@@ -105,17 +105,17 @@ def main():
     readme = t3 / "README.md"
     text = readme.read_text(encoding="utf8")
     status = (f"**Status:** finished. Local out-of-fold AUC **{auc:.5f}**. {len(listing)} saved model files "
-              f"({sum(i['bytes'] for i in listing) / 1e9:.2f} GB) are attached to the private release `try3-models` "
+              f"({sum(i['bytes'] for i in listing) / 1e9:.2f} GB) are attached to the private release `try4-models` "
               f"({len(parts)} zip parts), listed with their hashes in `MODEL_FILES.json`. `submission.csv` holds this run's test "
               f"predictions, and `inference.ipynb` loads the models and scores new series.")
     text = text.split("**Status:**")[0].rstrip() + "\n\n" + status + "\n"
     readme.write_text(text, encoding="utf8")
     git("add", "-A", cwd=clone)
-    git("commit", "-q", "-m", f"try3 finished: local AUC {auc:.5f}, saved models in release try3-models\n\n"
+    git("commit", "-q", "-m", f"try4 finished: local AUC {auc:.5f}, saved models in release try4-models\n\n"
         "Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>", cwd=clone)
     git("push", "-q", "origin", "main", cwd=clone)
     #3 the qualification tag follows the finished try3 (user request)
-    git("tag", "-f", "-a", "qualification", "-m", "qualification submission: designated 58102347, try3 trained", "HEAD", cwd=clone)
+    git("tag", "-f", "-a", "qualification", "-m", "qualification submission: designated 58102347, try4 trained", "HEAD", cwd=clone)
     git("push", "-q", "-f", "origin", "qualification", cwd=clone)
     print("published", auc, len(listing), "files,", len(parts), "parts", flush=True)
 

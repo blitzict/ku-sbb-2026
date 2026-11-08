@@ -125,16 +125,16 @@ def fig_ladder():
 
 
 def fig_scores():
-    names = ["try1 v4", "try2 LightGBM", "full ensemble", "full + mixed MLP"]
-    local = [.83835, .86987, .87911, .87910]
-    public = [.83313, .875, .88077, .88078]
+    names = ["try1", "try2", "try3\ncompact", "full\nensemble", "full +\nmixed MLP"]
+    local = [.83835, .86987, .87271, .87911, .87910]
+    public = [.83313, .87539, .87659, .88077, .88078]
     fig, ax = plt.subplots(figsize=(3.5, 1.9))
-    x = np.arange(4)
+    x = np.arange(5)
     ax.bar(x - .18, local, .34, color="#9cc9b6", label="local OOF")
     ax.bar(x + .18, public, .34, color=ACC, label="Kaggle public")
-    for i in range(4):
-        ax.text(i + .18, public[i] + .001, ["0.83313", "0.875", "0.88077", "0.88078"][i], ha="center", fontsize=5.8)
-    ax.set_xticks(x, names, fontsize=6.6)
+    for i in range(5):
+        ax.text(i + .18, public[i] + .001, ["0.83313", "0.87539", "0.87659", "0.88077", "0.88078"][i], ha="center", fontsize=5.8)
+    ax.set_xticks(x, names, fontsize=6)
     ax.set_ylim(.82, .89)
     ax.legend(fontsize=6.3, frameon=False, loc="upper left")
     ax.set_ylabel("ROC-AUC")

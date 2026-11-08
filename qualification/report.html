@@ -26,7 +26,7 @@ code { font-family: Consolas, monospace; font-size: 7.6pt; background: #f2f6f4; 
 <h1>Blitzict: Structural Break Detection (0.879 recipe)</h1>
 <div class="sub">KU Applied AI Challenge qualification report &middot; team <b>Blitzict</b> &middot; 8 November 2026 &middot; code: private repo <code>blitzict/ku-sbb-2026</code> &middot; designated Kaggle submission <b>58102347</b> (0.88078)</div>
 
-<div class="box"><b>In short.</b> Each series has a known boundary point, and the model predicts the probability that its behaviour changes there. Our best recipe scores <b>0.8791 local out-of-fold ROC-AUC</b> and <b>0.88077 / 0.88078 on the Kaggle public leaderboard</b>. It works in three steps. First, it measures every series in several transformed views with eight groups of features. Then it trains 51 base detectors and a set of mechanism specialists on those features. Finally, a stack of small, regularised weight-space heads combines the detectors. We also kept two simpler submissions: try1 (0.833) and try2 (0.875).</div>
+<div class="box"><b>In short.</b> Each series has a known boundary point, and the model predicts the probability that its behaviour changes there. Our best recipe scores <b>0.8791 local out-of-fold ROC-AUC</b> and <b>0.88077 / 0.88078 on the Kaggle public leaderboard</b>. It works in three steps. First, it measures every series in several transformed views with eight groups of features. Then it trains 51 base detectors and a set of mechanism specialists on those features. Finally, a stack of small, regularised weight-space heads combines the detectors. We also kept simpler submissions: try1 (0.833), try2 (0.875) and <b>try3, a compact model with only 100 features + 36 prior columns per fold (0.87659 public)</b>.</div>
 
 <h2>1. Method</h2>
 <div class="fig"><img src="figures/pipeline.png"><div class="cap">Figure 1. The 0.879 pipeline. Every arrow is a recorded step in <code>pipeline/full_cpu_stages.json</code> (473 steps). Each layer is trained only on out-of-fold outputs of the layer below.</div></div>
@@ -81,7 +81,8 @@ code { font-family: Consolas, monospace; font-size: 7.6pt; background: #f2f6f4; 
 <tr><td><b>try2</b>: one LightGBM, 3,625 statistical + mechanism features</td><td class="r">0.86987</td><td class="r">0.875</td></tr>
 <tr><td>Full 0.879 ensemble</td><td class="r">0.87911</td><td class="r">0.88077</td></tr>
 <tr><td>Full ensemble + synthetic-data MLP correction</td><td class="r">0.87910</td><td class="r">0.88078</td></tr>
-<tr><td><b>try3</b>: full recipe retrained from raw files (in progress)</td><td class="r">pending</td><td class="r">&ndash;</td></tr></table>
+<tr><td><b>try3</b>: top-100 features + fold-wise law prior, 2 LGB + 1 XGB blend</td><td class="r">0.87271</td><td class="r">0.87659</td></tr>
+<tr><td><b>try4</b>: full recipe retrained from raw files (in progress)</td><td class="r">pending</td><td class="r">&ndash;</td></tr></table>
 </div>
 <div><img src="figures/scores.png"><div class="cap">Figure 5. Local versus Kaggle public AUC for each submission.</div></div>
 </div>
@@ -101,11 +102,12 @@ code { font-family: Consolas, monospace; font-size: 7.6pt; background: #f2f6f4; 
 <table><tr><th>Item</th><th>Where</th><th>Status</th></tr>
 <tr><td>try1: v4 models, train and predict code</td><td><code>try1/</code>, <code>pipeline/features_v4.py</code></td><td>Saved models; predicting from raw data reproduces the submitted CSV exactly</td></tr>
 <tr><td>try2: 5 LightGBM fold models, train and predict code, notebook</td><td><code>try2/</code></td><td>Saved models; Kaggle 0.875; raw-series prediction matched exactly</td></tr>
-<tr><td>try3: full 0.879 recipe (473 steps, 172 scripts)</td><td><code>pipeline/</code>, <code>train_087910_cpu.py</code></td><td>Code complete; retraining with saved models in progress</td></tr>
+<tr><td>try3: compact model (100 features + 36 prior columns per fold, 15 saved models)</td><td><code>try3/</code></td><td>Saved models; Kaggle 0.87659; predicting from raw data matched exactly on 200 series</td></tr>
+<tr><td>try4: full 0.879 recipe (473 steps, 172 scripts)</td><td><code>pipeline/</code>, <code>train_087910_cpu.py</code>, <code>try4/</code></td><td>Code complete; retraining with saved models in progress</td></tr>
 <tr><td>GPU runner (RTX 5070 + Intel Arc, parallel steps)</td><td><code>pipeline/train_gpu.py</code>, <code>gpu_launch.py</code></td><td>Running</td></tr>
 <tr><td>Saved-model inference for the full recipe</td><td><code>pipeline/inference/</code>, <code>predict_new.py</code>, <code>inference.ipynb</code></td><td>Base and mechanism models checked on synthetic data; late heads still need adapters</td></tr>
 <tr><td>Feature catalogue and training notebook</td><td><code>FEATURES.md</code>, <code>CPU_087910.ipynb</code></td><td>Done</td></tr>
-<tr><td><b>Designated 58102347 (0.88078)</b>: final layer, saved inputs, MLP fold models</td><td><code>designated_088078/</code></td><td><code>predict.py</code> rewrites the submitted CSV exactly (same SHA-256); the MLP part reruns from raw series. Upstream detectors replay saved outputs; their fresh retrain is try3</td></tr></table>
+<tr><td><b>Designated 58102347 (0.88078)</b>: final layer, saved inputs, MLP fold models</td><td><code>designated_088078/</code></td><td><code>predict.py</code> rewrites the submitted CSV exactly (same SHA-256); the MLP part reruns from raw series. Upstream detectors replay saved outputs; their fresh retrain is try4</td></tr></table>
 
 <h2>5. Sources and AI use</h2>
 <p><b>Libraries:</b> NumPy, SciPy, pandas, PyArrow, scikit-learn, XGBoost, LightGBM, CatBoost, PyTorch (CUDA / XPU), joblib and Optuna (development tuning only). Only the competition files were used: no outside data, no pretrained models and no test labels. The synthetic series used in some experiments were generated from training negatives. <b>AI assistance:</b> Claude Opus 5.5 (Claude Code) was used to implement ideas we had and created. It optimised the training for our two-GPU setup (RTX 5070 + Intel Arc), and later reconstructed the extracted features as a CPU-only run. We chose the ideas and the features, reviewed the results and decided what to submit.</p>

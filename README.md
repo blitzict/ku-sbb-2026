@@ -9,7 +9,8 @@
 - Submissions so far:
   - [try1/](try1/README.md): v4, XGBoost + LightGBM on the 977 base features, **0.83313** on Kaggle
   - [try2/](try2/README.md): LightGBM on 3,625 statistical + mechanism features, **0.875** on Kaggle (0.870 local), load-and-predict from raw series
-  - [try3/](try3/README.md): the full 0.879 recipe (code at the repo root; training in progress)
+  - [try3/](try3/README.md): compact model, top-100 features + 36 noise-law prior columns per fold, 2 LightGBM + 1 XGBoost, **0.87659** on Kaggle (0.8727 local), load-and-predict from raw series
+  - [try4/](try4/README.md): the full 0.879 recipe (code at the repo root; training in progress)
 
 Command that writes the designated CSV (submission 58102347):
 
