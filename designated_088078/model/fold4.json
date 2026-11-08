@@ -1,0 +1,15 @@
+{
+  "fold": 4,
+  "params": {
+    "hidden": 256,
+    "learning_rate": 0.0027007804125611123,
+    "dropout": 0.11853033924866882,
+    "weight_decay": 0.057838526434277615,
+    "mode": "simulation",
+    "synthetic_weight": 0.05
+  },
+  "epochs": 2,
+  "horizon": 24,
+  "source_rows": 19188,
+  "validation_max_difference": 0.0
+}

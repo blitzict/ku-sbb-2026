@@ -28,7 +28,7 @@ def main():
         'Select a Python 3.12+ runtime with hardware accelerator **None**. Training is a long job; '
         'the complete runtime and 8 GB memory limit have not been verified. '
         'Keep the work folder on persistent storage. Rerunning resumes completed steps with matching inputs and settings.')
-    markdown('## Setup\n\nOpen this notebook from `blitzict/AI` in Colab. '
+    markdown('## Setup\n\nOpen this notebook from `blitzict/ku-sbb-2026` in Colab. '
         'For the private repository, add a Colab secret named `GITHUB_TOKEN` with read access, or enter it privately when prompted. '
         'This cell only installs code and dependencies; training starts in cells 3 and 4 below.')
     code('''from pathlib import Path
@@ -47,7 +47,7 @@ if not (CODE / 'train_087910_cpu.py').is_file():
         from google.colab import userdata
         token = userdata.get('GITHUB_TOKEN')
     except Exception:
-        token = getpass.getpass('GitHub token with read access to blitzict/AI: ')
+        token = getpass.getpass('GitHub token with read access to blitzict/ku-sbb-2026: ')
     if not token:
         raise ValueError('A GitHub token is required for the private repository.')
     clone_env = os.environ.copy()
@@ -55,7 +55,7 @@ if not (CODE / 'train_087910_cpu.py').is_file():
         GIT_CONFIG_VALUE_0='AUTHORIZATION: basic ' + base64.b64encode(('x-access-token:' + token).encode()).decode())
     try:
         subprocess.run(['git', 'clone', '--branch', RELEASE, '--depth', '1',
-                        'https://github.com/blitzict/AI.git', str(CODE)], env=clone_env, check=True)
+                        'https://github.com/blitzict/ku-sbb-2026.git', str(CODE)], env=clone_env, check=True)
     finally:
         del token, clone_env
 os.chdir(CODE)

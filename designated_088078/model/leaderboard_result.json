@@ -1,0 +1,12 @@
+{
+  "source": "User-reported leaderboard result",
+  "reported_date": "2026-11-07",
+  "timezone": "Asia/Dubai",
+  "score": 0.88078,
+  "previous_reported_best": 0.88077,
+  "improvement": 1E-05,
+  "submission": "submission_mixed_0879097.csv",
+  "sha256": "1f1a333b00113ca02f501cd6f90eef7c6afa13263eaf58284a638808a003237e",
+  "local_validation_auc": 0.8790970625,
+  "status": "Best user-reported leaderboard score; not independently verified"
+}

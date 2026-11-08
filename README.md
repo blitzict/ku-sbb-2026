@@ -1,7 +1,7 @@
 # Blitzict: structural break detector (0.879 recipe)
 
 - Team alias: `Blitzict`
-- Designated Kaggle submission ID: _to be filled in_
+- Designated Kaggle submission ID: **58102347** (public 0.88078); details and command in [designated_088078/](designated_088078/README.md)
 - Report: [qualification/report.pdf](qualification/report.pdf) (3 pages; source `qualification/report_0879_template.html`, built by `qualification/build_report_0879.py`)
 - Training notebook: [CPU_087910.ipynb](CPU_087910.ipynb); training script: `train_087910_cpu.py`
 - Inference notebook: [inference.ipynb](inference.ipynb)
@@ -11,7 +11,13 @@
   - [try2/](try2/README.md): LightGBM on 3,625 statistical + mechanism features, **0.875** on Kaggle (0.870 local), load-and-predict from raw series
   - [try3/](try3/README.md): the full 0.879 recipe (code at the repo root; training in progress)
 
-Command that trains and writes the CSV:
+Command that writes the designated CSV (submission 58102347):
+
+```console
+python designated_088078/predict.py --data data --out submission.csv
+```
+
+Command that trains the full recipe from raw data and writes its CSV:
 
 ```console
 python train_087910_cpu.py --data data --work cpu_run --workers 2
