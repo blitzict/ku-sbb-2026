@@ -6,12 +6,18 @@
 - Training notebook: [CPU_087910.ipynb](CPU_087910.ipynb); training script: `train_087910_cpu.py`
 - Inference notebook: [inference.ipynb](inference.ipynb)
 - Features used: [FEATURES.md](FEATURES.md)
-- **Working load-and-predict model now: [compact_0870/](compact_0870/README.md)** (LightGBM, 0.870 OOF AUC, tested from raw series)
+- **Working load-and-predict model now: [compact_0870/](compact_0870/README.md)** (LightGBM, 0.870 OOF AUC, 0.875 on Kaggle, tested from raw series)
 
 Command that trains and writes the CSV:
 
 ```console
 python train_087910_cpu.py --data data --work cpu_run --workers 2
+```
+
+Faster run of the same recipe: independent steps in parallel, XGBoost and the neural nets on the GPU (same step records, so it can resume a CPU run and vice versa):
+
+```console
+python -m pipeline.train_gpu --data data --work cpu_run --workers 6
 ```
 
 Command that scores new series with the saved models and writes `id,break_probability`:
