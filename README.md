@@ -1,10 +1,35 @@
+# Blitzict: structural break detector (0.879 recipe)
+
+- Team alias: `Blitzict`
+- Designated Kaggle submission ID: _to be filled in_
+- Report: [qualification/report.pdf](qualification/report.pdf) (source: [qualification/report.md](qualification/report.md))
+- Training notebook: [CPU_087910.ipynb](CPU_087910.ipynb); training script: `train_087910_cpu.py`
+- Inference notebook: [inference.ipynb](inference.ipynb)
+- Features used: [FEATURES.md](FEATURES.md)
+
+Command that trains and writes the CSV:
+
+```console
+python train_087910_cpu.py --data data --work cpu_run --workers 2
+```
+
+Command that scores new series with the saved models and writes `id,break_probability`:
+
+```console
+python -m pipeline.predict_new --models cpu_run --series data/test_series.parquet --out predict_run --csv submission.csv
+```
+
+**Status:** This is the code for the 0.879 recipe. The full CPU training run has not been completed, so `cpu_run` and its saved models do not exist yet, and the prediction command has not been run end to end. Some late `white_*` head steps still have no saved-model adapter in `pipeline/inference`, so `predict_new` stops with `NotImplementedError` when it reaches one. The repository contains no competition data, labels, or organizer files.
+
+---
+
 # Raw-data CPU rebuild
 
 **Status: the full CPU verification run is paused. The code is provided first, as requested. The target is local AUC 0.87910; it has not yet been measured for this rebuild.**
 
 `CPU_087910.ipynb` is the Colab front end. `train_087910_cpu.py` is the same training entry point for a local machine. Both start with the four raw competition files and fit the recorded ensemble. No historical feature tables, predictions, or trained checkpoints are imported into training.
 
-The notebook follows five steps: **load the same competition data, visualize examples, apply the existing formulas and transformations, train and combine the specified models, and save the fitted ensemble**. It runs the recorded recipe; it does not discover new features or search for a new model. The separate new-series prediction interface is deferred.
+The notebook follows five steps: **load the same competition data, visualize examples, apply the existing formulas and transformations, train and combine the specified models, and save the fitted ensemble**. It runs the recorded recipe; it does not discover new features or search for a new model. New-series prediction is in `inference.ipynb` / `pipeline/predict_new.py` (see status above).
 
 The settings cell exposes feature-list edits, shared tree settings, model hyperparameters, and member overrides. Leaving the dictionaries empty retains the historical defaults. The exact feature names ship in `tune_out/*.csv`; `pipeline/hyperparameters.template.json` documents the lists and available controls. Change the WORK folder when changing the recipe.
 
