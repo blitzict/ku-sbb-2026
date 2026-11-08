@@ -1,0 +1,7 @@
+data/
+cpu_run/
+notebook_settings.json
+.venv/
+__pycache__/
+*.pyc
+.env

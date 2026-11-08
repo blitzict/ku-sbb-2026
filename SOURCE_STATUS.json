@@ -1,0 +1,8 @@
+{
+  "status": "unverified_source",
+  "local_auc": null,
+  "target_local_auc": 0.8791,
+  "target_met_at_reported_precision": null,
+  "colab_execution_verified": false,
+  "note": "Code supplied before the full CPU verification run, at the user's request."
+}

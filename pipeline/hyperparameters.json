@@ -1,0 +1,8 @@
+{
+ "_about": "Defaults reproduce the reviewed recipe exactly. Every edit gives an unmeasured model; a work folder keeps the settings it started with. Keys starting with '_' are ignored. Edit this file; see hyperparameters.template.json for every list, default and current stage option.",
+ "workers": null,
+ "feature_selections": {},
+ "shared_settings": {},
+ "script_options": {},
+ "stage_options": {}
+}

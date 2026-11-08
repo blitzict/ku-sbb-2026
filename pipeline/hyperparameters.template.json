@@ -1,0 +1,390 @@
+{
+ "_about": "Defaults reproduce the reviewed recipe exactly. Every edit gives an unmeasured model; a work folder keeps the settings it started with. Keys starting with '_' are ignored.",
+ "workers": null,
+ "feature_selections": {
+  "tune_out/loop/fam_dd.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/loop/fam_gh.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/loop/fam_grid.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/loop/fam_lr.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/redesign/cols_ns3_harm.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/selected_ns1.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/selected_ns1_sel1.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/selected_ns1_sel2.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/selected_ns2.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/selected_ns3.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/selected_ns3_lm.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/selected_ns_max.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/var/all_cols.csv": {
+   "remove": [],
+   "add": []
+  },
+  "tune_out/var/cols_cggd.csv": {
+   "remove": [],
+   "add": []
+  }
+ },
+ "shared_settings": {
+  "tune_out/best_xgb5.json": {}
+ },
+ "script_options": {},
+ "stage_options": {},
+ "_feature_list_sizes": {
+  "tune_out/loop/fam_dd.csv": 198,
+  "tune_out/loop/fam_gh.csv": 30,
+  "tune_out/loop/fam_grid.csv": 492,
+  "tune_out/loop/fam_lr.csv": 96,
+  "tune_out/redesign/cols_ns3_harm.csv": 206,
+  "tune_out/selected_ns1.csv": 146,
+  "tune_out/selected_ns1_sel1.csv": 153,
+  "tune_out/selected_ns1_sel2.csv": 138,
+  "tune_out/selected_ns2.csv": 160,
+  "tune_out/selected_ns3.csv": 170,
+  "tune_out/selected_ns3_lm.csv": 191,
+  "tune_out/selected_ns_max.csv": 138,
+  "tune_out/var/all_cols.csv": 2247,
+  "tune_out/var/cols_cggd.csv": 2171
+ },
+ "_best_xgb5_defaults": {
+  "iters": 487,
+  "params": {
+   "learning_rate": 0.01005604727536916,
+   "max_depth": 10,
+   "min_child_weight": 0.5310521806495001,
+   "subsample": 0.8734716244627577,
+   "colsample_bytree": 0.6065876830061815,
+   "colsample_bynode": 0.6619388130183412,
+   "gamma": 2.7872271566029223,
+   "reg_lambda": 11.395037884517139,
+   "reg_alpha": 0.03498496958541384,
+   "max_bin": 256
+  }
+ },
+ "_tunable_options": {
+  "--seed": "int in [0, 2147483647]",
+  "--seeds": "int in [0, 2147483647]",
+  "--seed-offset": "int in [0, 1000000]",
+  "--fold-seed": "int in [0, 2147483647]",
+  "--epochs": "int in [1, 10000]",
+  "--patience": "int in [1, 10000]",
+  "--lr": "float in [1e-07, 1.0]",
+  "--wd": "float in [0.0, 10.0]",
+  "--bs": "int in [1, 1000000]",
+  "--hidden": "int in [1, 65536]",
+  "--layers": "int in [1, 64]",
+  "--drop": "float in [0.0, 0.95]",
+  "--ch": "int in [1, 4096]",
+  "--k": "int in [1, 255]",
+  "--ema": "float in [0.0, 0.99999]",
+  "--pair-w": "float in [0.0, 100.0]",
+  "--rounds": "int in [1, 1000000]",
+  "--cat-iters": "int in [1, 1000000]",
+  "--colsample": "float in [0.001, 1.0]",
+  "--refit-mult": "float in [0.05, 20.0]",
+  "--alpha": "float in [0.0, 1.0]",
+  "--aug-weight": "float in [0.0, 100.0]",
+  "--extra-w": "float in [0.0, 100.0]",
+  "--crop-p": "float in [0.0, 1.0]",
+  "--crop-max": "float in [0.0, 1.0]"
+ },
+ "_current_stage_options": {
+  "mechanism_outer_priors_0": {
+   "--seeds": "0 (names an output; locked)"
+  },
+  "mechanism_outer_priors_7": {
+   "--seeds": "7 (names an output; locked)"
+  },
+  "mechanism_outer_priors_29": {
+   "--seeds": "29 (names an output; locked)"
+  },
+  "mechanism_outer_priors_123": {
+   "--seeds": "123 (names an output; locked)"
+  },
+  "mechanism_outer_priors_2024": {
+   "--seeds": "2024 (names an output; locked)"
+  },
+  "mechanism_outer_priors_11041": {
+   "--seeds": "11041 (names an output; locked)"
+  },
+  "models_002_v6_lr3_xlg_s1": {
+   "--seed": "1 (names an output; locked)",
+   "--refit-mult": "1.1"
+  },
+  "models_003_v6_lr3_xlg_s2": {
+   "--seed": "2 (names an output; locked)",
+   "--refit-mult": "1.1"
+  },
+  "models_004_v6_lr3_xlg_s3": {
+   "--seed": "3 (names an output; locked)",
+   "--refit-mult": "1.1"
+  },
+  "models_005_v6_lr3_xlg_s4": {
+   "--seed": "4 (names an output; locked)",
+   "--refit-mult": "1.1"
+  },
+  "models_006_v6_lr3_dw_s0": {
+   "--refit-mult": "1.1"
+  },
+  "models_007_v6_lr3_dw_s1": {
+   "--seed": "1 (names an output; locked)",
+   "--refit-mult": "1.1"
+  },
+  "models_009_v6_dd_xlg_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_014_v6_dd_cat": {
+   "--cat-iters": "3000"
+  },
+  "models_016_v6_dd_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_020_v6_lr4_ct_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_022_v6_ns1_xlg_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_023_v6_ns2_xlg": {
+   "--colsample": "0.7"
+  },
+  "models_024_v6_ns2_xlg_s1": {
+   "--seed": "1 (names an output; locked)",
+   "--colsample": "0.7"
+  },
+  "models_026_v6_ns3_xlg_s0": {
+   "--seed": "0 (names an output; locked)",
+   "--colsample": "0.7"
+  },
+  "models_027_v6_ns3_xlg_s1": {
+   "--seed": "1 (names an output; locked)",
+   "--colsample": "0.7"
+  },
+  "models_028_v6_ns3_xlg_s2": {
+   "--colsample": "0.7"
+  },
+  "models_029_v6_ns1sel1_xlg": {
+   "--seed": "1 (names an output; locked)",
+   "--colsample": "0.7"
+  },
+  "models_030_v6_ns1sel2_xlg": {
+   "--colsample": "0.7"
+  },
+  "models_031_v6_nsmax_s0": {
+   "--seed": "0 (names an output; locked)",
+   "--colsample": "0.7"
+  },
+  "models_032_v6_nsmax_s1": {
+   "--seed": "1 (names an output; locked)",
+   "--colsample": "0.7"
+  },
+  "models_034_v6_lr5_xlg_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_035_L3_rank_lr03_s0": {
+   "--colsample": "0.7"
+  },
+  "models_036_L3_rank_lr03_s1": {
+   "--seed": "1 (names an output; locked)",
+   "--colsample": "0.7"
+  },
+  "models_038_L4_fam_grid_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_040_L4_fam_dd_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_042_L4_fam_lr_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_044_L4_fam_gh_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_046_VAR_aug1600_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_048_VAR_full_aug_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_049_VARC4_ns3_s0": {
+   "--seed": "0 (names an output; locked)"
+  },
+  "models_050_VARC4_ns3_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_051_VARC4hv_ns3_s0": {
+   "--seed": "0 (names an output; locked)"
+  },
+  "models_052_VARC4hv_ns3_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_053_VARC4_lm_s0": {
+   "--seed": "0 (names an output; locked)"
+  },
+  "models_054_VARC4_lm_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_055_VARC4_full_s0": {
+   "--seed": "0 (names an output; locked)"
+  },
+  "models_056_VARC4_full_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_057_VARC4harm_ns3_s0": {
+   "--seed": "0 (names an output; locked)"
+  },
+  "models_058_VARC4harm_ns3_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "models_059_MLPHV_big": {
+   "--seeds": "4 (names an output; locked)",
+   "--hidden": "1024",
+   "--layers": "3 (names an output; locked)",
+   "--drop": "0.4"
+  },
+  "models_060_MLPHV_big_o1": {
+   "--seeds": "4 (names an output; locked)",
+   "--seed-offset": "1 (names an output; locked)",
+   "--hidden": "1024",
+   "--layers": "3 (names an output; locked)",
+   "--drop": "0.4"
+  },
+  "models_061_MLPHV_big_o2": {
+   "--seeds": "4 (names an output; locked)",
+   "--seed-offset": "2 (names an output; locked)",
+   "--hidden": "1024",
+   "--layers": "3 (names an output; locked)",
+   "--drop": "0.4"
+  },
+  "models_062_W_SEQ_q": {
+   "--epochs": "45",
+   "--patience": "12"
+  },
+  "models_063_W_SEQ_q_s1": {
+   "--seeds": "1 (names an output; locked)",
+   "--epochs": "45",
+   "--patience": "12"
+  },
+  "models_064_W_SEQ_qh": {
+   "--epochs": "45",
+   "--patience": "12"
+  },
+  "models_065_W_SEQ_q_s2": {
+   "--seeds": "2 (names an output; locked)",
+   "--epochs": "45",
+   "--patience": "12"
+  },
+  "models_066_W_SEQ_qh_s1": {
+   "--seeds": "1 (names an output; locked)",
+   "--epochs": "45",
+   "--patience": "12"
+  },
+  "models_067_v6_dd_mlp": {
+   "--seeds": "3"
+  },
+  "models_068_v6_distill": {
+   "--alpha": "0.7"
+  },
+  "models_069_v6_distill_s1": {
+   "--seed": "1 (names an output; locked)",
+   "--alpha": "0.7"
+  },
+  "models_085_head_v2_MLPHV_big": {
+   "--seed-offset": "0 (names an output; locked)"
+  },
+  "models_086_head_v2_MLPHV_big_o1": {
+   "--seed-offset": "1 (names an output; locked)"
+  },
+  "models_087_head_v2_MLPHV_big_o2": {
+   "--seed-offset": "2 (names an output; locked)"
+  },
+  "mech_models_003_MECHNEST2_s0": {
+   "--seed": "0 (names an output; locked)"
+  },
+  "mech_models_004_MECHNEST3_s0": {
+   "--seed": "0 (names an output; locked)"
+  },
+  "mech_models_005_MECHNEST2_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "mech_models_006_MECHNEST3_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "mech_models_007_MECHNEST2_s2": {
+   "--seed": "2 (names an output; locked)"
+  },
+  "mech_models_008_MECHNEST3_s2": {
+   "--seed": "2 (names an output; locked)"
+  },
+  "mech_models_010_MECH3C1_s0": {
+   "--seed": "0 (names an output; locked)"
+  },
+  "mech_models_011_MECH3C1_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "mech_models_012_MECH3C1_s2": {
+   "--seed": "2 (names an output; locked)"
+  },
+  "mech_models_016_MECH3C12V_s0": {
+   "--seed": "0 (names an output; locked)"
+  },
+  "mech_models_017_MECH3C12V_s1": {
+   "--seed": "1 (names an output; locked)"
+  },
+  "mech_models_018_MECH3C12V_s2": {
+   "--seed": "2 (names an output; locked)"
+  },
+  "mech_models_021_MECH3C12V_k7_s0": {
+   "--fold-seed": "7 (names an output; locked)"
+  },
+  "mech_models_022_MECH3C12V_k29_s0": {
+   "--fold-seed": "29 (names an output; locked)"
+  },
+  "mech_models_023_MECH3C12V_10x43_s0": {
+   "--fold-seed": "43 (names an output; locked)"
+  },
+  "mech_models_025_MECH3C12V_srank_k7_s0": {
+   "--fold-seed": "7 (names an output; locked)"
+  },
+  "mech_models_026_MECH3C12V_srank_k29_s0": {
+   "--fold-seed": "29 (names an output; locked)"
+  },
+  "white_model_physical_ft8": {
+   "--epochs": "8 (names an output; locked)"
+  }
+ }
+}

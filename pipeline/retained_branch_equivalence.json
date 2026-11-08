@@ -1,0 +1,12 @@
+{
+  "scope": "Historical calculation equivalence only; not a fresh CPU training score",
+  "six_partition_max_logit_errors": {
+    "7": 0.0,
+    "29": 0.0,
+    "0": 0.0,
+    "123": 0.0,
+    "2024": 0.0,
+    "11041": 0.0
+  },
+  "full_fit_test_max_logit_error": 1.7763568394002505e-15
+}
