@@ -117,4 +117,4 @@ The original v4 / 0.83313 release and both historical 0.88 releases remain prese
 
 ## AI-use account
 
-The user will supply the combined account across all sessions here.
+Claude opus 5.5 was used to implement ideas that i had and created, but using Claude's code as to fully optimize the training against my double gpu setup. and then later reconstruct the extracted features as a cpu only run
