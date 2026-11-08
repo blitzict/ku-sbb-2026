@@ -95,23 +95,40 @@ def env_for(out):
             "PYTHONUNBUFFERED": "1", "PYTHONPATH": os.pathsep.join([str(ROOT / "pipeline/offline_hooks"), str(out), str(ROOT)])}
 
 
+def slim_cmd(out, stage):
+    #the slim replacement of a step (same code, only what the model's columns need), or None for the original script.
+    #the slim scripts read the model's columns from KU_TRY3_MODEL; KU_TRY3_NO_SLIM=1 turns them all off (for checks)
+    if os.environ.get("KU_TRY3_NO_SLIM") == "1":
+        return None
+    sys.path.insert(0, str(HERE))
+    import slim
+    import slim_mech
+    import slim_white
+    a, name = stage["argv"], Path(stage["argv"][0]).name
+    py = [sys.executable, "-B"]
+    if stage["id"] in SLIM:
+        return py + [str(HERE / "slim.py"), SLIM[stage["id"]], str(out)] if slim.supported(SLIM[stage["id"]]) else None
+    if name == "mechanism.py" and a[1].startswith("jump_law_"):
+        return py + [str(HERE / "slim_mech.py"), *a[1:]] if slim_mech.supported(a[1]) else None
+    if name == "white_model_features.py" and a[1].startswith("boundary_"):
+        return py + [str(HERE / "slim_mech.py"), *a[1:]] if slim_mech.supported(a[1]) else None
+    if name == "white_filtered_steps.py":
+        return py + [str(HERE / "slim_mech.py"), "filtered_step"] if slim_mech.supported("filtered_step") else None
+    if (name == "white_model_features.py" and a[1] in ("hetero", "memory1", "memory2")) or             (name == "late_features.py" and a[1].startswith(("native_law_", "latent_level_"))) or             (name == "mechanism.py" and a[1] == "volatility_law"):
+        return py + [str(HERE / "slim_white.py"), *a[1:]] if slim_white.supported(a[1]) else None
+    if name == "component_moves_cpu.py":
+        return py + [str(HERE / "slim_moves.py"), *a[1:]]          #falls back to the original summarize() by itself
+    return None
+
+
 def run_stage(out, ref, stage):
     a = stage["argv"]
     (out / "logs").mkdir(exist_ok=True)
     env = {**env_for(out), **{k: str(v) for k, v in stage.get("env", {}).items()}, "KU_SBB_THREADS": "1"}
-    if stage["id"] in SLIM:
-        cmd = [sys.executable, "-B", str(HERE / "slim.py"), SLIM[stage["id"]], str(out)]
-    elif Path(a[0]).name == "mechanism.py" and a[1].startswith("jump_law_"):
-        cmd = [sys.executable, "-B", str(HERE / "slim_mech.py"), *a[1:]]           #same code, only the used kernels/columns
-    elif Path(a[0]).name == "white_model_features.py" and a[1].startswith("boundary_"):
-        cmd = [sys.executable, "-B", str(HERE / "slim_mech.py"), *a[1:]]
-    elif Path(a[0]).name == "white_filtered_steps.py":
-        cmd = [sys.executable, "-B", str(HERE / "slim_mech.py"), "filtered_step"]
-    elif Path(a[0]).name == "component_moves_cpu.py":
-        cmd = [sys.executable, "-B", str(HERE / "slim_moves.py"), *a[1:]]          #same script, only the used columns
-    elif "test" in a[1:] or "--part" in a or Path(a[0]).name == "copy_table.py":
+    cmd = slim_cmd(out, stage)
+    if cmd is None and ("test" in a[1:] or "--part" in a or Path(a[0]).name == "copy_table.py"):
         cmd = [sys.executable, "-B", str(out / a[0]), *a[1:]]           #the original script, test part only
-    else:
+    elif cmd is None:
         #steps that do train+test in one go: run only their test side
         cmd = [sys.executable, "-B", str(HERE / "predict.py"), "--one-stage", stage["id"], "--ref", str(ref), "--out", str(out),
                "--series", "-"]
@@ -231,13 +248,14 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--series", required=True)
     p.add_argument("--model", type=Path, default=HERE / "model")
-    p.add_argument("--ref", type=Path, default=Path("B:/AI_cpu_087910_20261108/work"))
+    p.add_argument("--ref", type=Path, default=Path("try3_run"))
     p.add_argument("--out", type=Path, default=Path("predict_try3"))
     p.add_argument("--csv", type=Path, default=Path("submission.csv"))
     p.add_argument("--workers", type=int, default=os.cpu_count())
     p.add_argument("--one-stage")
     a = p.parse_args()
     ref, out = a.ref.resolve(), a.out.resolve()
+    os.environ["KU_TRY3_MODEL"] = str(a.model.resolve())          #the slim steps read this model's columns
     if a.one_stage:
         return one_stage(a.one_stage, ref, out)
     if out.exists() and any(out.iterdir()):

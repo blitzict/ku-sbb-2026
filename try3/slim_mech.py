@@ -1,28 +1,53 @@
-"""try3 fast path for the jump-law mechanism steps (pipeline_helpers/mechanism.py jump_law_<stream> --part test).
+"""try3 fast path for the jump-law mechanism steps (pipeline_helpers/mechanism.py jump_law_<stream> --part test),
+white_filtered_steps.py and white_model_features.py boundary_<stream>.
 
-white_jump_priors.extract() builds 149 columns from 12 integrated-shift kernels; try3 reads 2-7 of them per stream.
-slim_extract() runs the same code (same tensors, same order) for only the kernels and columns the models read, so
-every kept value is identical.
+each slim_* function runs the same code as the original extract() (same tensors, same order, same batching) for only
+the kernels / designs / evidence kinds that the columns the models read need, so every kept value is identical. the
+columns come from the model folder in use (slim_cols.needed, KU_TRY3_MODEL).
 
 python try3/slim_mech.py jump_law_<stream> --part test   (inside the prediction work folder)
+python try3/slim_mech.py boundary_<stream> test
+python try3/slim_mech.py filtered_step
 """
+import re
 import sys
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 
-NEED = {
-    "nullstate": ["scale1", "scale3", "shape0", "shape0_from4", "shape0_robust", "shape0_to3", "shape0_to4"],
-    "prestate": ["shape0", "shape0_to4"],
-    "pulse": ["level5", "shape0"],
-    "smoothvol": ["scale2_law7", "scale3", "scale5", "shape0"],
-    "state": ["level5", "shape0", "shape0_from4"],
-}
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import slim_cols
+
+
+def jump_plan(need):
+    #what extract() must build for the requested columns
+    want = set()                                   #level<j> / scale<j> kernels
+    shapes = set()                                 #shape branches: 0 = delta None, 1 = law shifts
+    post = False
+    relax = False
+    for c in need:
+        if re.fullmatch(r"pre\d+", c):
+            post = True
+        elif m := re.fullmatch(r"(level|scale)(\d)(_law\d+)?", c):
+            want.add(m.group(1) + m.group(2))
+            post |= m.group(3) is not None
+        elif m := re.fullmatch(r"shape(\d)(_robust|_from\d+|_to\d+)?", c):
+            shapes.add(int(m.group(1)))
+            relax |= m.group(2) == "_robust"
+        elif c == "relax":
+            relax = True
+        else:
+            raise KeyError(c)
+    if relax:
+        want |= {"level0", "scale0"}               #relaxed uses the level0 / scale0 contrasts
+    return want, shapes, post, relax
 
 
 def slim_extract(m, part, stream):
     import torch
-    need = NEED[stream]
+    need = slim_cols.needed(f"jump_law_{stream}")
+    want, shapes, use_post, relax = jump_plan(need)
     path = m.OUT / f"jump_law_{stream}_{part}.parquet"
     with np.load(m.OUT / f"{stream}_streams_{part}.npz") as q:
         ids, x, n, b = (q[k] for k in ("ids", "separate", "n", "b"))
@@ -34,13 +59,11 @@ def slim_extract(m, part, stream):
     pmass = m.tensor(m.MASS).log()
     levels = [(0.0, 0.09), (0.0, 0.22), (0.0, 0.55), (0.0, 1.2), (0.36, 0.15), (1.1, 0.32)]
     scales = [(0.0, 0.045), (0.0, 0.12), (0.0, 0.3), (0.0, 0.6), (0.3, 0.11), (0.54, 0.16)]
-    robust = any(c.endswith("_robust") for c in need)
-    #kernels needed: the named level/scale columns (scaleJ_lawT uses scaleJ), plus level0/scale0 for the robust shape
-    want = {c.split("_")[0] for c in need if c.startswith(("level", "scale"))}
-    if robust:
-        want |= {"level0", "scale0"}
     loc_k = {j: m.jump_kernel(m.MU, np.exp(m.LOG_SD), r, w) for j, (r, w) in enumerate(levels) if f"level{j}" in want}
     scale_k = {j: m.jump_kernel(m.LOG_SD, np.ones(1), r, w) for j, (r, w) in enumerate(scales) if f"scale{j}" in want}
+    core = np.array([m.noise_core(z) for z in m.SELECT])
+    spacing = m.LOG_SD[1] - m.LOG_SD[0]
+    shifts = np.log(core[:, None] / core[None, :]) / spacing
     rows = []
     for start in range(0, len(x), 40):
         zz, center, noise = [], [], []
@@ -62,9 +85,11 @@ def slim_extract(m, part, stream):
         lse = torch.logsumexp
         null = lse(a + c + pm + ps, (2, 3))
         z0 = lse(null + pmass, 1)
-        pp = lse(a + pm + ps, (2, 3)) + pmass
-        post = pp.softmax(1)
         feat, nearest = {}, {}
+        if use_post:
+            pp = lse(a + pm + ps, (2, 3)) + pmass
+            post = pp.softmax(1)
+            feat.update({f"pre{k0}": v for k0, v in enumerate(post.T)})
         for kind, kernels in (("level", loc_k), ("scale", scale_k)):
             for j, ker in kernels.items():
                 if kind == "level":
@@ -73,37 +98,76 @@ def slim_extract(m, part, stream):
                     score = m.integrated_shift(a, c, ps, mu[:, None, :], ker)
                 contrast = lse(score + pmass, 1) - z0
                 feat[kind + str(j)] = contrast
-                for t in range(k):
-                    if f"{kind}{j}_law{t}" in need:
-                        feat[f"{kind}{j}_law{t}"] = post[:, t] * (score[:, t] - null[:, t]).clip(-18, 45)
+                if j in (0, 2, 4):
+                    for t in range(k):
+                        if f"{kind}{j}_law{t}" in need:
+                            feat[f"{kind}{j}_law{t}"] = post[:, t] * (score[:, t] - null[:, t]).clip(-18, 45)
                 if j == 0:
                     nearest[kind] = contrast
-        arr = [lse(a[:, p:p + 1] + c + pm + ps, (2, 3)) for p in range(k)]       #shape0: the delta=None branch
-        joint = torch.stack(arr, 1) + pmass[None, :, None] + pmass[None, None, :]
-        mix = lse(joint, (1, 2)) - z0
-        feat["shape0"] = mix
-        if robust:
+        if relax:
             relaxed = lse(torch.stack([z0 * 0, nearest["level"], nearest["scale"]], 1) + m.tensor([0.7, 0.18, 0.12]).log(), 1)
-            feat["shape0_robust"] = mix - relaxed
-        for t in range(k):
-            if f"shape0_from{t}" in need:
-                feat[f"shape0_from{t}"] = (lse(joint[:, t], 1) - z0).clip(-18, 45)
-            if f"shape0_to{t}" in need:
-                feat[f"shape0_to{t}"] = (lse(joint[:, :, t], 1) - z0).clip(-18, 45)
-        rows.append(torch.stack([feat[c] for c in need], 1).clip(-100, 180).cpu().numpy())
+            feat["relax"] = relaxed
+        for j, delta in enumerate((None, shifts)):
+            if j not in shapes:
+                continue
+            arr = []
+            for p in range(k):
+                cp = c
+                if delta is not None:
+                    off = delta[p, :, None] + np.arange(len(m.LOG_SD))[None, :]
+                    ind = np.floor(off).astype(int).clip(0, len(m.LOG_SD) - 2)
+                    index = torch.as_tensor(ind, device="cpu")[None, :, None, :].expand(B, -1, len(m.MU), -1)
+                    frac = m.tensor((off - ind).clip(0, 1))[None, :, None, :]
+                    cp = (1 - frac) * c.gather(-1, index) + frac * c.gather(-1, index + 1)
+                    cp = cp.masked_fill(torch.as_tensor((off < 0) | (off > len(m.LOG_SD) - 1), device="cpu")[None, :, None, :], -10000)
+                arr.append(lse(a[:, p:p + 1] + cp + pm + ps, (2, 3)))
+            joint = torch.stack(arr, 1) + pmass[None, :, None] + pmass[None, None, :]
+            mix = lse(joint, (1, 2)) - z0
+            feat[f"shape{j}"] = mix
+            if f"shape{j}_robust" in need:
+                feat[f"shape{j}_robust"] = mix - relaxed
+            for t in range(k):
+                if f"shape{j}_from{t}" in need:
+                    feat[f"shape{j}_from{t}"] = (lse(joint[:, t], 1) - z0).clip(-18, 45)
+                if f"shape{j}_to{t}" in need:
+                    feat[f"shape{j}_to{t}"] = (lse(joint[:, :, t], 1) - z0).clip(-18, 45)
+        if need:
+            rows.append(torch.stack([feat[c] for c in need], 1).clip(-100, 180).cpu().numpy())
+        else:
+            rows.append(np.zeros((B, 0), np.float32))
     tab = pd.DataFrame(np.vstack(rows), columns=need, index=pd.Index(ids, name="id"))
     assert np.isfinite(tab).all().all()
     tab.to_parquet(path)
     print(stream, part, tab.shape, "(slim)", flush=True)
 
 
-FILTERED = (0, 1, 4, 8, 9, 10)      #null, observed_step, short_ramp, early_step, late_step, ar1: all that ar1/early_step/placement/short_ramp need
+FILTER_NAMES = ("null", "observed_step", "innovation_step", "reset", "short_ramp", "long_ramp", "transient", "smooth_pulse",
+                "early_step", "late_step", "ar1", "ar2")
+
+
+def filtered_plan(need):
+    #designs (dim 1 of D) each kept column uses; design 0 (null) is always needed for the evidence baseline
+    keep = {0}
+    for c in need:
+        base = c.rsplit("_", 1)[0] if c.endswith(("_amplitude", "_signal", "_modes")) else c
+        if c == "placement":
+            keep |= {1, 8, 9}
+        elif c == "permanent":
+            keep |= {1, 2, 4, 5, 3, 6, 7}
+        elif c == "output_or_driver":
+            keep |= {1, 2}
+        elif base in FILTER_NAMES and FILTER_NAMES.index(base) > 0:
+            keep.add(FILTER_NAMES.index(base))
+        else:
+            raise KeyError(c)
+    return sorted(keep)
 
 
 def slim_filtered(m, part="test"):
     #white_filtered_steps.extract(): regression() is computed per design (dim 1) independently, so only the designs the
-    #kept columns use are fitted; evidence/placement use the same formulas on the same values
+    #kept columns use are fitted; evidence/amplitude/placement use the same formulas on the same values
     import torch
+    need = slim_cols.needed("filtered_step")
     with np.load(m.OUT / f"pulse_streams_{part}.npz") as q:
         ids, x, n, b = [q[k] for k in ("ids", "separate", "n", "b")]
     with np.load(m.OUT / f"hetero_path_{part}.npz") as q:
@@ -112,7 +176,7 @@ def slim_filtered(m, part="test"):
     ar = pd.read_parquet(m.OUT / f"state_{part}.parquet").loc[ids, ["ar1", "ar2"]].to_numpy()
     bank = m.emissions()
     mass = m.tensor(np.log(m.LAW_MASS))
-    keep = list(FILTERED)
+    keep = filtered_plan(need)
     pos = {k: i for i, k in enumerate(keep)}
     rows = []
     for start in range(0, len(n), 30):
@@ -131,14 +195,33 @@ def slim_filtered(m, part="test"):
             D[i, :, :L] = m.designs(row, end, j, phi, s)[keep]
         ll, amp, info = m.regression(m.tensor(obs), m.tensor(h), m.tensor(D), m.tensor(ok), bank)
         assert torch.isfinite(ll).all()
+        rel = ll - ll[:, 0:1]
         lp = ll[:, pos[0]] + mass
+        w = lp.softmax(1)
         zero = torch.logsumexp(lp, 1)
         evidence = torch.logsumexp(ll + mass, 2) - zero[:, None]
         e = {k: evidence[:, pos[k]] for k in keep}
-        rec = {"ar1": e[10], "early_step": e[8],
-               "placement": e[1] - torch.logsumexp(torch.stack([e[8], e[9]], 1), 1) + np.log(2), "short_ramp": e[4]}
-        arr = torch.stack(list(rec.values()), 1).clamp(-80, 110).cpu().numpy()
-        rows.append(pd.DataFrame(arr, columns=list(rec), index=ids[sl]))
+        rec = {}
+        for c in need:
+            if c == "placement":
+                rec[c] = e[1] - torch.logsumexp(torch.stack([e[8], e[9]], 1), 1) + np.log(2)
+            elif c == "permanent":
+                rec[c] = torch.logsumexp(torch.stack([e[1], e[2], e[4], e[5]], 1), 1) - torch.logsumexp(torch.stack([e[3], e[6], e[7]], 1), 1) + np.log(0.75)
+            elif c == "output_or_driver":
+                rec[c] = e[1] - e[2]
+            elif c.endswith("_amplitude"):
+                kk = pos[FILTER_NAMES.index(c[:-10])]
+                rec[c] = (w * amp[:, kk].abs()).sum(1)
+            elif c.endswith("_signal"):
+                kk = pos[FILTER_NAMES.index(c[:-7])]
+                rec[c] = (w * info[:, kk].sqrt() * amp[:, kk].abs()).sum(1)
+            elif c.endswith("_modes"):
+                kk = pos[FILTER_NAMES.index(c[:-6])]
+                rec[c] = (w[:, 3:] * rel[:, kk, 3:].clamp(-20, 60)).sum(1)
+            else:
+                rec[c] = e[FILTER_NAMES.index(c)]
+        arr = torch.stack([rec[c] for c in need], 1).clamp(-80, 110).cpu().numpy() if need else np.zeros((B, 0), np.float32)
+        rows.append(pd.DataFrame(arr, columns=need, index=ids[sl]))
     frame = pd.concat(rows)
     frame.index.name = "id"
     assert np.isfinite(frame).all().all()
@@ -146,19 +229,21 @@ def slim_filtered(m, part="test"):
     print(part, "filtered steps (slim)", frame.shape, flush=True)
 
 
-BOUNDARY = {
-    "pulse": ["any_at", "any_far_weak", "any_odds0.35", "level_shape_at", "level_shape_long_strong", "level_shape_odds0.35",
-              "level_shape_odds1.0", "scale_shape_three_weak", "shape_at"],
-    "state": ["any_at", "any_far_strong", "any_far_weak", "any_long_strong", "any_long_weak", "any_mid_weak", "any_odds0.35",
-              "any_short_weak", "scale_shape_far_weak"],
-}
+BOUNDARY_KINDS = ("level", "scale", "shape", "any", "scale_shape", "level_shape")
+
+
+def boundary_kind(c):
+    for kd in sorted(BOUNDARY_KINDS, key=len, reverse=True):
+        if c.startswith(kd + "_"):
+            return kd
+    raise KeyError(c)
 
 
 def slim_boundary(m, part, stream):
     #white_boundary_law.extract(): evidence() for only the kinds the kept columns use (same expressions, same order)
     import torch
-    need = BOUNDARY[stream]
-    kinds = {"pulse": ["shape", "any", "scale_shape", "level_shape"], "state": ["any", "scale_shape"]}[stream]
+    need = slim_cols.needed(f"boundary_law_{stream}")
+    kinds = [kd for kd in BOUNDARY_KINDS if any(boundary_kind(c) == kd for c in need)]
 
     def evidence(left, right, mu, sd, mass):
         lse = torch.logsumexp
@@ -194,6 +279,9 @@ def slim_boundary(m, part, stream):
     blocks = []
     for start in range(0, len(x), 24):
         end = min(len(x), start + 24)
+        if not kinds:
+            blocks.append(pd.DataFrame(index=ids[start:end]))
+            continue
         group = [m.prepare(r[:l].astype(float), j) for r, l, j in zip(x[start:end], n[start:end], b[start:end])]
         counts, md, s = map(np.asarray, zip(*group))
         size = len(md)
@@ -227,6 +315,20 @@ def slim_boundary(m, part, stream):
     assert np.isfinite(df).all().all()
     df.to_parquet(m.OUT / f"boundary_law_{stream}_{part}.parquet")
     print(part, stream, df.shape, "(slim)", flush=True)
+
+
+def supported(kind):
+    #False when the model reads a column the slim function cannot name (predict.py then runs the original step)
+    try:
+        if kind.startswith("jump_law_"):
+            jump_plan(slim_cols.needed(kind))
+        elif kind.startswith("boundary_"):
+            [boundary_kind(c) for c in slim_cols.needed("boundary_law_" + kind.removeprefix("boundary_"))]
+        elif kind == "filtered_step":
+            filtered_plan(slim_cols.needed("filtered_step"))
+        return True
+    except KeyError:
+        return False
 
 
 def main():

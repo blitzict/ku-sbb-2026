@@ -1,6 +1,6 @@
-"""try3 step 1: how few features does it take to get close to the 0.879?
+"""try4: how few features does it take to get close to the 0.879?
 
-python try3/select_features.py --work <training work folder> --out select_out
+python try3/select_features.py --work try3_run --out select_out
 
 #all label-free feature tables the cpu rebuild made (~5,100 columns)
 #each fold: rank features on that fold's training rows only, keep the top K, refit, score the held-out rows

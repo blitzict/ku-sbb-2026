@@ -1,6 +1,7 @@
 """try3 training: few features + fold-wise noise-law prior + a small blend.
 
-python try3/train.py --work <training work folder> --out try3/model --k 100
+python try3/build_features.py --data data --work try3_run      #raw files -> the tables below + law priors
+python try3/train.py --work try3_run --out try3/model --k 100
 
 #folds = the seed-7 folds the law priors were fitted on (tune_out/weight_space/law_outer7/fold*_rows.npz)
 #per fold: rank features on the fold's training rows, keep top k, add that fold's law-prior columns
@@ -26,6 +27,13 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from select_features import PARAMS, matrix, tables  # noqa: E402
 
 WS = 'tune_out/weight_space'
+#label-free tables try3 ranks features from (the expensive lrz6, garch, bounds and base tables are left out:
+#they cost ~7 min at inference for -0.0004 local auc)
+TABLES = ['ar_law', 'bf', 'boundary_law_pulse', 'boundary_law_state', 'component_moves_pulse', 'component_moves_state', 'curve',
+          'dd', 'filtered_step', 'grid', 'grid2', 'harm', 'hetero_jump', 'innov_v2', 'jump_law_nullstate', 'jump_law_prestate',
+          'jump_law_pulse', 'jump_law_smoothvol', 'jump_law_state', 'latent_level_pulse', 'latent_level_raw', 'lm', 'markov_copula',
+          'memory_law1', 'native_law_pulse', 'native_law_state', 'noise_tests', 'partition', 'periodic', 'phase_law', 'sn', 'state',
+          'tail_edges', 'trend', 'volatility_law']
 
 
 def law(work, seed, fold, part, ids):
@@ -44,7 +52,7 @@ def main():
     a = p.parse_args()
     a.out.mkdir(parents=True, exist_ok=True)
     lp = dict(PARAMS, num_threads=a.threads)
-    tabs = tables(a.work)
+    tabs = [t for t in tables(a.work) if t.split('/')[-1].replace('_{}.parquet', '') in TABLES]
     lab = pd.read_csv(a.work / 'data/train_labels.csv', dtype={'id': str}).set_index('id')['label']
     X = matrix(a.work, 'train', tabs)
     T = matrix(a.work, 'test', tabs)[X.columns]

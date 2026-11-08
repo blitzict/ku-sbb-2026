@@ -1,4 +1,4 @@
-"""try3 fast path: compute only the feature columns the saved try3 models read.
+"""try3 fast path: compute only the feature columns the saved try3 models read (model folder: KU_TRY3_MODEL).
 
 The full recipe's grid / grid2 / dd / lrz6 / base-feature steps make 977-504 columns each; the 15 try3 models read
 3-19 of them per table. These functions call the same original code (imported from the work folder) on the same
@@ -19,16 +19,30 @@ import pandas as pd
 warnings.filterwarnings("ignore")
 EPS = 1e-12
 
-#columns each table must provide (the union over the 5 folds of model/columns_fold*.json)
-NEED = {
-    "base": ["abs_acf80_gap", "abs_ar1_kurt_gap", "abs_ar4_q90_gap", "abs_ar4_q99_gap", "abs_own4_q99_gap", "abs_raw_ent_gap",
+#columns each table must provide: read from the model folder in use (slim_cols.needed, union over its 5 folds)
+TABLE = {"base": "features", "grid": "grid", "grid2": "grid2", "dd": "dd", "lrz6": "lrz6"}
+#columns the hand-written base / lrz6 paths produce; anything else falls back to the original code
+BASE_HAND = ["abs_acf80_gap", "abs_ar1_kurt_gap", "abs_ar4_q90_gap", "abs_ar4_q99_gap", "abs_own4_q99_gap", "abs_raw_ent_gap",
              "absac10_gap", "band1_gap", "cz2_local_peak", "d1_2s_hist_l1", "gks_argmax_off", "gmwu_argmax_off",
-             "own4_bm8_kurt_gap", "pacf5_post", "q_logstd_min", "r_emb3_mmd", "vroll48_2s_cvm", "z_emb3_energy", "z_sax_l1"],
-    "grid": ["cumsum_kurt_ratio", "diff_gini_pre", "z_med_ratio"],
-    "grid2": ["absdiff_acf1_ratio", "ewstd_kurt_ratio", "mrng10_cvm", "mstd20_cvm", "mstd20_skew_ratio", "r_mrng10_cvm"],
-    "dd": ["dd_cabs_argmax_off", "dd_trend_noise_post", "dd_win_lv_last"],
-    "lrz6": ["lrz_lr_ar_lr_excess"],
-}
+             "own4_bm8_kurt_gap", "pacf5_post", "q_logstd_min", "r_emb3_mmd", "vroll48_2s_cvm", "z_emb3_energy", "z_sax_l1"]
+LRZ6_HAND = ["lrz_lr_ar_lr_excess"]
+
+
+def _need_for(table):
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import slim_cols
+    return slim_cols.needed(TABLE[table])
+
+
+NEED = {}         #filled per table on first use (worker processes rebuild it from KU_TRY3_MODEL)
+
+
+def cols(table):
+    if table not in NEED:
+        NEED[table] = _need_for(table)
+    return NEED[table]
+
+
 OUT = {"base": "clean/features_test.parquet", "grid": "tune_out/grid_test.parquet", "grid2": "tune_out/grid2_test.parquet",
        "dd": "tune_out/dd_test.parquet", "lrz6": "tune_out/lrz6_test.parquet"}
 
@@ -143,87 +157,338 @@ def volatility_part(CF, za, zb):
 
 
 # ---------------------------------------------------------------------------------------------- grid / grid2 / dd
-def grid_row(G, ident, a, b):
+#every column is computed by name with the same expressions as the original one(); names the parser does not know
+#are taken from the original one() for that series (exact, just slower)
+STATS = ("mean", "std", "med", "min", "max", "skew", "kurt", "q25", "q75", "acf1")
+TESTS = ("ks", "mwu", "levene", "fligner", "mood", "ansari", "bartlett", "cvm", "energy", "wass", "bm", "ttest")
+HISTS = ("bhatt", "hell", "js")
+
+
+def two_sample_one(stats, k, a, b):
+    #one entry of features_grid.two_sample(a, b)
+    if k == "ks":
+        return stats.ks_2samp(a, b).statistic
+    if k == "mwu":
+        return stats.mannwhitneyu(a, b).statistic / (len(a) * len(b)) - .5
+    if k == "levene":
+        return stats.levene(a, b).statistic
+    if k == "fligner":
+        return stats.fligner(a, b).statistic
+    if k == "mood":
+        return stats.mood(a, b)[0]
+    if k == "ansari":
+        return stats.ansari(a, b).statistic / (len(a) * (len(a) + len(b) + 1) / 2) - .5 if len(a) > 2 else 0.0
+    if k == "bartlett":
+        return stats.bartlett(a, b).statistic
+    if k == "cvm":
+        return stats.cramervonmises_2samp(a, b).statistic
+    if k == "energy":
+        return stats.energy_distance(a, b)
+    if k == "wass":
+        return stats.wasserstein_distance(a, b)
+    if k == "bm":
+        return stats.brunnermunzel(a, b).statistic
+    if k == "ttest":
+        return stats.ttest_ind(a, b, equal_var=False).statistic
+    raise KeyError(k)
+
+
+def view_columns(G, f, t, rest_list, pa, pb, extra=None):
+    #per-view columns of features_grid.one / features_grid2.one: period stats, two-sample tests, histogram distances
+    extra = extra or {}
+    sp = sq = hd = None
+    for rest in rest_list:
+        stat, _, form = rest.rpartition("_")
+        if rest in extra:
+            extra[rest](f, f"{t}_{rest}", pa, pb)
+        elif stat in STATS and form in ("pre", "post", "diff", "ratio"):
+            if sp is None:
+                sp, sq = G.period_stats(pa), G.period_stats(pb)
+            if form == "pre":
+                f[f"{t}_{rest}"] = sp[stat]
+            elif form == "post":
+                f[f"{t}_{rest}"] = sq[stat]
+            elif form == "diff":
+                f[f"{t}_{rest}"] = sq[stat] - sp[stat]
+            else:
+                f[f"{t}_{rest}"] = sq[stat] / (abs(sp[stat]) + 1e-6)
+        elif rest in TESTS:
+            f[f"{t}_{rest}"] = float(two_sample_one(G.stats, rest, pa, pb))
+        elif rest in HISTS:
+            if hd is None:
+                hd = G.hist_distances(pa, pb)
+            f[f"{t}_{rest}"] = float(hd[rest])
+        else:
+            raise KeyError(rest)
+
+
+GRID_VIEWS = ("z", "cumsum", "rank", "abs", "diff", "sq", "mmean", "mstd")
+
+
+def grid_view(G, z, n_pre, t):
+    #one entry of features_grid.transforms(z, n_pre)
+    w = 10
+    if t == "z":
+        v = z
+    elif t == "cumsum":
+        v = np.cumsum(z - z[:n_pre].mean())
+    elif t == "rank":
+        v = G.stats.rankdata(z, method="dense") / len(z)
+    elif t == "abs":
+        v = np.abs(z)
+    elif t == "diff":
+        v = np.diff(z, prepend=z[0])
+    elif t == "sq":
+        v = z ** 2
+    elif t == "mmean":
+        v = np.concatenate([np.full(w - 1, z[:w].mean()), G.moving(z, w, np.mean)])
+    else:
+        v = np.concatenate([np.full(w - 1, z[:w].std()), G.moving(z, w, np.std)])
+    return v[:n_pre], v[n_pre:]
+
+
+def grid_extra(G, t):
+    #gini/theil (z, abs, diff, sq, mstd) and compression/lz (z, diff) columns of features_grid.one
+    ex = {}
+
+    def put(fn):
+        return lambda f, k, pa, pb: f.__setitem__(k, fn(pa, pb))
+    if t in ("z", "abs", "diff", "sq", "mstd"):
+        ex["gini_pre"] = put(lambda pa, pb: G.gini(pa))
+        ex["gini_post"] = put(lambda pa, pb: G.gini(pb))
+        ex["gini_gap"] = put(lambda pa, pb: G.gini(pb) - G.gini(pa))
+        ex["theil_pre"] = put(lambda pa, pb: G.theil(pa))
+        ex["theil_post"] = put(lambda pa, pb: G.theil(pb))
+        ex["theil_gap"] = put(lambda pa, pb: G.theil(pb) - G.theil(pa))
+    if t in ("z", "diff"):
+        for j, nm in enumerate(("gz", "bz")):
+            ex[f"{nm}_pre"] = put(lambda pa, pb, j=j: G.compress_ratio(pa)[j])
+            ex[f"{nm}_post"] = put(lambda pa, pb, j=j: G.compress_ratio(pb)[j])
+            ex[f"{nm}_gap"] = put(lambda pa, pb, j=j: G.compress_ratio(pb)[j] - G.compress_ratio(pa)[j])
+
+        def lz(x):
+            return G.lz_complexity(x > np.median(x))
+        ex["lz_pre"] = put(lambda pa, pb: lz(pa))
+        ex["lz_post"] = put(lambda pa, pb: lz(pb))
+        ex["lz_gap"] = put(lambda pa, pb: lz(pb) - lz(pa))
+    return ex
+
+
+def split_view(name, views):
+    for t in sorted(views, key=len, reverse=True):
+        if name.startswith(t + "_"):
+            return t, name[len(t) + 1:]
+    return None, None
+
+
+def grid_row(G, ident, a, b, need):
     sa = max(a.std(), EPS)
     z = (np.concatenate([a, b]) - a.mean()) / sa
     n_pre = len(a)
     f = {"id": ident}
-    cs = np.cumsum(z - z[:n_pre].mean())
-    kp, kq = G.stats.kurtosis(cs[:n_pre]), G.stats.kurtosis(cs[n_pre:])
-    f["cumsum_kurt_ratio"] = kq / (abs(kp) + 1e-6)
-    d = np.diff(z, prepend=z[0])
-    f["diff_gini_pre"] = G.gini(d[:n_pre])
-    mp, mq = float(np.median(z[:n_pre])), float(np.median(z[n_pre:]))
-    f["z_med_ratio"] = mq / (abs(mp) + 1e-6)
+    plan, other = {}, []
+    for c in need:
+        t, rest = split_view(c, GRID_VIEWS)
+        if t:
+            plan.setdefault(t, []).append(rest)
+        else:
+            other.append(c)
+    for t, rest in plan.items():
+        pa, pb = grid_view(G, z, n_pre, t)
+        try:
+            view_columns(G, f, t, rest, pa, pb, grid_extra(G, t))
+        except KeyError:
+            other += [f"{t}_{r}" for r in rest]
+    wins = [c for c in other if c in ("win_mean_gap", "win_std_ratio", "win_ks", "win_t")]
+    if wins:
+        wa, wb = z[int(n_pre * 0.9):n_pre], z[n_pre:n_pre + int(len(b) * 0.6)]
+        if len(wa) > 5 and len(wb) > 5:
+            v = {"win_mean_gap": lambda: wb.mean() - wa.mean(), "win_std_ratio": lambda: wb.std() / (wa.std() + EPS),
+                 "win_ks": lambda: G.stats.ks_2samp(wa, wb).statistic,
+                 "win_t": lambda: G.stats.ttest_ind(wa, wb, equal_var=False).statistic}
+            for c in wins:
+                f[c] = v[c]()
+    rest = [c for c in other if c not in wins]
+    if rest:
+        full = G.one(ident, a, b)
+        f.update({c: full[c] for c in rest if c in full})
     return f
 
 
-def grid2_row(G, CF, ident, a, b):
-    stats = G.stats
+def pad(v, n, fill):
+    return np.concatenate([np.full(n - len(v), fill), v])
+
+
+GRID2_VIEWS = ("mstd5", "mstd20", "mstd40", "mrng10", "ewstd", "absdiff", "diff2")
+
+
+def grid2_views(G, x, tag, names):
+    #the entries of features_grid2.views(x, tag) listed in names (same conditions, same expressions)
+    n = len(x)
+    out = {}
+    for w in (5, 20, 40):
+        if f"{tag}mstd{w}" in names and n > w + 5:
+            out[f"{tag}mstd{w}"] = pad(G.moving(x, w, np.std), n, x[:w].std())
+    if f"{tag}mrng10" in names and n > 15:
+        out[f"{tag}mrng10"] = pad(G.moving(x, 10, np.max) - G.moving(x, 10, np.min), n, np.ptp(x[:10]))
+    if f"{tag}ewstd" in names:
+        out[f"{tag}ewstd"] = np.sqrt(pd.Series(x).ewm(span=10).var().bfill().to_numpy() + EPS)
+    if f"{tag}absdiff" in names or f"{tag}diff2" in names:
+        d = np.diff(x, prepend=x[0])
+        out[f"{tag}absdiff"] = np.abs(d)
+        out[f"{tag}diff2"] = np.diff(d, prepend=d[0])
+    return out
+
+
+def grid2_row(G, CF, ident, a, b, need):
     sa = max(a.std(), EPS)
     z = (np.concatenate([a, b]) - a.mean()) / sa
     n_pre = len(a)
     f = {"id": ident}
-
-    def pad(v, n, fill):
-        return np.concatenate([np.full(n - len(v), fill), v])
-
-    def acf1(x):
-        return float(np.corrcoef(x[:-1], x[1:])[0, 1]) if x.std() > EPS and len(x) > 3 else 0.0
-    n = len(z)
-    d = np.diff(z, prepend=z[0])
-    ad = np.abs(d)
-    f["absdiff_acf1_ratio"] = acf1(ad[n_pre:]) / (abs(acf1(ad[:n_pre])) + 1e-6)
-    ew = np.sqrt(pd.Series(z).ewm(span=10).var().bfill().to_numpy() + EPS)
-    f["ewstd_kurt_ratio"] = stats.kurtosis(ew[n_pre:]) / (abs(stats.kurtosis(ew[:n_pre])) + 1e-6)
-    if n > 15:
-        v = pad(G.moving(z, 10, np.max) - G.moving(z, 10, np.min), n, np.ptp(z[:10]))
-        f["mrng10_cvm"] = float(stats.cramervonmises_2samp(v[:n_pre], v[n_pre:]).statistic)
-    if n > 25:
-        v = pad(G.moving(z, 20, np.std), n, z[:20].std())
-        f["mstd20_cvm"] = float(stats.cramervonmises_2samp(v[:n_pre], v[n_pre:]).statistic)
-        f["mstd20_skew_ratio"] = stats.skew(v[n_pre:]) / (abs(stats.skew(v[:n_pre])) + 1e-6)
-    coefs, c0, ra = CF.ar_fit(z[:n_pre], 4)
-    rb = CF.ar_apply(z[n_pre:], coefs, c0)
-    r = np.concatenate([ra, rb])
-    n_rpre, nr = len(ra), len(r)
-    if nr > 15:
-        v = pad(G.moving(r, 10, np.max) - G.moving(r, 10, np.min), nr, np.ptp(r[:10]))
-        f["r_mrng10_cvm"] = float(stats.cramervonmises_2samp(v[:n_rpre], v[n_rpre:]).statistic)
+    plan, rplan, other = {}, {}, []
+    for c in need:
+        if c.startswith("r_"):
+            t, rest = split_view(c[2:], GRID2_VIEWS)
+            if t:
+                rplan.setdefault("r_" + t, []).append(rest)
+            else:
+                other.append(c)
+        else:
+            t, rest = split_view(c, GRID2_VIEWS)
+            if t:
+                plan.setdefault(t, []).append(rest)
+            else:
+                other.append(c)
+    for t, v in grid2_views(G, z, "", plan).items():
+        if t in plan:
+            try:
+                view_columns(G, f, t, plan[t], v[:n_pre], v[n_pre:])
+            except KeyError:
+                other += [f"{t}_{r}" for r in plan[t]]
+    if rplan:
+        coefs, c0, ra = CF.ar_fit(z[:n_pre], 4)
+        rb = CF.ar_apply(z[n_pre:], coefs, c0)
+        r = np.concatenate([ra, rb])
+        n_rpre = len(ra)
+        ex = {"mean_ratio": lambda f, k, pa, pb: f.__setitem__(k, pb.mean() / (abs(pa.mean()) + 1e-6)),
+              "std_ratio": lambda f, k, pa, pb: f.__setitem__(k, pb.std() / (pa.std() + 1e-6))}
+        for t, v in grid2_views(G, r, "r_", rplan).items():
+            if t not in rplan:
+                continue
+            rest = rplan[t]
+            if any(x not in ex and x not in TESTS and x not in HISTS for x in rest):
+                other += [f"{t}_{x}" for x in rest]          #residual views only have tests, distances and two ratios
+                continue
+            view_columns(G, f, t, rest, v[:n_rpre], v[n_rpre:], ex)
+    if other:
+        import features_grid2 as G2
+        full = G2.one(ident, a, b)
+        f.update({c: full[c] for c in other if c in full})
     return f
 
 
-def dd_row(CF, ident, a, b):
+CP_NAMES = ("cz", "cz2", "cabs", "cd", "cd2", "car1", "car1sq", "car4", "car4sq", "cprod")
+CP_PARTS = ("at_b", "max", "ratio", "rank", "argmax_off", "local_peak")
+WIN = ("win_ks_min", "win_ks_mean", "win_ks_last", "win_mz_min_abs", "win_mz_mean", "win_mz_last", "win_mz_consistency",
+       "win_lv_min_abs", "win_lv_mean", "win_lv_last", "win_lv_consistency")
+
+
+def cp_known(k):
+    if k in WIN:
+        return True
+    nm, part = split_view(k, CP_NAMES)
+    return nm is not None and part in CP_PARTS
+
+
+def cp_part(CF, za, zb, keys):
+    #the CUSUM-curve and after-window entries of CF.change_point(za, zb) named in keys (same expressions); raises
+    #where the full function raises (no after windows), so the caller drops the whole family like the original
+    f = {}
+    z = np.concatenate([za, zb])
+    n, b = len(z), len(za)
+    want = {}
+    for k in keys:
+        if k not in WIN:
+            nm, part = split_view(k, CP_NAMES)
+            want.setdefault(nm, set()).add(part)
+    r1 = CF.ar_fit(z, 1)[2] if {"car1", "car1sq"} & set(want) else None
+    r4 = CF.ar_fit(z, 4)[2] if {"car4", "car4sq"} & set(want) else None
+    dsa = max(np.diff(za).std(), EPS)
+    for name in CP_NAMES:
+        if name not in want:
+            continue
+        s = {"cz": lambda: z, "cz2": lambda: z ** 2, "cabs": lambda: np.abs(z), "cd": lambda: np.diff(z) / dsa,
+             "cd2": lambda: (np.diff(z) / dsa) ** 2, "car1": lambda: r1, "car1sq": lambda: r1 ** 2, "car4": lambda: r4,
+             "car4sq": lambda: r4 ** 2, "cprod": lambda: z[:-1] * z[1:]}[name]()
+        m = len(s)
+        bnd = b - (n - m)
+        if bnd < 8 or bnd > m - 8:
+            continue
+        curve = CF.cusum_curve(s)
+        at_b, positions = float(curve[bnd - 1]), np.arange(1, m)
+        mx = float(curve.max()) if len(curve) else at_b
+        for p in want[name]:
+            if p == "at_b":
+                f[f"{name}_at_b"] = at_b
+            elif p == "max":
+                f[f"{name}_max"] = mx
+            elif p == "ratio":
+                f[f"{name}_ratio"] = at_b / max(mx, EPS)
+            elif p == "rank":
+                f[f"{name}_rank"] = float((curve > at_b).mean()) if len(curve) else 0.0
+            elif p == "argmax_off":
+                f[f"{name}_argmax_off"] = (positions[int(curve.argmax())] - bnd) / m if len(curve) else 0.0
+            else:
+                w = max(int(0.05 * m), 4)
+                lo, hi = max(bnd - 1 - w, 0), min(bnd - 1 + w, m - 2)
+                f[f"{name}_local_peak"] = float(curve[bnd - 1] / max(curve[lo:hi + 1].max(), EPS))
+    wl = max(min(64, len(zb) // 2), 16)
+    starts = np.arange(0, len(zb) - wl + 1, max(wl // 2, 1))
+    if len(starts) == 0:
+        raise ValueError("no after windows")          #the full function fails here too (min of an empty array)
+    wk = [k for k in keys if k in WIN]
+    if any(k.startswith("win_ks") for k in wk):
+        ks_w = np.array([CF.stats.ks_2samp(za, zb[s:s + wl], method="asymp").statistic for s in starts])
+        f.update({"win_ks_min": ks_w.min(), "win_ks_mean": ks_w.mean(), "win_ks_last": ks_w[-1]})
+    if any(k.startswith("win_mz") for k in wk):
+        mz_w = np.array([zb[s:s + wl].mean() for s in starts])
+        f.update({"win_mz_min_abs": np.abs(mz_w).min(), "win_mz_mean": mz_w.mean(), "win_mz_last": mz_w[-1],
+                  "win_mz_consistency": abs(mz_w.mean()) / max(np.abs(mz_w).mean(), EPS)})
+    if any(k.startswith("win_lv") for k in wk):
+        lv_w = np.array([np.log(max(zb[s:s + wl].var(), EPS)) for s in starts])
+        f.update({"win_lv_min_abs": np.abs(lv_w).min(), "win_lv_mean": lv_w.mean(), "win_lv_last": lv_w[-1],
+                  "win_lv_consistency": abs(lv_w.mean()) / max(np.abs(lv_w).mean(), EPS)})
+    return {k: f[k] for k in keys if k in f}
+
+
+def dd_row(CF, ident, a, b, need):
+    #features_dd.one(): change_point CUSUM / window pieces and dd_trend_noise_post by hand, everything else from one()
     f = {"id": ident}
-    da, db = np.diff(a), np.diff(b)
-    m, s = da.mean(), max(da.std(), EPS)
-    zda, zdb = (da - m) / s, (db - m) / s
-    try:
-        #CF.change_point(zda, zdb) pieces: cabs CUSUM argmax and the last after-window log variance
-        z = np.concatenate([zda, zdb])
-        n, bb = len(z), len(zda)
-        part = {}
-        if not (bb < 8 or bb > n - 8):
-            curve = CF.cusum_curve(np.abs(z))
-            part["dd_cabs_argmax_off"] = (np.arange(1, n)[int(curve.argmax())] - bb) / n if len(curve) else 0.0
-        wl = max(min(64, len(zdb) // 2), 16)
-        starts = np.arange(0, len(zdb) - wl + 1, max(wl // 2, 1))
-        if len(starts) == 0:
-            raise ValueError("no after windows")          #the full function fails here too (min of an empty array)
-        part["dd_win_lv_last"] = np.log(max(zdb[starts[-1]:starts[-1] + wl].var(), EPS))
-        f.update(part)
-    except Exception:
-        pass
-    try:
-        a, b = a.astype(float), b.astype(float)
-        db = np.diff(b)
-        nb = len(b)
-        sdb = max(db.std(), EPS)
-        tb = np.arange(len(a), len(a) + nb)
-        sb_, _ = np.polyfit(tb, b, 1)
-        f["dd_trend_noise_post"] = abs(sb_) * nb / sdb
-    except Exception:
-        pass
+    cp = [c[3:] for c in need if c.startswith("dd_") and cp_known(c[3:])]
+    other = [c for c in need if c != "dd_trend_noise_post" and not (c.startswith("dd_") and cp_known(c[3:]))]
+    if other:
+        import features_dd as DD
+        full = DD.one(ident, a, b)
+        f.update({c: full[c] for c in other if c in full})
+    if cp:
+        da, db = np.diff(a), np.diff(b)
+        m, s = da.mean(), max(da.std(), EPS)
+        zda, zdb = (da - m) / s, (db - m) / s
+        try:
+            f.update({"dd_" + k: v for k, v in cp_part(CF, zda, zdb, cp).items()})
+        except Exception:
+            pass
+    if "dd_trend_noise_post" in need:
+        try:
+            a, b = a.astype(float), b.astype(float)
+            db = np.diff(b)
+            nb = len(b)
+            sdb = max(db.std(), EPS)
+            tb = np.arange(len(a), len(a) + nb)
+            sb_, _ = np.polyfit(tb, b, 1)
+            f["dd_trend_noise_post"] = abs(sb_) * nb / sdb
+        except Exception:
+            pass
     return f
 
 
@@ -296,18 +561,34 @@ def series_jobs(work):
     return jobs
 
 
+def base_any(CF, ident, a, b, need):
+    #hand-written base columns when they cover the request, else the original series_features() row; none -> id only
+    if not need:
+        return {"id": ident}
+    if set(need) <= set(BASE_HAND):
+        f = base_row(CF, ident, a, b)
+    else:
+        f = CF.series_features(ident, a, b)
+    return {"id": ident, **{c: f[c] for c in need if c in f}}
+
+
 def _rows(args):
-    table, work, chunk = args
+    table, work, chunk, need = args
     CF, G = load(work)
     fast_stats(CF, G)
-    fn = {"base": lambda j: base_row(CF, *j), "grid": lambda j: grid_row(G, *j),
-          "grid2": lambda j: grid2_row(G, CF, *j), "dd": lambda j: dd_row(CF, *j)}[table]
+    fn = {"base": lambda j: base_any(CF, *j, need), "grid": lambda j: grid_row(G, *j, need),
+          "grid2": lambda j: grid2_row(G, CF, *j, need), "dd": lambda j: dd_row(CF, *j, need)}[table]
     return [fn(j) for j in chunk]
+
+
+def supported(table):
+    #lrz6 has only the one hand-written column; every other table falls back to the original code per column
+    return table != "lrz6" or set(cols(table)) <= set(LRZ6_HAND)
 
 
 def finish(rows_or_frame, table):
     F = rows_or_frame if isinstance(rows_or_frame, pd.DataFrame) else pd.DataFrame(rows_or_frame).set_index("id")
-    F = F.reindex(columns=NEED[table])
+    F = F.reindex(columns=cols(table))
     F = F.replace([np.inf, -np.inf], np.nan).fillna(0).astype(np.float32)
     F.index.name = "id"
     return F
@@ -317,18 +598,26 @@ def build(table, work, workers=1, ids=None):
     work = str(Path(work).resolve())
     load(work)
     if table == "lrz6":
+        if not supported(table):
+            raise SystemExit("lrz6: the model needs columns the slim path does not build; run the original step")
         return finish(lrz6_table(work), table)
+    need = cols(table)
     jobs = series_jobs(work)
     if ids is not None:
         keep = set(ids); jobs = [j for j in jobs if j[0] in keep]
+    if not need:
+        #no column of this table is read (e2 base): the ids only, nothing computed
+        return finish(pd.DataFrame(index=pd.Index([j[0] for j in jobs], name="id")), table)
     if workers > 1:
         from concurrent.futures import ProcessPoolExecutor
         size = max(len(jobs) // (workers * 8), 1)
         chunks = [jobs[i:i + size] for i in range(0, len(jobs), size)]
         with ProcessPoolExecutor(workers) as pool:
-            rows = [r for part in pool.map(_rows, [(table, work, c) for c in chunks]) for r in part]
+            rows = [r for part in pool.map(_rows, [(table, work, c, need) for c in chunks]) for r in part]
     else:
-        rows = _rows((table, work, jobs))
+        rows = _rows((table, work, jobs, need))
+    if not rows:
+        return finish(pd.DataFrame(index=pd.Index([], name="id")), table)
     return finish(rows, table)
 
 

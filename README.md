@@ -6,7 +6,7 @@ Team alias **Blitzict**. Designated Kaggle submission: **58102347** (0.88078 pub
 |---|---|---:|---:|
 | [try1](try1/README.md) | XGBoost + LightGBM on the 977 base features | 0.83313 | 0.83835 |
 | [try2](try2/README.md) | LightGBM on 3,625 features | 0.87539 | 0.86987 |
-| [try3](try3/README.md) | Compact: top-100 features + 36 noise-law columns, 2 LightGBM + 1 XGBoost | 0.87659 | 0.87271 |
+| [try3](try3/README.md) | Compact: top-100 features + 36 noise-law columns, 2 LightGBM + 1 XGBoost; scores 4,000 raw series in ~22 min on 2 CPU cores | 0.87583 | 0.87235 |
 | [try4](try4/README.md) ⭐ **best** | Full 0.879 recipe (51 detectors, weight heads, local-rank correction) + MLP correction | **0.88078** | 0.87910 |
 
 Each folder has its training code, saved model, and a script or notebook that scores raw series.

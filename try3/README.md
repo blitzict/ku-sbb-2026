@@ -1,41 +1,37 @@
-# try3: compact model (0.87659 public, 0.8727 local)
+# try3: compact model (0.87583 public, 0.8724 local)
 
-This is the "fewest features" version of the 0.879 recipe. Each fold keeps only its **top 100 features**, out of the ~5,100 label-free columns, and adds **36 noise-law prior columns**. Three tree models are trained per fold and rank-blended. Kaggle submission **58130092** scored **0.87659** public.
+The "fewest features" version of the 0.879 recipe, built to run fast from raw series. Each fold keeps its **top 100 features** from 35 label-free tables and adds **36 noise-law prior columns**. Three tree models per fold (2 LightGBM, 1 XGBoost) are rank-blended. Kaggle submission **58142084** scored **0.87583** public.
 
-| Step | Local OOF AUC |
-|---|---:|
-| one LightGBM, top 100 features | 0.8708 |
-| + fold-wise noise-law prior (36 columns) | 0.8723 |
-| + rank blend of 2 LightGBM + 1 XGBoost | **0.8727** |
+Inference on the 4,000 test series takes **about 22 minutes on 2 CPU cores** (2.6 GB peak RAM), measured on Kaggle pinned to 2 cores.
 
-For comparison, try2 scores 0.8699 local with 3,625 features, and all 5,097 columns in one model give 0.8712. Across the 5 folds the model uses 187 distinct features in total. The biggest families are native law (state), latent level (pulse), the base statistics, grid2 and boundary law. The full ranking is in `model/features.json`.
+| Version | Local OOF AUC | Kaggle public |
+|---|---:|---:|
+| top 100 features from 39 tables (earlier try3, submission 58130092) | 0.8727 | 0.87659 |
+| **this model**: the 4 most expensive tables dropped (lrz6, garch, bounds, base features) | **0.8724** | **0.87583** |
 
-**How the validation stays honest:** the folds are the seed-7 folds the law priors were fitted on. In each fold, the features are ranked using that fold's training rows only, and the prior is fitted on that fold's training labels only. The held-out rows never influence anything they are scored with. Two tables, `transition_odds` and `transport_state`, are priors fitted on all training labels, so they are excluded to avoid leakage.
+Dropping those 4 tables saves about 7 minutes of inference for -0.0004 local AUC.
 
-## Files
-
-- `select_features.py`: the feature-count sweep (AUC with 25 up to all 5,097 features).
-- `train.py`: trains and saves the model.
-- `predict.py`: loads the saved models and scores new raw series.
-- `slim.py`, `slim_mech.py`, `slim_moves.py`: faster versions of the slowest feature steps. They run the same code but compute only the columns the 15 models read, so the values are identical (checked against the full tables). `predict.py` also runs independent steps in parallel (`--workers`, default: all cores).
-- `inference.ipynb`: notebook wrapper around `predict.py`.
-- `model/`:
-  - `lgb_law_fold*.txt`, `lgb_law_s2_fold*.txt`, `xgb_law_fold*.json`: 15 fitted models.
-  - `columns_fold*.json`: each fold's chosen features.
-  - `law_outer7/fold*_prior.json`: the fitted priors.
-  - `results.json`: the scores above.
+**How the validation stays honest:** the folds are the seed-7 folds the law priors were fitted on. In each fold, features are ranked on that fold's training rows only, and the prior is fitted on that fold's training labels only. Tables that are priors fitted on all training labels (`transition_odds`, `transport_state`) are excluded.
 
 ## Run
 
 ```console
-#features from raw data (only the feature steps are needed)
-python train_087910_cpu.py --data data --work cpu_run --workers 6 --phase features
-#train + save (the training run that made model/ reproduced the submitted CSV exactly)
-python try3/train.py --work cpu_run --out try3/model --k 100
-#score new raw series with the saved models
-python try3/predict.py --series data/test_series.parquet --ref cpu_run --out predict_try3 --csv submission.csv
+#1 raw competition files -> the 35 feature tables + law priors (only the 77 recipe steps try3 needs)
+python try3/build_features.py --data data --work try3_run --workers 4
+#2 train + save the 15 models (reproduces model/ exactly)
+python try3/train.py --work try3_run --out try3/model
+#3 score new raw series with the saved models -> id,break_probability
+python try3/predict.py --series data/test_series.parquet --ref try3_run --out predict_try3 --csv submission.csv --workers 2
 ```
 
-`--ref` is the training work folder. A few feature formulas compare against training-side tables, so the predictor needs that folder; it can't be in this repo because it holds competition data. The final blend averages ranks, so each model's score is relative to the batch being scored. Score all test series in one run.
+Or open `inference.ipynb`, which wraps step 3. `--ref` is the folder from step 1: a few feature formulas compare a series against training-side reference tables, and the competition data can't be stored in this repo. The final blend averages ranks, so score all test series in one run.
 
-**Check:** `predict.py` was run from raw data on 200 real test series. The two LightGBM models matched the training-time scores exactly, and XGBoost differed by at most 3e-8. It took about 8 minutes with 4 workers on a busy machine.
+## Files
+
+- `build_features.py`: raw files to feature tables, using the full recipe's runner and code.
+- `train.py`: trains and saves the model. `TABLES` lists the 35 tables.
+- `predict.py`: loads the saved models and scores new raw series, running independent steps in parallel.
+- `slim.py`, `slim_mech.py`, `slim_moves.py`, `slim_white.py`, `slim_cols.py`: faster versions of the slow feature steps. They run the same code but compute only the columns the saved models read, so the values are identical (checked against the full steps; `KU_TRY3_NO_SLIM=1` switches them off).
+- `select_features.py`: the feature-count sweep used to pick k = 100.
+- `model/`: 15 fold models, each fold's chosen columns (`columns_fold*.json`), the fitted fold priors (`law_outer7/`) and `results.json`.
+- `submission.csv`: this model's test predictions (submission 58142084).
