@@ -6,6 +6,7 @@
 - Training notebook: [CPU_087910.ipynb](CPU_087910.ipynb); training script: `train_087910_cpu.py`
 - Inference notebook: [inference.ipynb](inference.ipynb)
 - Features used: [FEATURES.md](FEATURES.md)
+- **Working load-and-predict model now: [compact_0870/](compact_0870/README.md)** (LightGBM, 0.870 OOF AUC, tested from raw series)
 
 Command that trains and writes the CSV:
 
