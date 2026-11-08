@@ -22,7 +22,7 @@ from pipeline import run_stages  # noqa: E402
 #model scripts that go through the gpu launcher: xgboost ones on the rtx 5070, torch nets on the intel arc
 NV_SCRIPTS = {"train_cv.py", "train_var.py", "distill.py", "nested_tree.py", "nested_crop.py", "nested_rank.py",
               "wnlaw_nested.py", "wnlaw_nested2.py"}
-ARC_SCRIPTS = {"nn_var.py", "nn_xpu.py", "nn_seq.py"}
+ARC_SCRIPTS = {"nn_var.py", "nn_xpu.py", "nn_seq.py"}   #torch feature scripts stay on cpu: tested ~20x slower on the arc (many tiny ops)
 GPU_SCRIPTS = NV_SCRIPTS | ARC_SCRIPTS
 XPU_PYTHON = ROOT / ".venv-xpu/Scripts/python.exe"
 
