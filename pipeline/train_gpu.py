@@ -10,7 +10,6 @@ import json
 import os
 import subprocess as real_subprocess
 import sys
-import threading
 import time
 import types
 from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
@@ -20,9 +19,17 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from pipeline import run_stages  # noqa: E402
 
-#model scripts that go through the gpu launcher
-GPU_SCRIPTS = {"train_cv.py", "train_var.py", "distill.py", "nested_tree.py", "nested_crop.py", "nested_rank.py",
-               "wnlaw_nested.py", "wnlaw_nested2.py", "nn_var.py", "nn_xpu.py", "nn_seq.py"}
+#model scripts that go through the gpu launcher: xgboost ones on the rtx 5070, torch nets on the intel arc
+NV_SCRIPTS = {"train_cv.py", "train_var.py", "distill.py", "nested_tree.py", "nested_crop.py", "nested_rank.py",
+              "wnlaw_nested.py", "wnlaw_nested2.py"}
+ARC_SCRIPTS = {"nn_var.py", "nn_xpu.py", "nn_seq.py"}
+GPU_SCRIPTS = NV_SCRIPTS | ARC_SCRIPTS
+XPU_PYTHON = ROOT / ".venv-xpu/Scripts/python.exe"
+
+
+def kind(stage):
+    name = Path(stage["argv"][0]).name
+    return "nv" if name in NV_SCRIPTS else "arc" if name in ARC_SCRIPTS else "cpu"
 #late steps read files they don't declare, so they wait for everything before them
 BARRIER = ("weight_space/", "weight_edit_20261104/", "fixed_final_readouts", "write_config", "align_predictions",
            "mech_blends", "wtta.py", "late_features", "white_model_features", "component_moves")
@@ -32,12 +39,21 @@ WORKER_ARGV = {"features_grid.py", "features_grid2.py", "features_dd.py", "harm_
 def gpu_run(cmd, cwd=None, env=None, **kw):
     #swap "python -B script args" for "python -B -m pipeline.gpu_launch script args" on model scripts
     script = Path(cmd[2])
-    if script.name in GPU_SCRIPTS:
-        env = dict(env)
-        env.update(CUDA_VISIBLE_DEVICES="0", KU_SBB_GPU="1", ONEAPI_DEVICE_SELECTOR="")
-        env["PYTHONPATH"] = os.pathsep.join([env.get("PYTHONPATH", ""), str(ROOT)])
-        cmd = [cmd[0], "-B", "-m", "pipeline.gpu_launch", str(script), *cmd[3:]]
-    return real_subprocess.run(cmd, cwd=cwd, env=env, **kw)
+    if script.name not in GPU_SCRIPTS:
+        return real_subprocess.run(cmd, cwd=cwd, env=env, **kw)
+    env = dict(env)
+    env.update(KU_SBB_GPU="1")
+    env["PYTHONPATH"] = os.pathsep.join([env.get("PYTHONPATH", ""), str(ROOT)])
+    launch = ["-B", "-m", "pipeline.gpu_launch", str(script), *cmd[3:]]
+    if script.name in ARC_SCRIPTS and XPU_PYTHON.is_file():
+        arc = {**env, "KU_SBB_TORCH_DEV": "xpu", "CUDA_VISIBLE_DEVICES": ""}
+        arc.pop("ONEAPI_DEVICE_SELECTOR", None)
+        r = real_subprocess.run([str(XPU_PYTHON), *launch], cwd=cwd, env=arc, **kw)
+        if r.returncode == 0:
+            return r
+        print(f"arc run of {script.name} failed, retrying on the rtx 5070", flush=True)
+    env.update(CUDA_VISIBLE_DEVICES="0", KU_SBB_TORCH_DEV="cuda", ONEAPI_DEVICE_SELECTOR="")
+    return real_subprocess.run([cmd[0], *launch], cwd=cwd, env=env, **kw)
 
 
 def prepared(work, stages, workers):
@@ -80,7 +96,8 @@ def main():
     p.add_argument("--work", type=Path, required=True)
     p.add_argument("--workers", type=int, default=6)
     p.add_argument("--cpu-jobs", type=int, default=3)
-    p.add_argument("--gpu-jobs", type=int, default=2)
+    p.add_argument("--gpu-jobs", type=int, default=2, help="parallel xgboost fits on the rtx 5070")
+    p.add_argument("--arc-jobs", type=int, default=2, help="parallel torch nets on the intel arc")
     a = p.parse_args()
     work = a.work.resolve()
     if not (work / "CPU_REBUILD_WORKSPACE.json").is_file():
@@ -96,29 +113,22 @@ def main():
     done = {i for i, s in enumerate(stages) if (work / "stages" / (s["id"] + ".json")).exists()}
     for i in sorted(done):
         run_stages.run(work, stages[i])   #verifies the finished step, prints SKIP
-    gpu_slots = threading.Semaphore(a.gpu_jobs)
+    limit = {"cpu": a.cpu_jobs, "nv": a.gpu_jobs, "arc": a.arc_jobs}
     running, failed = {}, []
 
-    def job(i):
-        s = stages[i]
-        if Path(s["argv"][0]).name in GPU_SCRIPTS:
-            with gpu_slots:
-                run_stages.run(work, s)
-        else:
-            run_stages.run(work, s)
-
-    with ThreadPoolExecutor(a.cpu_jobs + a.gpu_jobs) as pool:
+    with ThreadPoolExecutor(sum(limit.values())) as pool:
         while len(done) < len(stages) and not failed:
-            ready = [i for i in range(len(stages)) if i not in done and i not in running.values() and deps[i] <= done]
-            cpu_busy = sum(1 for i in running.values() if Path(stages[i]["argv"][0]).name not in GPU_SCRIPTS)
-            gpu_busy = len(running) - cpu_busy
-            for i in ready:
-                is_gpu = Path(stages[i]["argv"][0]).name in GPU_SCRIPTS
-                if (is_gpu and gpu_busy >= a.gpu_jobs) or (not is_gpu and cpu_busy >= a.cpu_jobs):
+            busy = {k: 0 for k in limit}
+            for i in running.values():
+                busy[kind(stages[i])] += 1
+            for i in range(len(stages)):
+                if i in done or i in running.values() or not deps[i] <= done:
                     continue
-                running[pool.submit(job, i)] = i
-                gpu_busy += is_gpu
-                cpu_busy += not is_gpu
+                k = kind(stages[i])
+                if busy[k] >= limit[k]:
+                    continue
+                running[pool.submit(run_stages.run, work, stages[i])] = i
+                busy[k] += 1
             if not running:
                 raise SystemExit("nothing runnable; dependency problem")
             finished, _ = wait(list(running), return_when=FIRST_COMPLETED)

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Blitzict 0.879 Report</title>
+<style>
+@page { size: A4; margin: 13mm 14mm 13mm 14mm; }
+:root { --ink:#18332e; --acc:#19785d; --mut:#5b7069; --light:#e7f2ed; --line:#c9d8d1; }
+* { box-sizing: border-box; }
+body { font-family: "Segoe UI", Helvetica, Arial, sans-serif; color: var(--ink); font-size: 8.6pt; line-height: 1.38; margin: 0; background: #fff; }
+h1 { font-size: 17pt; margin: 0 0 1mm; }
+.sub { color: var(--mut); font-size: 8.4pt; margin-bottom: 3mm; }
+h2 { font-size: 10.4pt; color: var(--acc); margin: 3.2mm 0 1.2mm; border-bottom: .6pt solid var(--line); padding-bottom: .6mm; }
+p { margin: 0 0 1.6mm; }
+ul { margin: 0 0 1.6mm 4.5mm; padding: 0; } li { margin-bottom: .5mm; }
+table { border-collapse: collapse; width: 100%; margin: 1mm 0 2mm; font-size: 7.8pt; }
+th { background: var(--light); text-align: left; font-weight: 600; }
+th, td { padding: .9mm 1.6mm; border-bottom: .4pt solid var(--line); vertical-align: top; }
+td.r, th.r { text-align: right; white-space: nowrap; }
+img { width: 100%; display: block; }
+.fig { margin: 1mm 0 2mm; }
+.cap { color: var(--mut); font-size: 7.3pt; margin-top: .6mm; }
+.two { display: flex; gap: 4mm; } .two > div { flex: 1; min-width: 0; }
+code { font-family: Consolas, monospace; font-size: 7.6pt; background: #f2f6f4; padding: 0 .6mm; }
+.box { background: var(--light); border-left: 2pt solid var(--acc); padding: 1.4mm 2.4mm; margin: 1.4mm 0 2mm; }
+.pb { break-before: page; }
+</style></head><body>
+
+<h1>Blitzict: Structural Break Detection (0.879 recipe)</h1>
+<div class="sub">KU Applied AI Challenge qualification report &middot; team <b>Blitzict</b> &middot; 8 November 2026 &middot; code: private repo <code>blitzict/AI</code></div>
+
+<div class="box"><b>In short.</b> Each series has a known boundary point, and the model predicts the probability that its behaviour changes there. Our best recipe scores <b>0.8791 local out-of-fold ROC-AUC</b> and <b>0.88077 / 0.88078 on the Kaggle public leaderboard</b>. It works in three steps. First, it measures every series in several transformed views with eight groups of features. Then it trains 51 base detectors and a set of mechanism specialists on those features. Finally, a stack of small, regularised weight-space heads combines the detectors. We also kept two simpler submissions: try1 (0.833) and try2 (0.875).</div>
+
+<h2>1. Method</h2>
+<div class="fig"><img src="figures/pipeline.png"><div class="cap">Figure 1. The 0.879 pipeline. Every arrow is a recorded step in <code>pipeline/full_cpu_stages.json</code> (473 steps). Each layer is trained only on out-of-fold outputs of the layer below.</div></div>
+
+<p><b>Data and views.</b> There are 24,000 labelled training series (12,000 with a break) and 4,000 test series. Each series is split into a "before" and an "after" part at its boundary, and almost every feature compares the two parts. To make the detectors robust, we build seven extra views of every series: time-reversed, sign-flipped, reversed and flipped, and four random crops around the boundary (Figure 2). Boundary-shift negatives and real half-segments add training rows. Augmented rows always stay in the same fold as their source series. At test time, the view models average their predictions over the views.</p>
+<div class="fig"><img src="figures/views.png"><div class="cap">Figure 2. One illustrative (synthetic) series with a level and volatility break, and three of its views. The red dashed line is the boundary we score. The crops keep 60–90% of each side, with at least 80 points.</div></div>
+
+<p><b>Feature families.</b> The recipe uses about 40 feature tables. Table 1 groups them into eight families. The first four are classic two-sample statistics. The last four come from a mechanism view: they ask <i>how</i> the series could have changed (phase, memory, jumps, latent state, noise law) and score how likely that change is under each explanation. The full list is in <code>FEATURES.md</code>.</p>
+<table><tr><th>Family</th><th>What it measures (before vs after the boundary)</th><th class="r">Columns</th></tr>
+<tr><td><b>Base statistics</b></td><td>moments, quantiles, ranks, KS/AD/MMD tests, autocorrelation, spectra</td><td class=r>977</td></tr>
+<tr><td><b>Window grids</b></td><td>the same comparisons on two fixed window grids around the boundary</td><td class=r>996</td></tr>
+<tr><td><b>Increments & change tests</b></td><td>differenced series, likelihood ratios (raw + z), Bayes factors, self-normalised</td><td class=r>433</td></tr>
+<tr><td><b>Trend, volatility & spectrum fits</b></td><td>linear trend, GARCH, power spectrum</td><td class=r>73</td></tr>
+<tr><td><b>Periodic & phase</b></td><td>periodic components, harmonic fit, phase likelihood</td><td class=r>91</td></tr>
+<tr><td><b>Dynamics & memory</b></td><td>innovations, AR law, trend/curve, long memory, Markov copula, mode residual</td><td class=r>288</td></tr>
+<tr><td><b>Jumps, pulses & latent states</b></td><td>5 jump-law nulls, pulse/state filters, walk-vs-jump, boundary laws, latent level</td><td class=r>1,246</td></tr>
+<tr><td><b>Noise, tails & distribution laws</b></td><td>noise tests, bounds, mixtures, partition, tails, quantile alignment, native laws, volatility laws</td><td class=r>983</td></tr>
+<tr><th colspan="2">Total distinct columns (before the per-view copies)</th><th class="r">5,087</th></tr></table>
+
+<div class="pb"></div>
+<div class="two">
+<div><img src="figures/families.png"><div class="cap">Figure 3. Size of each feature family. The mechanism families (dark) are the largest share, and they are what lifts the model from about 0.85 to 0.875+.</div></div>
+<div><img src="figures/ladder.png"><div class="cap">Figure 4. Historical out-of-fold AUC as parts of the recipe were added, compared with our two simpler submissions.</div></div>
+</div>
+
+<p><b>Detectors.</b> These are the 51 base members:</p>
+<ul>
+<li>XGBoost, LightGBM and CatBoost models on selected statistical blocks of 170, 191, 206 or 2,247 columns (<code>train_cv.py</code>, 44 fits).</li>
+<li>View models trained on all 8 views, with test-time averaging (<code>train_var.py</code>).</li>
+<li>Multilayer perceptrons on a 2,171-column dense block, with rank-Gaussian inputs, 1024×3 hidden layers and dropout 0.4 (<code>nn_var.py</code>, <code>nn_xpu.py</code>).</li>
+<li>A dilated 1-D CNN on the raw padded series (<code>nn_seq.py</code>).</li>
+<li>Distilled trees.</li>
+</ul>
+<p>The <b>mechanism specialists</b> are nested XGBoost models (<code>nested_tree/crop/rank.py</code>, <code>wnlaw_nested*.py</code>). They use the mechanism features plus noise-law priors, and each prior is estimated inside the training fold only. On its own, the crop specialist MECH3C12V reaches 0.874.</p>
+<p><b>Weight-space heads.</b> Instead of one big meta-model, we edit and recombine existing weights in small, regularised steps:</p>
+<ul>
+<li>Neural output-layer edits (<code>neural_head_edit.py</code>) and learned per-view weights.</li>
+<li>Expert fusion (ridge penalty 700) and mechanism, trend and extended readouts (penalties 40, 60 and 35).</li>
+<li>Specialists for series that look like white noise (rank boosts, crop laws, pair trees).</li>
+<li>The final readout, which mixes 75% of a three-source vote with 25% of the upstream branch.</li>
+<li>A <b>local-rank correction</b>, which compares each positive with 32 nearby negatives (seed 1729, logistic temperature 0.55, penalty 84) and is fitted with L-BFGS-B. Half of its coefficient vector is applied.</li>
+</ul>
+
+<h2>2. Validation</h2>
+<p>Base members use five stratified folds (seed 7, plus the recorded seeds for repeated members). The later readouts are refitted over five outer folds for each of six seeds (7, 29, 0, 123, 2024, 11041), with inner folds wherever a layer needs its own out-of-fold inputs. The headline AUC is the pooled seed-7 out-of-fold score over all 24,000 series. Learned preprocessing, such as rank references, quantile transforms and noise-law priors, is fitted on training rows only, and test labels are never used. <b>Limitation:</b> feature lists and settings were chosen while looking at the same training set, so the local score carries some selection optimism. It is a research validation score, not an untouched holdout.</p>
+
+<h2>3. Results</h2>
+<div class="two">
+<div>
+<table><tr><th>Submission</th><th class="r">Local OOF</th><th class="r">Kaggle</th></tr>
+<tr><td><b>try1</b>: v4, XGBoost + LightGBM, 977 base features</td><td class="r">0.83835</td><td class="r">0.83313</td></tr>
+<tr><td><b>try2</b>: one LightGBM, 3,625 statistical + mechanism features</td><td class="r">0.86987</td><td class="r">0.875</td></tr>
+<tr><td>Full 0.879 ensemble</td><td class="r">0.87911</td><td class="r">0.88077</td></tr>
+<tr><td>Full ensemble + synthetic-data MLP correction</td><td class="r">0.87910</td><td class="r">0.88078</td></tr>
+<tr><td><b>try3</b>: full recipe retrained from raw files (in progress)</td><td class="r">pending</td><td class="r">&ndash;</td></tr></table>
+</div>
+<div><img src="figures/scores.png"><div class="cap">Figure 5. Local versus Kaggle public AUC for each submission.</div></div>
+</div>
+<p>The biggest single jump came from detecting <b>coherent oscillations</b>: a series can change its phase or amplitude while its mean and variance stay the same. Adding these detectors moved one ensemble from 0.853 to 0.867. Later gains came from the trend and pulse handling, the noise-law priors, crops that keep track of their source series, and the constrained residual heads. The hardest remaining cases are breaks that look like white noise. Of 821 historically missed positives, the final ensemble recovers 88 at a 20% false-positive rate, compared with 42 for the earlier 0.871 model.</p>
+
+<h2>4. How we implemented and rerun it</h2>
+<p>The original models were trained on our own GPUs, but many intermediate models were saved only as predictions. To make the result reproducible, we rebuilt the whole recipe so that it runs from the four raw competition files:</p>
+<ul>
+<li>The frozen scripts are in <code>pipeline/legacy_cpu/</code> (172 files), and every step's arguments, inputs and outputs are recorded in the stage manifest.</li>
+<li>A resumable runner verifies the hashes of every input, source file and output, and <b>saves every fitted model</b>.</li>
+<li><code>pipeline/train_gpu.py</code> runs independent steps in parallel and sends model fits through <code>gpu_launch.py</code>: XGBoost runs on CUDA (RTX 5070) and the torch nets run on the Intel Arc. The script files on disk stay unchanged, so their recorded hashes stay valid.</li>
+<li>Prediction loads the saved models and rebuilds the features for new series with the same code. For try1 this reproduced the submitted CSV exactly. For try2, all 3,625 features and every prediction matched exactly on 200 test series.</li>
+</ul>
+<p><code>python train_087910_cpu.py --data data --work cpu_run</code> (or <code>python -m pipeline.train_gpu ...</code>) trains the full recipe. <code>python -m pipeline.predict_new --models cpu_run --series test_series.parquet --csv submission.csv</code> scores new series, and <code>try2/predict_compact.py</code> and <code>try1/v4.py predict</code> do the same for the simpler models.</p>
+
+<h2>What we have (repository <code>blitzict/AI</code>)</h2>
+<table><tr><th>Item</th><th>Where</th><th>Status</th></tr>
+<tr><td>try1: v4 models, train and predict code</td><td><code>try1/</code>, <code>pipeline/features_v4.py</code></td><td>Saved models; predicting from raw data reproduces the submitted CSV exactly</td></tr>
+<tr><td>try2: 5 LightGBM fold models, train and predict code, notebook</td><td><code>try2/</code></td><td>Saved models; Kaggle 0.875; raw-series prediction matched exactly</td></tr>
+<tr><td>try3: full 0.879 recipe (473 steps, 172 scripts)</td><td><code>pipeline/</code>, <code>train_087910_cpu.py</code></td><td>Code complete; retraining with saved models in progress</td></tr>
+<tr><td>GPU runner (RTX 5070 + Intel Arc, parallel steps)</td><td><code>pipeline/train_gpu.py</code>, <code>gpu_launch.py</code></td><td>Running</td></tr>
+<tr><td>Saved-model inference for the full recipe</td><td><code>pipeline/inference/</code>, <code>predict_new.py</code>, <code>inference.ipynb</code></td><td>Base and mechanism models checked on synthetic data; late heads still need adapters</td></tr>
+<tr><td>Feature catalogue and training notebook</td><td><code>FEATURES.md</code>, <code>CPU_087910.ipynb</code></td><td>Done</td></tr>
+<tr><td>Historical 0.88077 / 0.88078 submissions</td><td>kept locally (predictions + final weights)</td><td>Many upstream models were not saved, so this is being rebuilt as try3</td></tr></table>
+
+<h2>5. Sources and AI use</h2>
+<p><b>Libraries:</b> NumPy, SciPy, pandas, PyArrow, scikit-learn, XGBoost, LightGBM, CatBoost, PyTorch (CUDA / XPU), joblib and Optuna (development tuning only). Only the competition files were used: no outside data, no pretrained models and no test labels. The synthetic series used in some experiments were generated from training negatives. <b>AI assistance:</b> AI coding assistants (Anthropic Claude Code and OpenAI ChatGPT/Codex) helped write and port code, run experiments and draft documentation under our direction. We chose the ideas, reviewed the results and decided what to submit. <i>[Team to confirm or add the final human-verification statement.]</i></p>
+</body></html>

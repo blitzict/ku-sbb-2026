@@ -2,7 +2,7 @@
 
 - Team alias: `Blitzict`
 - Designated Kaggle submission ID: _to be filled in_
-- Report: [qualification/report.pdf](qualification/report.pdf) (source: [qualification/report.md](qualification/report.md))
+- Report: [qualification/report.pdf](qualification/report.pdf) (3 pages; source `qualification/report_0879_template.html`, built by `qualification/build_report_0879.py`)
 - Training notebook: [CPU_087910.ipynb](CPU_087910.ipynb); training script: `train_087910_cpu.py`
 - Inference notebook: [inference.ipynb](inference.ipynb)
 - Features used: [FEATURES.md](FEATURES.md)

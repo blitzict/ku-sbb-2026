@@ -4,7 +4,7 @@ python -m pipeline.gpu_launch experiments/v6/train_cv.py --tag ...
 
 the script file on disk is not changed (its hash stays the same), only at load time:
 #xgboost.train / XGBModel get device=cuda
-#nn_var / nn_xpu / nn_seq get dev = "cuda" instead of dev = "cpu"
+#nn_var / nn_xpu / nn_seq get dev = "xpu" (arc) or "cuda" instead of dev = "cpu"
 """
 import os
 import re
@@ -51,7 +51,8 @@ def main():
     sys.path.insert(0, str(script.parent))
     source = script.read_text(encoding="utf8")
     if script.name in TORCH_GPU and os.environ.get("KU_SBB_GPU") == "1":
-        source, n = re.subn(r'\bdev = "cpu"', 'dev = "cuda"', source)
+        target = os.environ.get("KU_SBB_TORCH_DEV", "cuda")   #cuda = rtx 5070, xpu = intel arc
+        source, n = re.subn(r'\bdev = "cpu"', f'dev = "{target}"', source)
         if n == 0:
             raise SystemExit(f"{script.name}: device line not found")
     try:
