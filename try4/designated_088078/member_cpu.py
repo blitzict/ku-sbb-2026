@@ -6,7 +6,7 @@ Its output is the neural member's mean logit, not the complete 0.88078 ensemble.
 The parent ensemble and its confidence-dependent correction remain separate.
 
 Example from the ai folder:
-  python designated_088078/member_cpu.py --data data
+  python try4/designated_088078/member_cpu.py --data data
 
 Feature extraction uses at most two worker processes, one numerical thread
 each. Neural inference uses two CPU threads after the workers have exited.
@@ -111,7 +111,7 @@ def predict(frame, model_dir):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--data", type=Path, default=ROOT.parent / "data")
+    parser.add_argument("--data", type=Path, default=ROOT.parents[1] / "data")
     parser.add_argument("--model", type=Path, default=ROOT / "model")
     parser.add_argument("--output", type=Path, default=ROOT / "out")
     parser.add_argument("--workers", type=int, choices=[1, 2], default=2)
