@@ -31,3 +31,13 @@ python try2/predict_compact.py --series data/test_series.parquet --ref cpu_run -
 ```
 
 The feature code is `pipeline/features_v4.py` plus the scripts under `pipeline/legacy_cpu/`. They are listed in `../FEATURES.md`, and the exact steps are in `pipeline/full_cpu_stages.json`.
+
+## Original probe
+
+`pipeline/probe_compact_cpu.py` is the one-off development script that first measured this model (0.869869 out-of-fold AUC):
+
+```console
+python pipeline/probe_compact_cpu.py --features cpu_run --output probe_out
+```
+
+`try2/train_compact.py` uses the same tables, settings and folds, gives identical fold scores, and also saves the column order and test predictions.
