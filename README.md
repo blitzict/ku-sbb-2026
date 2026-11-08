@@ -6,7 +6,10 @@
 - Training notebook: [CPU_087910.ipynb](CPU_087910.ipynb); training script: `train_087910_cpu.py`
 - Inference notebook: [inference.ipynb](inference.ipynb)
 - Features used: [FEATURES.md](FEATURES.md)
-- **Working load-and-predict model now: [compact_0870/](compact_0870/README.md)** (LightGBM, 0.870 OOF AUC, 0.875 on Kaggle, tested from raw series)
+- Submissions so far:
+  - [try1/](try1/README.md): v4, XGBoost + LightGBM on the 977 base features, **0.83313** on Kaggle
+  - [try2/](try2/README.md): LightGBM on 3,625 statistical + mechanism features, **0.875** on Kaggle (0.870 local), load-and-predict from raw series
+  - try3 (in training): the full 0.879 recipe below
 
 Command that trains and writes the CSV:
 

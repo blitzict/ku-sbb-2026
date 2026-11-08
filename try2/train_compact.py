@@ -1,6 +1,6 @@
 """train the 0.870 lightgbm (5 folds) on the cpu feature tables and save everything needed to predict later.
 
-python compact_0870/train_compact.py --work B:/AI_cpu_087910_20261108/work --out compact_0870/model
+python try2/train_compact.py --work B:/AI_cpu_087910_20261108/work --out try2/model
 """
 import os
 for k in ('OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS'):

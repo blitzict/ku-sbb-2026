@@ -1,0 +1,8 @@
+{
+  "device": "cpu",
+  "seconds": 351.625,
+  "maximum_probability_difference": 0.0,
+  "xgboost_version": "3.4.1",
+  "lightgbm_version": "4.7.0",
+  "submission_sha256": "84f5d9478e166567ea4d9872529f1871d2264fb37ef29ce19d05c91210902fb4"
+}

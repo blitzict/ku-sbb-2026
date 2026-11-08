@@ -1,0 +1,41 @@
+{
+  "xgboost": {
+    "objective": "binary:logistic",
+    "eval_metric": "auc",
+    "tree_method": "hist",
+    "device": "cpu",
+    "nthread": 1,
+    "seed": 0,
+    "learning_rate": 0.0101,
+    "max_depth": 10,
+    "min_child_weight": 0.5311,
+    "subsample": 0.8735,
+    "colsample_bytree": 0.6066,
+    "colsample_bynode": 0.6619,
+    "gamma": 2.7872,
+    "reg_lambda": 11.395,
+    "reg_alpha": 0.035,
+    "max_bin": 256
+  },
+  "xgboost_rounds": 487,
+  "lightgbm": {
+    "objective": "binary",
+    "metric": "auc",
+    "verbosity": -1,
+    "num_threads": 1,
+    "seed": 0,
+    "learning_rate": 0.0128,
+    "num_leaves": 76,
+    "max_depth": -1,
+    "min_data_in_leaf": 15,
+    "feature_fraction": 0.3552,
+    "bagging_fraction": 0.8938,
+    "bagging_freq": 1,
+    "lambda_l1": 0.3403,
+    "lambda_l2": 1.1182,
+    "min_gain_to_split": 0.4257
+  },
+  "lightgbm_rounds": 499,
+  "seed": 0,
+  "blend": "average of test-score percentiles"
+}
