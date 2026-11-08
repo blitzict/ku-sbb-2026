@@ -16,3 +16,18 @@ python try2/predict_compact.py --series data/test_series.parquet --ref <training
 **Check:** on 200 real test series run from raw data, all 3,625 features and every prediction matched the training-time tables exactly (max difference 0).
 
 This model is the stand-in until the full 0.879 run finishes and its saved models can be loaded the same way.
+
+## Rebuild from scratch
+
+All the code is in this repo. Starting from the four competition files in `data/`:
+
+```console
+#1 features: computes every table this model uses (stages before the model phase)
+python train_087910_cpu.py --data data --work cpu_run --workers 6 --phase features
+#2 train the 5 fold models and save them, with column order and out-of-fold AUC
+python try2/train_compact.py --work cpu_run --out try2/model
+#3 score new series with the saved models
+python try2/predict_compact.py --series data/test_series.parquet --ref cpu_run --out predict_try2 --csv submission.csv
+```
+
+The feature code is `pipeline/features_v4.py` plus the scripts under `pipeline/legacy_cpu/`. They are listed in `../FEATURES.md`, and the exact steps are in `pipeline/full_cpu_stages.json`.

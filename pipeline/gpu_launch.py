@@ -34,6 +34,15 @@ def patch_xgboost():
         return p
 
     xgb.XGBModel.get_xgb_params = get_xgb_params
+    #reloaded boosters predict on the gpu too, so the scripts' save/reload checks compare like with like
+    load = xgb.Booster.load_model
+
+    def load_model(self, fname):
+        out = load(self, fname)
+        self.set_param({"device": "cuda"})
+        return out
+
+    xgb.Booster.load_model = load_model
 
 
 def main():

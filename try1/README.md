@@ -13,3 +13,7 @@ python try1/v4.py train --data data --out-dir try1_out --validate
 ```
 
 **Check:** `predict`, run on the raw test series with 6 workers, reproduced the submitted `model/submission.csv` exactly in 122 seconds.
+
+## Rebuild from scratch
+
+All the code is here: the features are in `pipeline/features_v4.py`, and the training and prediction are in `try1/v4.py`. `python try1/v4.py train --data data --validate` builds the 977 features from the raw series, runs 5-fold validation, refits both models on all 24,000 series and writes the submission.
