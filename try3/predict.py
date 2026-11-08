@@ -10,6 +10,8 @@ import os
 import shutil
 import subprocess
 import sys
+import time
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from pathlib import Path
 
 import numpy as np
@@ -21,6 +23,9 @@ sys.path.insert(0, str(ROOT))
 WS = "tune_out/weight_space"
 SEED = 7                                   #the law-prior folds the models were trained on
 MODELS = ["lgb_law", "lgb_law_s2", "xgb_law"]
+#steps replaced by slim.py (same code, only the columns the models read; identical values)
+SLIM = {"features_004_features_grid": "grid", "features_006_features_grid2": "grid2", "features_009_features_dd": "dd",
+        "features_021_features_lrz": "lrz6"}
 SKIP_DIRS = {"stages", "logs", "weights", "weights_experiments", "data", "tune_out", "new weights", "submissions", "outputs"}
 
 
@@ -84,7 +89,7 @@ def setup(ref, out, recipe):
 
 
 def env_for(out):
-    return {**os.environ, "KU_SBB_ROOT": str(out), "KU_SBB_CODE_ROOT": str(out), "KU_SBB_THREADS": "2",
+    return {**os.environ, "KU_SBB_ROOT": str(out), "KU_SBB_CODE_ROOT": str(out), "KU_SBB_THREADS": "1",
             "KU_SBB_RAW_ONLY": "1", "KU_SBB_ORIGINAL_ROOT": str(ROOT), "KU_SBB_OFFLINE": "1", "CUDA_VISIBLE_DEVICES": "",
             "ONEAPI_DEVICE_SELECTOR": "*:cpu", "OMP_NUM_THREADS": "1", "MKL_NUM_THREADS": "1", "OPENBLAS_NUM_THREADS": "1",
             "PYTHONUNBUFFERED": "1", "PYTHONPATH": os.pathsep.join([str(ROOT / "pipeline/offline_hooks"), str(out), str(ROOT)])}
@@ -93,8 +98,18 @@ def env_for(out):
 def run_stage(out, ref, stage):
     a = stage["argv"]
     (out / "logs").mkdir(exist_ok=True)
-    env = {**env_for(out), **{k: str(v) for k, v in stage.get("env", {}).items()}}
-    if "test" in a[1:] or "--part" in a or Path(a[0]).name == "copy_table.py":
+    env = {**env_for(out), **{k: str(v) for k, v in stage.get("env", {}).items()}, "KU_SBB_THREADS": "1"}
+    if stage["id"] in SLIM:
+        cmd = [sys.executable, "-B", str(HERE / "slim.py"), SLIM[stage["id"]], str(out)]
+    elif Path(a[0]).name == "mechanism.py" and a[1].startswith("jump_law_"):
+        cmd = [sys.executable, "-B", str(HERE / "slim_mech.py"), *a[1:]]           #same code, only the used kernels/columns
+    elif Path(a[0]).name == "white_model_features.py" and a[1].startswith("boundary_"):
+        cmd = [sys.executable, "-B", str(HERE / "slim_mech.py"), *a[1:]]
+    elif Path(a[0]).name == "white_filtered_steps.py":
+        cmd = [sys.executable, "-B", str(HERE / "slim_mech.py"), "filtered_step"]
+    elif Path(a[0]).name == "component_moves_cpu.py":
+        cmd = [sys.executable, "-B", str(HERE / "slim_moves.py"), *a[1:]]          #same script, only the used columns
+    elif "test" in a[1:] or "--part" in a or Path(a[0]).name == "copy_table.py":
         cmd = [sys.executable, "-B", str(out / a[0]), *a[1:]]           #the original script, test part only
     else:
         #steps that do train+test in one go: run only their test side
@@ -104,6 +119,65 @@ def run_stage(out, ref, stage):
         r = subprocess.run(cmd, cwd=out, env=env, stdout=log, stderr=subprocess.STDOUT)
     if r.returncode:
         raise SystemExit(f"{stage['id']} failed, see {out / 'logs' / (stage['id'] + '.log')}")
+
+
+def run_all(out, ref, recipe, jobs):
+    #dependency-ordered, up to `jobs` steps at once (each step single-threaded)
+    todo = [s for s in recipe if not is_reference(s)]
+    made = {o: s["id"] for s in todo for o in s["outputs"]}
+    deps = {s["id"]: {made[i] for i in s["inputs"] if i in made and made[i] != s["id"]} for s in todo}
+    done, timing, running = set(), {}, {}
+    with ThreadPoolExecutor(jobs) as pool:
+        while todo or running:
+            for s in [s for s in todo if deps[s["id"]] <= done][:max(jobs - len(running), 0)]:
+                todo.remove(s)
+                print("step", s["id"], flush=True)
+                running[pool.submit(lambda s=s: (time.time(), run_stage(out, ref, s), time.time()))] = s["id"]
+            if not running:
+                raise SystemExit(f"unresolvable steps: {[s['id'] for s in todo]}")
+            finished, _ = wait(running, return_when=FIRST_COMPLETED)
+            for f in finished:
+                sid = running.pop(f)
+                t0, _, t1 = f.result()
+                timing[sid] = round(t1 - t0, 1)
+                done.add(sid)
+    return timing
+
+
+def foundation(ref, out, series, workers):
+    #raw_features.foundation (id mapping, raw test file, sequence cache) with the slim base-feature table
+    import hashlib, re
+    import ku_workspace
+    from pipeline.inference.common import save_npz
+    from pipeline.inference.raw_features import rows
+    import slim
+    original = rows(series)
+    training = set(pd.read_csv(ref / "data/train_labels.csv", usecols=["id"], dtype=str).id)
+    mapping, mapped, seen = [], [], set()
+    for ident, values, boundary in original:
+        internal = ident if re.fullmatch(r"[0-9a-fA-F]{8}.*", ident) and ident not in training else hashlib.sha256(("prediction:" + ident).encode()).hexdigest()
+        if internal in seen or internal in training:
+            raise ValueError("internal id collision")
+        seen.add(internal)
+        mapping.append(dict(id=ident, internal_id=internal))
+        mapped.append((internal, values, boundary))
+    (out / "data").mkdir(parents=True, exist_ok=True)
+    w = ku_workspace.SeriesWriter(out / "data/test_series.parquet")
+    for ident, values, boundary in mapped:
+        w.add(ident, values, boundary)
+    w.close()
+    pd.DataFrame({"id": [x[0] for x in mapped], "break_probability": 0.0}).to_csv(out / "data/sample_submission.csv", index=False)
+    (out / "query_ids.json").write_text(json.dumps(mapping, indent=2))
+    ids = np.asarray([x[0] for x in mapped], dtype=str)
+    padded = np.zeros((len(ids), 1024), dtype=np.float32)
+    for i, (_, values, _) in enumerate(mapped):
+        padded[i, :len(values)] = values
+    save_npz(out / "tune_out/seq_cache_test.npz", ids=ids, x=padded, n=np.asarray([len(x[1]) for x in mapped], dtype=np.int64),
+             b=np.asarray([x[2] for x in mapped], dtype=np.int64))
+    F = slim.build("base", out, workers)
+    if not np.array_equal(F.index.astype(str), ids):
+        raise ValueError("base feature order differs from the series order")
+    F.to_parquet(out / "clean/features_test.parquet")
 
 
 def one_stage(stage_id, ref, out):
@@ -160,7 +234,7 @@ def main():
     p.add_argument("--ref", type=Path, default=Path("B:/AI_cpu_087910_20261108/work"))
     p.add_argument("--out", type=Path, default=Path("predict_try3"))
     p.add_argument("--csv", type=Path, default=Path("submission.csv"))
-    p.add_argument("--workers", type=int, default=2)
+    p.add_argument("--workers", type=int, default=os.cpu_count())
     p.add_argument("--one-stage")
     a = p.parse_args()
     ref, out = a.ref.resolve(), a.out.resolve()
@@ -168,18 +242,22 @@ def main():
         return one_stage(a.one_stage, ref, out)
     if out.exists() and any(out.iterdir()):
         raise SystemExit("use an empty --out folder")
+    t_start = time.time()
     cols, stems, recipe = needed(a.model)
     setup(ref, out, recipe)
-    from pipeline.inference import common, raw_features
+    from pipeline.inference import common
     common.bind(out, ref)
-    #1 raw series -> 977 base features + sequence cache
+    for k, v in env_for(out).items():
+        if k.startswith("KU_SBB") or k.endswith("_THREADS"):
+            os.environ[k] = v
+    sys.path.insert(0, str(HERE))
+    #1 raw series -> base features (the 19 used columns) + sequence cache
     print("base features", flush=True)
-    raw_features.foundation(ref, out, Path(a.series), a.workers)
-    #2 the other feature tables, same scripts as training, test side only
-    for s in recipe:
-        if not is_reference(s):
-            print("step", s["id"], flush=True)
-            run_stage(out, ref, s)
+    t0 = time.time()
+    foundation(ref, out, Path(a.series), a.workers)
+    timing = {"setup": round(t0 - t_start, 1), "base": round(time.time() - t0, 1)}
+    #2 the other feature tables, same scripts as training (slim where possible), test side only, in parallel
+    timing.update(run_all(out, ref, recipe, a.workers))
     #3 saved models: 2 lightgbm + 1 xgboost per fold, fold-averaged
     ids = pd.read_parquet(out / "clean/features_test.parquet", columns=[]).index.astype(str)
     sc = scores(a.model, out, cols, stems, ids)
@@ -188,7 +266,9 @@ def main():
     blend = sc.rank().mean(axis=1) / len(sc)
     back = {m["internal_id"]: m["id"] for m in json.loads((out / "query_ids.json").read_text())}
     pd.DataFrame({"id": [back[i] for i in ids], "break_probability": blend.to_numpy()}).to_csv(a.csv, index=False)
-    print("wrote", a.csv, len(blend), "rows", flush=True)
+    timing["total"] = round(time.time() - t_start, 1)
+    (out / "timing.json").write_text(json.dumps(timing, indent=1))
+    print("wrote", a.csv, len(blend), "rows in", timing["total"], "s", flush=True)
 
 
 if __name__ == "__main__":

@@ -107,8 +107,8 @@ class LearnedKernel(nn.Module):
         self.read = nn.Sequential(nn.Linear(240, 120), nn.LayerNorm(120), nn.GELU(), nn.Dropout(0.22), nn.Linear(120, 1))
 
     def summarize(self, h, k, n):
-        means = torch.einsum('bgstd,gdk->bgstk', h, k).float()
-        pointvar = torch.einsum('bgsd,gdk->bgsk', h.mean(3), k.square()).float()
+        means = torch.einsum('bgstd,gdk->bgstk', h.float(), k).float()
+        pointvar = torch.einsum('bgsd,gdk->bgsk', h.float().mean(3), k.square()).float()
         m = means.mean(3)
         pv = (pointvar - m.square()).clamp_min(0.003) / n[:, None, :, None]
         bv = means.var(3, unbiased=True) / NB

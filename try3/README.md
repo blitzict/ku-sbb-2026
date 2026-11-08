@@ -17,6 +17,7 @@ For comparison, try2 scores 0.8699 local with 3,625 features, and all 5,097 colu
 - `select_features.py`: the feature-count sweep (AUC with 25 up to all 5,097 features).
 - `train.py`: trains and saves the model.
 - `predict.py`: loads the saved models and scores new raw series.
+- `slim.py`, `slim_mech.py`, `slim_moves.py`: faster versions of the slowest feature steps. They run the same code but compute only the columns the 15 models read, so the values are identical (checked against the full tables). `predict.py` also runs independent steps in parallel (`--workers`, default: all cores).
 - `inference.ipynb`: notebook wrapper around `predict.py`.
 - `model/`:
   - `lgb_law_fold*.txt`, `lgb_law_s2_fold*.txt`, `xgb_law_fold*.json`: 15 fitted models.
