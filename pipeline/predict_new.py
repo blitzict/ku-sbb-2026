@@ -38,6 +38,17 @@ def setup(models, out):
     (out / "CPU_REBUILD_WORKSPACE.json").write_text(json.dumps({"mode": "prediction", "models": str(models)}))
 
 
+def heads(stage):
+    #adapters for the mechanism / white heads (pipeline/inference/heads_*.py), keyed by script name
+    import importlib
+    name = Path(stage["argv"][0]).name
+    for part in ("a", "b", "c", "d", "e1", "e2"):
+        module = importlib.import_module(f"pipeline.inference.heads_{part}")
+        if name in module.ADAPTERS:
+            return module.ADAPTERS[name]
+    return None
+
+
 def one_stage(stage_id, models, out):
     #runs inside a fresh python so every stage gets clean imports, same as training
     from pipeline.inference import base_models, common, query_features, white_trees
@@ -49,6 +60,8 @@ def one_stage(stage_id, models, out):
         white_trees.predict_stage(stage, models, out)         #saved white/mech tree specialists
     elif base_models.supported(stage):
         base_models.predict_stage(stage, models, out)         #saved xgb/lgb/cat/mlp/seq models + fixed blends
+    elif (head := heads(stage)) is not None:
+        head(stage, models, out)                              #saved late heads: nets, readout weights, final layer
     else:
         raise NotImplementedError(f"{stage_id}: no saved-model path for {stage['argv'][0]}")
 

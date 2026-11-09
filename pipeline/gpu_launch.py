@@ -46,6 +46,42 @@ def patch_xgboost():
     xgb.Booster.load_model = load_model
 
 
+DEVICE_ARGS = (r'\bdev = "cpu"', r"""device=(['"])cpu\1""", r"""\.to\((['"])cpu\1\)""", r"""map_location=(['"])cpu\1""")
+
+
+def swap_device(source, target):
+    n = 0
+    for pattern, repl in zip(DEVICE_ARGS, (f'dev = "{target}"', f"device='{target}'", f".to('{target}')", f"map_location='{target}'")):
+        source, k = re.subn(pattern, repl, source)
+        n += k
+    return source, n
+
+
+def swap_imports(root, target):
+    #modules imported from the work folder load with the same device swap (the files on disk stay unchanged)
+    import importlib.abc
+    import importlib.machinery
+    import importlib.util
+
+    class Loader(importlib.machinery.SourceFileLoader):
+        def get_code(self, fullname):
+            src = Path(self.path).read_text(encoding="utf8")
+            return compile(swap_device(src, target)[0], self.path, "exec")
+
+    class Finder(importlib.abc.MetaPathFinder):
+        def find_spec(self, name, path, target_=None):
+            spec = importlib.machinery.PathFinder.find_spec(name, path)
+            if spec is None or not spec.origin or not spec.origin.endswith(".py"):
+                return spec
+            origin = Path(spec.origin).resolve()
+            if root not in origin.parents:
+                return spec
+            return importlib.util.spec_from_file_location(name, origin, loader=Loader(name, str(origin)),
+                                                          submodule_search_locations=spec.submodule_search_locations)
+
+    sys.meta_path.insert(0, Finder())
+
+
 def main():
     script = Path(sys.argv[1]).resolve()
     sys.argv = [str(script), *sys.argv[2:]]
@@ -68,6 +104,12 @@ def main():
             n += 1
         if n == 0:
             raise SystemExit(f"{script.name}: device line not found")
+    elif os.environ.get("KU_SBB_DEVICE_SWAP") == "1":
+        #late torch heads hard-code the cpu (device=, .to(), map_location=) in the script and in the helper
+        #modules it imports from the work folder; swap all of them, results already come back with .cpu()
+        target = os.environ.get("KU_SBB_TORCH_DEV", "cuda")
+        source, n = swap_device(source, target)   #wrappers (n == 0) only import the torch code
+        swap_imports(Path(os.environ.get("KU_SBB_ROOT", script.parent)).resolve(), target)
     try:
         patch_xgboost()
     except ImportError:

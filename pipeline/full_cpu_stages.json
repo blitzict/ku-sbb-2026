@@ -27628,9 +27628,7 @@
     {
       "id": "early_head_5_trend_net",
       "argv": [
-        "experiments/weight_space/trend_870.py",
-        "--mode",
-        "net"
+        "pipeline_helpers/trend870_net_validated.py"
       ],
       "inputs": [
         "data/train_labels.csv",
@@ -27779,7 +27777,7 @@
         "KU_SBB_REBUILD_FIXED": "1",
         "SAVE_WEIGHTS": "1"
       },
-      "evidence": "inputs recorded by the historical trend870_net_candidate run, plus read_data and parent archive; outputs from the fixed source"
+      "evidence": "inputs recorded by the historical trend870_net_candidate run, plus read_data and parent archive; outputs from the fixed source; validation.json from the historical replay + --check run (pipeline_helpers/trend870_net_validated.py)"
     },
     {
       "id": "early_head_6_extend_readout",

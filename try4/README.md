@@ -19,4 +19,4 @@ The complete detector ensemble: 51 base models (XGBoost / LightGBM / CatBoost / 
 
 - Scoring new series with retrained models: `pipeline/predict_new.py` / `inference.ipynb`.
 
-**Status:** the retrain from raw data is in progress. Its models, score and inference notebook will be added here when it finishes.
+**Status:** the retrain from raw data with `pipeline/train_gpu.py --parallel-late` finished with local AUC **0.87886** (original 0.87910); its test predictions have Spearman 0.9994 with the 0.88078 file. The saved-model inference adapters (`pipeline/inference/heads_*.py`) are in the repo; checking them end to end against this retrain, and the trained models and notebook, are still to come.
