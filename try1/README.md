@@ -6,6 +6,7 @@ This was the first submission. It uses two gradient-boosted tree models on the 9
 - `model/hyperparameters.json`: the tuned settings.
 - `model/submission.csv`: the submitted predictions.
 - `v4.py`: loads the saved models, builds the 977 features from the raw test series, and writes `id,break_probability`. The final score is the average of the XGBoost and LightGBM rank percentiles. `train` refits both models from the raw training series.
+- `inference.ipynb`: notebook wrapper around `v4.py predict`. It also compares the output with `model/submission.csv`.
 
 ```console
 python try1/v4.py predict --data data --out-dir try1_out

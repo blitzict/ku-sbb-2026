@@ -9,7 +9,7 @@ Team alias **Blitzict**. Selected solution: **[try3](try3/README.md)**, with the
 | [try3](try3/README.md) ⭐ **selected** | Compact: top-100 features + 36 noise-law columns, 2 LightGBM + 1 XGBoost; scores 4,000 raw series in ~22 min on 2 CPU cores | 0.87583 | 0.87235 |
 | [try4](try4/README.md) (highest score) | Full 0.879 recipe (51 detectors, weight heads, local-rank correction) + MLP correction | **0.88078** | 0.87910 |
 
-Each folder has its training code, saved model, and a script or notebook that scores raw series.
+Each folder has its training code, saved model, an inference script and an `inference.ipynb` notebook that scores raw series.
 
 Run try3 from the raw competition files:
 

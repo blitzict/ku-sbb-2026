@@ -5,7 +5,7 @@ This is a single LightGBM model, saved as 5 fold models, trained on 3,625 label-
 - `model/`: `fold0.txt` to `fold4.txt`, `columns.json` (feature order) and `model.json` (the settings).
 - `train_compact.py`: trains the model from the CPU feature tables made by `train_087910_cpu.py`.
 - `predict_compact.py`: loads the saved models and scores new raw series. It rebuilds every feature with the same frozen scripts used in training and writes `id,break_probability`. Nothing is refit.
-- `inference.ipynb`: notebook wrapper around `predict_compact.py`.
+- `inference.ipynb`: notebook wrapper around `predict_compact.py`. Run on the 4,000 raw test series, it reproduced the submitted predictions exactly (max difference 0).
 
 ```console
 python try2/predict_compact.py --series data/test_series.parquet --ref <training work folder> --out predict_0870 --csv submission.csv
