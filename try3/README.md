@@ -1,37 +1,26 @@
-# try3: compact model ⭐ selected (0.87583 public, 0.8724 local)
+# try3: full 0.879 recipe (highest score: submission 58102347, 0.88078 public)
 
-The "fewest features" version of the 0.879 recipe, built to run fast from raw series. Each fold keeps its **top 100 features** from 35 label-free tables and adds **36 noise-law prior columns**. Three tree models per fold (2 LightGBM, 1 XGBoost) are rank-blended. Kaggle submission **58142084** scored **0.87583** public.
+This is our best model, but scoring new series with it takes hours on a large machine, far beyond the inference limit (30 minutes on 2 CPU cores, 8 GB RAM). The selected solution is its slimmed version, [try4](../try4/README.md).
 
-Inference on the 4,000 test series takes **about 22 minutes on 2 CPU cores** (2.6 GB peak RAM), measured on Kaggle pinned to 2 cores.
+The complete detector ensemble: 51 base models (XGBoost / LightGBM / CatBoost / MLP / sequence CNN) on about 5,100 features and 8 data views, then weight heads and a local-rank correction. Local out-of-fold AUC **0.87910**. With the synthetic-data MLP correction it scored **0.88078** public (Kaggle submission **58102347**).
 
-| Version | Local OOF AUC | Kaggle public |
-|---|---:|---:|
-| top 100 features from 39 tables (earlier try3, submission 58130092) | 0.8727 | 0.87659 |
-| **this model**: the 4 most expensive tables dropped (lrz6, garch, bounds, base features) | **0.8724** | **0.87583** |
+- [designated_088078/](designated_088078/README.md): rewrites the designated CSV exactly (SHA-256 identical to the submitted file) in seconds:
 
-Dropping those 4 tables saves about 7 minutes of inference for -0.0004 local AUC.
+  ```console
+  python try3/designated_088078/predict.py --data data --out submission.csv
+  ```
 
-**How the validation stays honest:** the folds are the seed-7 folds the law priors were fitted on. In each fold, features are ranked on that fold's training rows only, and the prior is fitted on that fold's training labels only. Tables that are priors fitted on all training labels (`transition_odds`, `transport_state`) are excluded.
+- `inference.ipynb`: notebook for the designated submission. It writes the 0.88078 CSV, checks it against the submitted file, and can recompute the MLP part from the raw test series.
 
-## Run
+- Training code, from the raw competition files (at the repo root, shared with try2/try4):
+  - `pipeline/full_cpu_stages.json`: all 473 steps with their arguments, inputs and outputs.
+  - `pipeline/legacy_cpu/` and `pipeline/features_v4.py`: every feature, model and combiner script.
+  - `train_087910_cpu.py` (CPU, one step at a time) or `pipeline/train_gpu.py` (parallel, XGBoost and nets on GPU). Both write the same step records.
 
-```console
-#1 raw competition files -> the 35 feature tables + law priors (only the 77 recipe steps try3 needs)
-python try3/build_features.py --data data --work try3_run --workers 4
-#2 train + save the 15 models (reproduces model/ exactly)
-python try3/train.py --work try3_run --out try3/model
-#3 score new raw series with the saved models -> id,break_probability
-python try3/predict.py --series data/test_series.parquet --ref try3_run --out predict_try3 --csv submission.csv --workers 2
-```
+  ```console
+  python -m pipeline.train_gpu --data data --work cpu_run --workers 6
+  ```
 
-Or open `inference.ipynb`, which wraps step 3. `--ref` is the folder from step 1: a few feature formulas compare a series against training-side reference tables, and the competition data can't be stored in this repo. The final blend averages ranks, so score all test series in one run.
+- Scoring new series with retrained models: `pipeline/predict_new.py` / `inference.ipynb` at the repo root.
 
-## Files
-
-- `build_features.py`: raw files to feature tables, using the full recipe's runner and code.
-- `train.py`: trains and saves the model. `TABLES` lists the 35 tables.
-- `predict.py`: loads the saved models and scores new raw series, running independent steps in parallel.
-- `slim.py`, `slim_mech.py`, `slim_moves.py`, `slim_white.py`, `slim_cols.py`: faster versions of the slow feature steps. They run the same code but compute only the columns the saved models read, so the values are identical (checked against the full steps; `KU_TRY3_NO_SLIM=1` switches them off).
-- `select_features.py`: the feature-count sweep used to pick k = 100.
-- `model/`: 15 fold models, each fold's chosen columns (`columns_fold*.json`), the fitted fold priors (`law_outer7/`) and `results.json`.
-- `submission.csv`: this model's test predictions (submission 58142084).
+**Status:** the retrain from raw data with `pipeline/train_gpu.py --parallel-late` finished with local AUC **0.87886** (original 0.87910); its test predictions have Spearman 0.9994 with the 0.88078 file. The saved-model inference path (`pipeline/predict_new.py` with `pipeline/inference/`) has not been verified end to end: a full run on the test series stopped at a feature-export step. Because try3 cannot meet the inference limit anyway, we did not pursue it further.

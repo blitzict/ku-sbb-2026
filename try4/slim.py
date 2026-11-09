@@ -1,11 +1,11 @@
-"""try3 fast path: compute only the feature columns the saved try3 models read (model folder: KU_TRY3_MODEL).
+"""try4 fast path: compute only the feature columns the saved try4 models read (model folder: KU_TRY4_MODEL).
 
-The full recipe's grid / grid2 / dd / lrz6 / base-feature steps make 977-504 columns each; the 15 try3 models read
+The full recipe's grid / grid2 / dd / lrz6 / base-feature steps make 977-504 columns each; the 15 try4 models read
 3-19 of them per table. These functions call the same original code (imported from the work folder) on the same
 inputs, in the same order, and keep only the needed columns, so the values are identical (checked on all 4,000
 test series against the full tables, see check_slim()).
 
-python try3/slim.py <table> <work>        #table: base | grid | grid2 | dd | lrz6
+python try4/slim.py <table> <work>        #table: base | grid | grid2 | dd | lrz6
 """
 import os
 import sys
@@ -34,7 +34,7 @@ def _need_for(table):
     return slim_cols.needed(TABLE[table])
 
 
-NEED = {}         #filled per table on first use (worker processes rebuild it from KU_TRY3_MODEL)
+NEED = {}         #filled per table on first use (worker processes rebuild it from KU_TRY4_MODEL)
 
 
 def cols(table):

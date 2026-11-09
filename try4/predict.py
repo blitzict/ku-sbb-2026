@@ -1,6 +1,6 @@
-"""try3 (0.87659 public): load the saved models and score new raw series. nothing is trained here.
+"""try4 (0.87583 public): load the saved models and score new raw series. nothing is trained here.
 
-python try3/predict.py --series new_series.parquet --ref <training work folder> --out predict_try3 --csv submission.csv
+python try4/predict.py --series new_series.parquet --ref <training work folder> --out predict_try4 --csv submission.csv
 
 --ref is the training work folder (frozen feature code + training-side reference tables some formulas need)
 """
@@ -97,8 +97,8 @@ def env_for(out):
 
 def slim_cmd(out, stage):
     #the slim replacement of a step (same code, only what the model's columns need), or None for the original script.
-    #the slim scripts read the model's columns from KU_TRY3_MODEL; KU_TRY3_NO_SLIM=1 turns them all off (for checks)
-    if os.environ.get("KU_TRY3_NO_SLIM") == "1":
+    #the slim scripts read the model's columns from KU_TRY4_MODEL; KU_TRY4_NO_SLIM=1 turns them all off (for checks)
+    if os.environ.get("KU_TRY4_NO_SLIM") == "1":
         return None
     sys.path.insert(0, str(HERE))
     import slim
@@ -248,14 +248,14 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--series", required=True)
     p.add_argument("--model", type=Path, default=HERE / "model")
-    p.add_argument("--ref", type=Path, default=Path("try3_run"))
-    p.add_argument("--out", type=Path, default=Path("predict_try3"))
+    p.add_argument("--ref", type=Path, default=Path("try4_run"))
+    p.add_argument("--out", type=Path, default=Path("predict_try4"))
     p.add_argument("--csv", type=Path, default=Path("submission.csv"))
     p.add_argument("--workers", type=int, default=os.cpu_count())
     p.add_argument("--one-stage")
     a = p.parse_args()
     ref, out = a.ref.resolve(), a.out.resolve()
-    os.environ["KU_TRY3_MODEL"] = str(a.model.resolve())          #the slim steps read this model's columns
+    os.environ["KU_TRY4_MODEL"] = str(a.model.resolve())          #the slim steps read this model's columns
     if a.one_stage:
         return one_stage(a.one_stage, ref, out)
     if out.exists() and any(out.iterdir()):

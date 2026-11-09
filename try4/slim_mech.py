@@ -1,13 +1,13 @@
-"""try3 fast path for the jump-law mechanism steps (pipeline_helpers/mechanism.py jump_law_<stream> --part test),
+"""try4 fast path for the jump-law mechanism steps (pipeline_helpers/mechanism.py jump_law_<stream> --part test),
 white_filtered_steps.py and white_model_features.py boundary_<stream>.
 
 each slim_* function runs the same code as the original extract() (same tensors, same order, same batching) for only
 the kernels / designs / evidence kinds that the columns the models read need, so every kept value is identical. the
-columns come from the model folder in use (slim_cols.needed, KU_TRY3_MODEL).
+columns come from the model folder in use (slim_cols.needed, KU_TRY4_MODEL).
 
-python try3/slim_mech.py jump_law_<stream> --part test   (inside the prediction work folder)
-python try3/slim_mech.py boundary_<stream> test
-python try3/slim_mech.py filtered_step
+python try4/slim_mech.py jump_law_<stream> --part test   (inside the prediction work folder)
+python try4/slim_mech.py boundary_<stream> test
+python try4/slim_mech.py filtered_step
 """
 import re
 import sys

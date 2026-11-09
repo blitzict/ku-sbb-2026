@@ -1,6 +1,6 @@
-"""columns the try3 models in use read, per feature table (union of the 5 folds' "top" lists).
+"""columns the try4 models in use read, per feature table (union of the 5 folds' "top" lists).
 
-the model folder comes from KU_TRY3_MODEL (predict.py sets it from --model); default try3_compact/model.
+the model folder comes from KU_TRY4_MODEL (predict.py sets it from --model); default try4/model.
 """
 import json
 import os
@@ -10,7 +10,7 @@ HERE = Path(__file__).resolve().parent
 
 
 def model_dir():
-    return Path(os.environ.get("KU_TRY3_MODEL") or HERE / "model")
+    return Path(os.environ.get("KU_TRY4_MODEL") or HERE / "model")
 
 
 def needed_all(model=None):

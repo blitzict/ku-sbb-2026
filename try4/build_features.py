@@ -1,12 +1,12 @@
-"""try3 step 1: raw competition files -> the feature tables and law priors try3 trains on.
+"""try4 step 1: raw competition files -> the feature tables and law priors try4 trains on.
 
-python try3/build_features.py --data data --work try3_run --workers 4
+python try4/build_features.py --data data --work try4_run --workers 4
 
-Runs only the recorded recipe steps (pipeline/full_cpu_stages.json) that produce try3's 35 feature tables
+Runs only the recorded recipe steps (pipeline/full_cpu_stages.json) that produce try4's 35 feature tables
 (train and test side) and the seed-7 fold-wise noise-law priors, using the same runner, code and settings as the
 full recipe (resumable; completed steps are verified by hash). Then train with:
 
-python try3/train.py --work try3_run --out try3/model
+python try4/train.py --work try4_run --out try4/model
 """
 import os
 import sys
@@ -38,7 +38,7 @@ def table_path(stem):
 
 
 def recipe(stages):
-    #the steps whose outputs try3 needs, plus everything those steps read, in recorded order
+    #the steps whose outputs try4 needs, plus everything those steps read, in recorded order
     targets = [table_path(s).format(p) for s in TABLES for p in ("train", "test")]
     targets += [f"{WS}/law_outer7/fold{k}_{p}" for k in range(5) for p in ("train.parquet", "test.parquet", "rows.npz", "prior.json")]
     prod = {}
@@ -60,7 +60,7 @@ def recipe(stages):
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--data", type=Path, required=True, help="folder with the four raw competition files")
-    p.add_argument("--work", type=Path, default=Path("try3_run"))
+    p.add_argument("--work", type=Path, default=Path("try4_run"))
     p.add_argument("--workers", type=int, default=2)
     p.add_argument("--list", action="store_true", help="only print the steps that would run")
     a = p.parse_args()
@@ -84,7 +84,7 @@ def main():
             stage["argv"] = [*stage["argv"]]
             stage["argv"][2] = str(a.workers)
         run(work, stage)
-    print("try3 feature tables ready in", work, flush=True)
+    print("try4 feature tables ready in", work, flush=True)
 
 
 if __name__ == "__main__":

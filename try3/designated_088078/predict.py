@@ -1,6 +1,6 @@
 """write the designated kaggle submission 58102347 (0.88078 public).
 
-python try4/designated_088078/predict.py --data data --out submission.csv
+python try3/designated_088078/predict.py --data data --out submission.csv
 
 #the final layer of the 0.88078 model: p = sigmoid(parent_logit + features @ weights)
 #parent_logit and the 5 correction features come from model/mixed_replay.npz (saved detector outputs)

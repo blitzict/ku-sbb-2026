@@ -1,7 +1,7 @@
-"""try3 training: few features + fold-wise noise-law prior + a small blend.
+"""try4 training: few features + fold-wise noise-law prior + a small blend.
 
-python try3/build_features.py --data data --work try3_run      #raw files -> the tables below + law priors
-python try3/train.py --work try3_run --out try3/model --k 100
+python try4/build_features.py --data data --work try4_run      #raw files -> the tables below + law priors
+python try4/train.py --work try4_run --out try4/model --k 100
 
 #folds = the seed-7 folds the law priors were fitted on (tune_out/weight_space/law_outer7/fold*_rows.npz)
 #per fold: rank features on the fold's training rows, keep top k, add that fold's law-prior columns
@@ -27,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from select_features import PARAMS, matrix, tables  # noqa: E402
 
 WS = 'tune_out/weight_space'
-#label-free tables try3 ranks features from (the expensive lrz6, garch, bounds and base tables are left out:
+#label-free tables try4 ranks features from (the expensive lrz6, garch, bounds and base tables are left out:
 #they cost ~7 min at inference for -0.0004 local auc)
 TABLES = ['ar_law', 'bf', 'boundary_law_pulse', 'boundary_law_state', 'component_moves_pulse', 'component_moves_state', 'curve',
           'dd', 'filtered_step', 'grid', 'grid2', 'harm', 'hetero_jump', 'innov_v2', 'jump_law_nullstate', 'jump_law_prestate',

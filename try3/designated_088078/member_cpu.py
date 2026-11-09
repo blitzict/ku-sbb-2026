@@ -6,7 +6,7 @@ Its output is the neural member's mean logit, not the complete 0.88078 ensemble.
 The parent ensemble and its confidence-dependent correction remain separate.
 
 Example from the ai folder:
-  python try4/designated_088078/member_cpu.py --data data
+  python try3/designated_088078/member_cpu.py --data data
 
 Feature extraction uses at most two worker processes, one numerical thread
 each. Neural inference uses two CPU threads after the workers have exited.

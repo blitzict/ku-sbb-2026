@@ -1,13 +1,13 @@
-"""try3 fast path for white_model_features.py hetero/memory1, late_features.py native_law_*/latent_level_* and
+"""try4 fast path for white_model_features.py hetero/memory1, late_features.py native_law_*/latent_level_* and
 mechanism.py volatility_law.
 
 each slim_* function is a copy of the original extract() (same tensors, same order, same dtypes, same batching) that
-skips only work whose results never reach the columns the models in use read (slim_cols.needed, KU_TRY3_MODEL), so
+skips only work whose results never reach the columns the models in use read (slim_cols.needed, KU_TRY4_MODEL), so
 every kept value is identical. supported() is False when a column cannot be named here (the original step runs then).
 
-python try3/slim_white.py hetero|memory1 test              (white_model_features.py kinds)
-python try3/slim_white.py native_law_<stream>|latent_level_<stream> test   (late_features.py kinds)
-python try3/slim_white.py volatility_law --part test
+python try4/slim_white.py hetero|memory1 test              (white_model_features.py kinds)
+python try4/slim_white.py native_law_<stream>|latent_level_<stream> test   (late_features.py kinds)
+python try4/slim_white.py volatility_law --part test
 """
 import re
 import sys

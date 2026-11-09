@@ -1,8 +1,8 @@
-"""try3 fast path for pipeline_helpers/component_moves_cpu.py: same script, but summarize() only builds the columns the
-models in use read (slim_cols.needed, KU_TRY3_MODEL). Each kept column goes through the same tensor operations as the
+"""try4 fast path for pipeline_helpers/component_moves_cpu.py: same script, but summarize() only builds the columns the
+models in use read (slim_cols.needed, KU_TRY4_MODEL). Each kept column goes through the same tensor operations as the
 original summarize(), so the values are identical; columns outside the collapse/group set use the original summarize().
 
-python try3/slim_moves.py state|pulse test        (run inside the prediction work folder, like the original step)
+python try4/slim_moves.py state|pulse test        (run inside the prediction work folder, like the original step)
 """
 import sys
 from pathlib import Path
