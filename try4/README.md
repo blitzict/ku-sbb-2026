@@ -1,4 +1,4 @@
-# try4: full 0.879 recipe ⭐ best (designated submission 58102347, 0.88078 public)
+# try4: full 0.879 recipe (highest score: submission 58102347, 0.88078 public)
 
 The complete detector ensemble: 51 base models (XGBoost / LightGBM / CatBoost / MLP / sequence CNN) on about 5,100 features and 8 data views, then weight heads and a local-rank correction. Local out-of-fold AUC **0.87910**. With the synthetic-data MLP correction it scored **0.88078** public (Kaggle submission **58102347**).
 

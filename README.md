@@ -1,21 +1,25 @@
 # Blitzict: structural break detector
 
-Team alias **Blitzict**. Designated Kaggle submission: **58102347** (0.88078 public), in [try4](try4/README.md).
+Team alias **Blitzict**. Selected solution: **[try3](try3/README.md)**, with the full code from raw series to features, training and inference (~22 min on 2 CPU cores). The highest public score, **58102347** (0.88078), is in [try4](try4/README.md).
 
 | | Model | Kaggle public | Local AUC |
 |---|---|---:|---:|
 | [try1](try1/README.md) | XGBoost + LightGBM on the 977 base features | 0.83313 | 0.83835 |
 | [try2](try2/README.md) | LightGBM on 3,625 features | 0.87539 | 0.86987 |
-| [try3](try3/README.md) | Compact: top-100 features + 36 noise-law columns, 2 LightGBM + 1 XGBoost; scores 4,000 raw series in ~22 min on 2 CPU cores | 0.87583 | 0.87235 |
-| [try4](try4/README.md) ⭐ **best** | Full 0.879 recipe (51 detectors, weight heads, local-rank correction) + MLP correction | **0.88078** | 0.87910 |
+| [try3](try3/README.md) ⭐ **selected** | Compact: top-100 features + 36 noise-law columns, 2 LightGBM + 1 XGBoost; scores 4,000 raw series in ~22 min on 2 CPU cores | 0.87583 | 0.87235 |
+| [try4](try4/README.md) (highest score) | Full 0.879 recipe (51 detectors, weight heads, local-rank correction) + MLP correction | **0.88078** | 0.87910 |
 
 Each folder has its training code, saved model, and a script or notebook that scores raw series.
 
-Write the designated submission CSV:
+Run try3 from the raw competition files:
 
 ```console
-python try4/designated_088078/predict.py --data data --out submission.csv
+python try3/build_features.py --data data --work try3_run --workers 4
+python try3/train.py --work try3_run --out try3/model
+python try3/predict.py --series data/test_series.parquet --ref try3_run --out predict_try3 --csv submission.csv --workers 2
 ```
+
+Write try4's 0.88078 submission CSV: `python try4/designated_088078/predict.py --data data --out submission.csv`.
 
 `data/` must hold the competition files (`train_series.parquet`, `test_series.parquet`, `train_labels.csv`, `sample_submission.csv`); they are not in this repo. Setup: `pip install -r requirements-cpu-full.txt` (Python 3.12+).
 

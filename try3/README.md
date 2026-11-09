@@ -1,4 +1,4 @@
-# try3: compact model (0.87583 public, 0.8724 local)
+# try3: compact model ⭐ selected (0.87583 public, 0.8724 local)
 
 The "fewest features" version of the 0.879 recipe, built to run fast from raw series. Each fold keeps its **top 100 features** from 35 label-free tables and adds **36 noise-law prior columns**. Three tree models per fold (2 LightGBM, 1 XGBoost) are rank-blended. Kaggle submission **58142084** scored **0.87583** public.
 
