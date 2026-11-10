@@ -1,0 +1,218 @@
+{
+ "specialist_auc": {
+  "MECH3C12V_s0": {
+   "labels_file": 0.8742661111111112,
+   "sorted_ids": 0.5029914166666666,
+   "X_index": 0.8742661111111112
+  },
+  "MECH3C12V_s1": {
+   "labels_file": 0.8746337638888888,
+   "sorted_ids": 0.5035270625,
+   "X_index": 0.8746337638888888
+  },
+  "MECH3C12V_s2": {
+   "labels_file": 0.8743886041666667,
+   "sorted_ids": 0.5030894583333333,
+   "X_index": 0.8743886041666667
+  },
+  "MECH3C12V_bag": {
+   "labels_file": 0.8748062222222222,
+   "sorted_ids": 0.5032130347222222,
+   "X_index": 0.8748062222222222
+  },
+  "MECH3C1_s0": {
+   "labels_file": 0.8730085625000001,
+   "sorted_ids": 0.502893451388889,
+   "X_index": 0.8730085625000001
+  },
+  "MECH3C12_s0": {
+   "labels_file": 0.8733020486111112,
+   "sorted_ids": 0.5027067083333333,
+   "X_index": 0.8733020486111112
+  }
+ },
+ "specialist_ns3_cols": -1,
+ "picked": {
+  "candidates": 3589,
+  "per_fold": 100,
+  "law_cols": 36,
+  "in_all_5": 39,
+  "union": 192,
+  "fold0_by_family": {
+   "volatility_law": 12,
+   "memory_law1": 7,
+   "latent_level_raw": 7,
+   "boundary_law_pulse": 6,
+   "latent_level_pulse": 5,
+   "boundary_law_state": 5,
+   "native_law_state": 4,
+   "phase_law": 4,
+   "jump_law_smoothvol": 4,
+   "trend": 4,
+   "sn": 4,
+   "partition": 4,
+   "jump_law_nullstate": 3,
+   "lm": 3,
+   "jump_law_pulse": 3,
+   "curve": 3,
+   "ar_law": 2,
+   "jump_law_state": 2,
+   "hetero_jump": 2,
+   "noise_tests": 2,
+   "grid2": 2,
+   "filtered_step": 2,
+   "native_law_pulse": 2,
+   "jump_law_prestate": 1,
+   "periodic": 1,
+   "bf": 1,
+   "component_moves_state": 1,
+   "harm": 1,
+   "innov_v2": 1,
+   "markov_copula": 1,
+   "tail_edges": 1
+  },
+  "in_all_5_list": [
+   "ar_law__aggregate",
+   "bf__bf_max_full",
+   "boundary_law_pulse__any_at",
+   "curve__jump_trend",
+   "hetero_jump__common_shape",
+   "hetero_jump__split_shape",
+   "jump_law_nullstate__shape0",
+   "jump_law_prestate__shape0",
+   "jump_law_smoothvol__scale3",
+   "jump_law_state__shape0",
+   "latent_level_pulse__observed_step2",
+   "latent_level_pulse__restart_new_process",
+   "latent_level_pulse__restart_new_scale",
+   "latent_level_raw__restart_new_scale",
+   "latent_level_raw__restart_state",
+   "lm__lm_lm_ar1",
+   "lm__lm_lmsum",
+   "memory_law1__independent_memory",
+   "memory_law1__jump4",
+   "native_law_state__native_free_scale",
+   "native_law_state__standard_free_scale",
+   "noise_tests__lm_lbf_mix",
+   "partition__lag_product_coarse",
+   "periodic__phase_gain",
+   "phase_law__common_phase",
+   "phase_law__max_evidence",
+   "phase_law__mixture_evidence",
+   "phase_law__phase_bf",
+   "sn__sn_r_lvl_g",
+   "trend__confidence",
+   "trend__intervention",
+   "volatility_law__all",
+   "volatility_law__law3_memory",
+   "volatility_law__law3_null",
+   "volatility_law__memory_and_law",
+   "volatility_law__new_memory",
+   "volatility_law__new_scale",
+   "volatility_law__scale_and_law",
+   "volatility_law__scale_jump2"
+  ],
+  "law_list": [
+   "law__v0",
+   "law__v1",
+   "law__v2",
+   "law__v3",
+   "law__v4",
+   "law__v5",
+   "law__v6",
+   "law__v7",
+   "law__v8",
+   "law__v9",
+   "law__v10",
+   "law__v11",
+   "law__v12",
+   "law__v13",
+   "law__v14",
+   "law__v15",
+   "law__v16",
+   "law__v17",
+   "law__v18",
+   "law__v19",
+   "law__v20",
+   "law__v21",
+   "law__v22",
+   "law__v23",
+   "law__v24",
+   "law__v25",
+   "law__v26",
+   "law__v27",
+   "law__v28",
+   "law__v29",
+   "law__v30",
+   "law__v31",
+   "law__v32",
+   "law__v33",
+   "law__v34",
+   "law__v35"
+  ]
+ },
+ "example_break": {
+  "fold": 3,
+  "label": 1,
+  "lgb_law_prob": 0.9997135741188065,
+  "base_logodds": 0.7277780974078545,
+  "sum_logodds": 8.157744292755392,
+  "blend_rank_pct": 0.9989166666666667,
+  "mean_shift_sd": 0.024962650971191748,
+  "abs_log_sd_ratio": 0.0774888718659016,
+  "length": 972,
+  "pre_len": 440,
+  "rest_contrib": 3.6330101105923482,
+  "n_cols": 136,
+  "top": [
+   {
+    "name": "jump_law_prestate__shape0",
+    "value": 28.58526611328125,
+    "contrib": 0.6688793837582774,
+    "pct_vs_nobreak": 0.9995833333333334
+   },
+   {
+    "name": "latent_level_pulse__restart_new_process",
+    "value": 112.92388916015625,
+    "contrib": 0.6315491106369813,
+    "pct_vs_nobreak": 1.0
+   },
+   {
+    "name": "grid2__r_mrng10_cvm",
+    "value": 60.96272659301758,
+    "contrib": 0.5929134787361053,
+    "pct_vs_nobreak": 1.0
+   },
+   {
+    "name": "volatility_law__new_memory",
+    "value": 5.308320999145508,
+    "contrib": 0.5073441653997233,
+    "pct_vs_nobreak": 0.9995833333333334
+   },
+   {
+    "name": "native_law_state__native_free_scale",
+    "value": 74.15310668945312,
+    "contrib": 0.44566284931872635,
+    "pct_vs_nobreak": 1.0
+   },
+   {
+    "name": "memory_law1__jump4",
+    "value": 36.75507354736328,
+    "contrib": 0.360790761206729,
+    "pct_vs_nobreak": 1.0
+   },
+   {
+    "name": "volatility_law__scale_cluster4",
+    "value": 9.104206085205078,
+    "contrib": 0.3260140125495848,
+    "pct_vs_nobreak": 1.0
+   },
+   {
+    "name": "memory_law1__independent_memory",
+    "value": 34.51544952392578,
+    "contrib": 0.26380232314906205,
+    "pct_vs_nobreak": 1.0
+   }
+  ]
+ }
+}

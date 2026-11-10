@@ -1,0 +1,34 @@
+{
+ "groups": {
+  "setup": 37.8,
+  "window/change tests": 209.2,
+  "mechanism laws": 710.6,
+  "latent/boundary laws": 846.1999999999999,
+  "white-noise laws": 672.9
+ },
+ "sum": 2476.7,
+ "wall": 1306.7,
+ "slowest": [
+  [
+   "late_feature_component_moves_state_test",
+   360.5
+  ],
+  [
+   "white_feature_filtered_step",
+   205.1
+  ],
+  [
+   "late_feature_component_moves_pulse_test",
+   144.4
+  ],
+  [
+   "white_feature_boundary_state_test",
+   130.9
+  ],
+  [
+   "white_feature_boundary_pulse_test",
+   128.5
+  ]
+ ],
+ "steps": 41
+}

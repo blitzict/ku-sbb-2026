@@ -1,0 +1,8 @@
+{
+ "mean_shift_auc": 0.6197562222222222,
+ "std_ratio_auc": 0.6201695347222222,
+ "n": 24000,
+ "break_rate": 0.5,
+ "len_median": 637.0,
+ "breaks_mean_shift_below_0.1sd": 0.39458333333333334
+}
