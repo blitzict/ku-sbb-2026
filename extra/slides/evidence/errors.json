@@ -1,0 +1,106 @@
+{
+ "n": 24000,
+ "breaks": 12000,
+ "threshold": "top half",
+ "by_length": [
+  {
+   "label": "256\u2013513 pts",
+   "n": 8000,
+   "breaks": 3980,
+   "auc": 0.8241795107377685,
+   "break_caught": 0.7462311557788944,
+   "nobreak_flagged": 0.26666666666666666
+  },
+  {
+   "label": "513\u2013766 pts",
+   "n": 7989,
+   "breaks": 4004,
+   "auc": 0.875539454272202,
+   "break_caught": 0.7837162837162838,
+   "nobreak_flagged": 0.20903387703889587
+  },
+  {
+   "label": "766\u20131024 pts",
+   "n": 8011,
+   "breaks": 4016,
+   "auc": 0.9077476701454507,
+   "break_caught": 0.8212151394422311,
+   "nobreak_flagged": 0.17221526908635795
+  }
+ ],
+ "by_position": [
+  {
+   "label": "point at 30\u201343%",
+   "n": 8050,
+   "breaks": 3996,
+   "auc": 0.881179218192045,
+   "break_caught": 0.7880380380380381,
+   "nobreak_flagged": 0.19610261470152934
+  },
+  {
+   "label": "point at 43\u201357%",
+   "n": 7909,
+   "breaks": 3969,
+   "auc": 0.868945814836557,
+   "break_caught": 0.7840765936004032,
+   "nobreak_flagged": 0.21903553299492387
+  },
+  {
+   "label": "point at 57\u201370%",
+   "n": 8041,
+   "breaks": 4035,
+   "auc": 0.86636399180659,
+   "break_caught": 0.7794299876084263,
+   "nobreak_flagged": 0.23339990014977532
+  }
+ ],
+ "by_visibility": [
+  {
+   "label": "< 0.05 SD",
+   "n": 3384,
+   "breaks": 1020,
+   "auc": 0.8314046896254271,
+   "break_caught": 0.5774509803921568,
+   "nobreak_flagged": 0.09179357021996616
+  },
+  {
+   "label": "0.05\u20130.15",
+   "n": 7905,
+   "breaks": 2600,
+   "auc": 0.7950681867614007,
+   "break_caught": 0.5676923076923077,
+   "nobreak_flagged": 0.13628652214891612
+  },
+  {
+   "label": "0.15\u20130.5",
+   "n": 6107,
+   "breaks": 3885,
+   "auc": 0.8662167954247162,
+   "break_caught": 0.87001287001287,
+   "nobreak_flagged": 0.40414041404140416
+  },
+  {
+   "label": "> 0.5 SD",
+   "n": 6604,
+   "breaks": 4495,
+   "auc": 0.897436907664646,
+   "break_caught": 0.8812013348164628,
+   "nobreak_flagged": 0.3579895685158843
+  }
+ ],
+ "length_range": [
+  256,
+  1024
+ ],
+ "pos_range": [
+  0.3,
+  0.7
+ ],
+ "missed_breaks": 2594,
+ "false_alarms": 2593,
+ "missed_median_vis": 0.12039786804271957,
+ "caught_median_vis": 0.3994476720638177,
+ "missed_share_vis_lt_0.05": 0.1661526599845798,
+ "fa_median_vis": 0.2160726850619755,
+ "nobreak_median_vis": 0.10566963970069691
+}

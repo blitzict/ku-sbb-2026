@@ -26,7 +26,7 @@ Write try3's 0.88078 submission CSV: `python try3/designated_088078/predict.py -
 ## Extra resources
 
 - [extra/qualification/report.pdf](extra/qualification/report.pdf): the 3-page report (pipeline, feature families, results).
-- [extra/slides/slides.pdf](extra/slides/slides.pdf): the 26-slide presentation (sources in [extra/slides/](extra/slides/README.md)).
+- [extra/slides/slides.pdf](extra/slides/slides.pdf): the 32-slide presentation (sources in [extra/slides/](extra/slides/README.md)).
 - [extra/FEATURES.md](extra/FEATURES.md): every feature family.
 - `pipeline/`: shared code for all tries (feature scripts, the 473-step recipe, GPU/CPU runners, inference).
 - `CPU_087910.ipynb` / `train_087910_cpu.py`: training notebook and script for the full recipe; `inference.ipynb`: scoring notebook.
