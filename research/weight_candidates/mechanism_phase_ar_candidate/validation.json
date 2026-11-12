@@ -1,0 +1,63 @@
+{
+  "validation": "Five-fold meta validation on 24,000 existing out-of-fold base predictions",
+  "initial_splits": {
+    "7": {
+      "auc": 0.8671477361111111,
+      "weighted_auc": 0.8605886649115115
+    },
+    "29": {
+      "auc": 0.8675035277777778,
+      "weighted_auc": 0.8608996302602465
+    },
+    "0": {
+      "auc": 0.8673866458333334,
+      "weighted_auc": 0.8607770198138718
+    }
+  },
+  "additional_splits": {
+    "0": {
+      "fusion": {
+        "auc": 0.8538912361111111,
+        "weighted_auc": 0.849116420984612
+      },
+      "candidate": {
+        "auc": 0.8673866458333334,
+        "weighted_auc": 0.8607770198138718
+      }
+    },
+    "123": {
+      "fusion": {
+        "auc": 0.8537562152777777,
+        "weighted_auc": 0.8489815117087184
+      },
+      "candidate": {
+        "auc": 0.8671515972222222,
+        "weighted_auc": 0.8605437022423306
+      }
+    },
+    "2024": {
+      "fusion": {
+        "auc": 0.8537863750000001,
+        "weighted_auc": 0.8490446986085123
+      },
+      "candidate": {
+        "auc": 0.8671536041666668,
+        "weighted_auc": 0.8605743944337074
+      }
+    },
+    "61543": {
+      "fusion": {
+        "auc": 0.8539095833333332,
+        "weighted_auc": 0.8492305026549987
+      },
+      "candidate": {
+        "auc": 0.8673175624999999,
+        "weighted_auc": 0.8607885166287885
+      }
+    }
+  },
+  "recipe_sha256": "c218f932ef5254262cbeec662e1541b7a7080a858e3cdea7fabdf24c33c264a7",
+  "submission_sha256": "5fa933f305252be2e082de1bcd08ea7790aea52544f62f4c8cd9b78e3914a5c5",
+  "rows": 4000,
+  "paired_original_sha256": "f769bdde48cd8151f0d15cfb428a179b383abc748c82a922df84627b72014921"
+}

@@ -1,0 +1,186 @@
+{
+  "status": "Manually matched to source and historical command records; not yet run in the full fresh workspace",
+  "recipes": {
+    "paired_view_v1": {
+      "argv": [
+        "experiments/weight_space/white_view_contrasts.py",
+        "paired_view_v1",
+        "MECH3C12V_s0",
+        "MECH3C12V_s1",
+        "MECH3C12V_s2",
+        "MECH3C12R_s0"
+      ],
+      "command_timestamp": "2026-11-04T14:41:52.653Z",
+      "outputs": [
+        "tune_out/weight_space/paired_view_v1_train.parquet",
+        "tune_out/weight_space/paired_view_v1_test.parquet",
+        "tune_out/weight_space/paired_view_v1_sources.json"
+      ],
+      "evidence": "white_view_contrasts.generate writes the requested tag and computes crop/reversal contrasts from the listed version predictions; command recovered from cmd_db.jsonl"
+    },
+    "lawvoltree": {
+      "argv": [
+        "experiments/weight_space/white_second_tree.py",
+        "lawvoltree"
+      ],
+      "command_timestamp": "2026-11-04T13:56:04.718Z",
+      "outputs": [
+        "tune_out/weight_space/lawvoltree.npz",
+        "tune_out/weight_space/lawvoltree_res.npz"
+      ],
+      "checkpoints": "tune_out/weight_space/lawvoltree_models/{standalone,residual}{0..4}.txt",
+      "evidence": "white_second_tree.run trains both standalone and residual modes and writes both packs for the supplied name",
+      "additional_dependency": "Residual mode requires freshly rebuilt white_checkpoint.CACHE; do not substitute its historical frozen offsets"
+    },
+    "wn_stage_reversible_rank_oof": {
+      "argv": [
+        "experiments/weight_space/white_stage.py",
+        "reversible_rank",
+        "--tables",
+        "transition_odds",
+        "component_moves_state",
+        "--extra",
+        "claude_crop1",
+        "claude_allcrop1",
+        "claude_cropbag",
+        "claude_two_crop",
+        "claude_cropvol",
+        "claude_cropvolbag",
+        "claude_rev",
+        "claude_revvol",
+        "symtree_orig_c1_c2",
+        "symtree_extra_orig_c1_c2",
+        "lawvoltree",
+        "lawpredictive",
+        "lawforecast",
+        "lawrank_original",
+        "lawrank_crops"
+      ],
+      "command_timestamp": "2026-11-04T14:43:44.595Z",
+      "outputs": [
+        "tune_out/weight_space/wn_stage_reversible_rank_oof.npz"
+      ],
+      "evidence": "Historical exec command, confirmed white_stage.run writes wn_stage_<tag>_oof.npz; default six SEEDS"
+    },
+    "claude_crop_three_partitions": {
+      "argv": [
+        "experiments/weight_space/white_source_bag.py",
+        "claude_crop_three_partitions",
+        "claude_cropvolbag",
+        "claude_two_crop_k29",
+        "claude_two_crop_k7"
+      ],
+      "command_timestamp": "2026-11-04T16:27:37.707Z",
+      "outputs": [
+        "tune_out/weight_space/claude_crop_three_partitions.npz"
+      ],
+      "evidence": "white_source_bag.combine computes arithmetic mean of logits, then expit. It is not a mean of probabilities."
+    },
+    "transfer_member": {
+      "argv": [
+        "experiments/weight_space/transfer_member.py",
+        "--prepare"
+      ],
+      "command_timestamp": "2026-11-04T10:53:00.181Z",
+      "outputs": [
+        "tune_out/weight_space/noise_tests_train.parquet",
+        "tune_out/weight_space/noise_tests_test.parquet",
+        "tune_out/weight_space/transfer_member_train.parquet",
+        "tune_out/weight_space/transfer_member_test.parquet"
+      ],
+      "evidence": "prepare computes LR/LM/SN on separate innovation streams; train always runs afterward; three modes, fivefold seed0, each saves model"
+    },
+    "physical_ft_8": {
+      "argv": [
+        "experiments/weight_space/white_physical_net.py",
+        "--epochs",
+        "8"
+      ],
+      "evidence": "Source run(epochs) outputs physical_ft_<epochs>; eight also CLI default; checkpoint directories exist. Needs fresh white_loop plus base sequence models, outer0 law tables and raw physical streams",
+      "outputs": [
+        "tune_out/weight_space/physical_ft_8/fold0.pt",
+        "tune_out/weight_space/physical_ft_8/fold1.pt",
+        "tune_out/weight_space/physical_ft_8/fold2.pt",
+        "tune_out/weight_space/physical_ft_8/fold3.pt",
+        "tune_out/weight_space/physical_ft_8/fold4.pt"
+      ]
+    },
+    "pulse_seq": {
+      "call": {
+        "module": "periodic_replay",
+        "function": "run",
+        "args": [
+          "pulse"
+        ]
+      },
+      "command_timestamp": "2026-11-04T11:31:42.083Z",
+      "evidence": "Recovered inline import periodic_replay as r; r.run(prefix). Old CLI choices omitted supported prefixes; function supports arbitrary matching streams",
+      "outputs": [
+        "tune_out/weight_space/pulse_seq_train.parquet",
+        "tune_out/weight_space/pulse_seq_test.parquet"
+      ]
+    },
+    "state_seq": {
+      "call": {
+        "module": "periodic_replay",
+        "function": "run",
+        "args": [
+          "state"
+        ]
+      },
+      "command_timestamp": "2026-11-04T11:35:05.318Z",
+      "evidence": "Recovered inline import periodic_replay as r; r.run(prefix). Old CLI choices omitted supported prefixes; function supports arbitrary matching streams",
+      "outputs": [
+        "tune_out/weight_space/state_seq_train.parquet",
+        "tune_out/weight_space/state_seq_test.parquet"
+      ]
+    },
+    "ps": {
+      "argv_by_split": [
+        [
+          "experiments/v6/features_ps.py",
+          "train"
+        ],
+        [
+          "experiments/v6/features_ps.py",
+          "test"
+        ]
+      ],
+      "outputs": [
+        "tune_out/ps_train.parquet",
+        "tune_out/ps_test.parquet"
+      ],
+      "evidence": "Direct writer is features_ps.py main, lines139-147, already CPU ported. Persistence/unit-root/mixture-shape statistics; not a seq_head output."
+    },
+    "curve_seq": {
+      "call": {
+        "module": "periodic_replay",
+        "function": "run",
+        "args": [
+          "curve"
+        ]
+      },
+      "command_timestamp": "2026-11-04T11:18:12.021Z",
+      "evidence": "Exact inline r.run(curve) recovered; same shared replay function as pulse and state",
+      "outputs": [
+        "tune_out/weight_space/curve_seq_train.parquet",
+        "tune_out/weight_space/curve_seq_test.parquet"
+      ]
+    },
+    "local_rank_concordance_tree_channels_shared_oof": {
+      "argv": [
+        "experiments/weight_space/white_concordance.py",
+        "--channels",
+        "tree_channels_shared"
+      ],
+      "command_timestamp": "2026-11-04T17:00:24.825Z",
+      "prerequisite_argv": [
+        "experiments/weight_space/white_group_contrasts.py"
+      ],
+      "outputs": [
+        "tune_out/weight_space/local_rank_concordance_tree_channels_shared_oof.npz"
+      ],
+      "evidence": "Exact command invokes group_contrasts then concordance --channels tree_channels_shared; focus default0.07 produces requested filename"
+    }
+  }
+}

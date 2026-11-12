@@ -1,6 +1,6 @@
 # try2: 0.875 model (load and predict)
 
-This is a single LightGBM model, saved as 5 fold models, trained on 3,625 label-free features: the base, statistical and mechanism tables listed in `../extra/FEATURES.md`. Out-of-fold AUC is **0.86987**; Kaggle public score **0.875**, using 5 stratified folds with seed 7.
+This is a single LightGBM model, saved as 5 fold models, trained on 3,625 label-free features: the base, statistical and mechanism tables listed in `../docs/FEATURES.md`. Out-of-fold AUC is **0.86987**; Kaggle public score **0.875**, using 5 stratified folds with seed 7.
 
 - `model/`: `fold0.txt` to `fold4.txt`, `columns.json` (feature order) and `model.json` (the settings).
 - `train_compact.py`: trains the model from the CPU feature tables made by `train_087910_cpu.py`.
@@ -30,7 +30,7 @@ python try2/train_compact.py --work cpu_run --out try2/model
 python try2/predict_compact.py --series data/test_series.parquet --ref cpu_run --out predict_try2 --csv submission.csv
 ```
 
-The feature code is `pipeline/features_v4.py` plus the scripts under `pipeline/legacy_cpu/`. They are listed in `../extra/FEATURES.md`, and the exact steps are in `pipeline/full_cpu_stages.json`.
+The feature code is `pipeline/features_v4.py` plus the scripts under `pipeline/legacy_cpu/`. They are listed in `../docs/FEATURES.md`, and the exact steps are in `pipeline/full_cpu_stages.json`.
 
 ## Original probe
 

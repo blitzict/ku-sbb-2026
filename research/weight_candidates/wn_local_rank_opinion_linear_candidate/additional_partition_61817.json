@@ -1,0 +1,105 @@
+{
+  "recipe_sha256": "92344fe091447a3b78e0c73dbaf25776fc410158eed1655a0f7e5a8e0f60c284",
+  "scores": {
+    "7": {
+      "locked": {
+        "auc": 0.8709431458333334,
+        "weighted": 0.8655303739933105,
+        "remaining": 0.9010736499985093,
+        "target_vs_neg": 0.46067651238327245,
+        "target_vs_wn_neg": 0.4646720193667462,
+        "wn": 0.8741609840573812,
+        "target_above_median": 52
+      },
+      "parent": {
+        "auc": 0.8786842777777777,
+        "weighted": 0.8730813686254772,
+        "remaining": 0.9067801383546531,
+        "target_vs_neg": 0.49612200568412507,
+        "target_vs_wn_neg": 0.4970976298711565,
+        "wn": 0.879771924684365,
+        "target_above_median": 86
+      },
+      "candidate": {
+        "auc": 0.8788825555555556,
+        "weighted": 0.8732693166363603,
+        "remaining": 0.9067932805558041,
+        "target_vs_neg": 0.4988411490052781,
+        "target_vs_wn_neg": 0.4994996603694588,
+        "wn": 0.879799539387826,
+        "target_above_median": 94
+      },
+      "recovery": {
+        "parent": {
+          "fpr_5": 8,
+          "fpr_10": 11,
+          "fpr_20": 42,
+          "fpr_30": 98,
+          "fpr_50": 354
+        },
+        "candidate": {
+          "fpr_5": 12,
+          "fpr_10": 24,
+          "fpr_20": 83,
+          "fpr_30": 156,
+          "fpr_50": 414
+        },
+        "net_target_pairs": 375998,
+        "up": 528,
+        "down": 292,
+        "tied": 1
+      }
+    },
+    "61817": {
+      "locked": {
+        "auc": 0.8711472152777777,
+        "weighted": 0.8656932147268155,
+        "remaining": 0.9012603616900737,
+        "target_vs_neg": 0.4611169305724726,
+        "target_vs_wn_neg": 0.46469883757094316,
+        "wn": 0.874112017222505,
+        "target_above_median": 50
+      },
+      "parent": {
+        "auc": 0.8781305416666666,
+        "weighted": 0.8724734913449612,
+        "remaining": 0.9062501267257059,
+        "target_vs_neg": 0.4952452293950468,
+        "target_vs_wn_neg": 0.49563823923679395,
+        "wn": 0.879181488312124,
+        "target_above_median": 89
+      },
+      "candidate": {
+        "auc": 0.8783166250000001,
+        "weighted": 0.872643409499074,
+        "remaining": 0.9062291424396935,
+        "target_vs_neg": 0.4982508120178644,
+        "target_vs_wn_neg": 0.49860645406101656,
+        "wn": 0.8793954415277956,
+        "target_above_median": 91
+      },
+      "recovery": {
+        "parent": {
+          "fpr_5": 7,
+          "fpr_10": 12,
+          "fpr_20": 43,
+          "fpr_30": 99,
+          "fpr_50": 358
+        },
+        "candidate": {
+          "fpr_5": 14,
+          "fpr_10": 26,
+          "fpr_20": 85,
+          "fpr_30": 155,
+          "fpr_50": 409
+        },
+        "net_target_pairs": 365843,
+        "up": 527,
+        "down": 294,
+        "tied": 0
+      }
+    }
+  },
+  "primary_max_logit_error": 6.270894914450764e-11,
+  "scope": "Predeclared output split on the same 24,000 sources and existing base OOF scores. The primary partition was reconstructed and checked first."
+}

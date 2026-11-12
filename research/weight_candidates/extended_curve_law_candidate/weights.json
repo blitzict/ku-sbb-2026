@@ -1,0 +1,86 @@
+{
+  "spec": "curve.law",
+  "scores": {
+    "7": {
+      "parent": {
+        "auc": 0.8684041666666666,
+        "weighted_auc": 0.8619642660203741
+      },
+      "35.0": {
+        "auc": 0.8685322569444445,
+        "weighted_auc": 0.8622872194906468
+      },
+      "140.0": {
+        "auc": 0.8685523333333333,
+        "weighted_auc": 0.8623011132199861
+      }
+    },
+    "29": {
+      "parent": {
+        "auc": 0.8689333472222223,
+        "weighted_auc": 0.8624508852951618
+      },
+      "35.0": {
+        "auc": 0.869165861111111,
+        "weighted_auc": 0.8629414545919795
+      },
+      "140.0": {
+        "auc": 0.8691572222222221,
+        "weighted_auc": 0.8629030319353288
+      }
+    },
+    "0": {
+      "parent": {
+        "auc": 0.8685751388888889,
+        "weighted_auc": 0.8621031364225423
+      },
+      "35.0": {
+        "auc": 0.8686620138888889,
+        "weighted_auc": 0.8623403762597919
+      },
+      "140.0": {
+        "auc": 0.8686985694444445,
+        "weighted_auc": 0.8623881792125881
+      }
+    }
+  },
+  "selected": 140.0,
+  "weights": [
+    0.009251430517051209,
+    0.007823472512361658,
+    0.028258449371907645,
+    -0.013857936129874479,
+    -0.01865604156991471,
+    -0.03725611156392405,
+    -0.039575142864391476,
+    0.0094232481286695,
+    -0.029973560553725676,
+    0.04224327307051807,
+    0.02783668628016919,
+    0.01704618774799233,
+    -0.021591998140771406,
+    0.013924341596317521,
+    0.007415626626864256,
+    0.05065086816225806,
+    0.014058780434885522,
+    -0.006919984308819497,
+    0.06928602777357042,
+    -0.03568254045474469,
+    -0.010185405047499195,
+    0.07336155210155484,
+    0.0056477061696582846,
+    -0.08642617335821323
+  ],
+  "hashes": {
+    "new weights\\trend870_net_candidate\\weights.json": "d8e4d487cb559a3849a5f068c98862c4977c89e624201900f9b1b04aa2d9e293",
+    "new weights\\trend870_net_candidate\\submission.csv": "ccfe13b574cafe0d7991b897417b01c603bff13f0115a09c56939a7fd0a3b9e4",
+    "experiments\\weight_space\\extend_readout.py": "a291ffcbe436ae8af8dcc2466e6a8c70a755719963e1fd810b91fd6818a72c3e",
+    "experiments\\weight_space\\curve_channels.py": "f2998adfa3e51a3921674702e3e1752b0aca3fdfe6892d99a0f3a545fb6ad386",
+    "tune_out\\weight_space\\curve_train.parquet": "a0eeed877332026ee6b4e4c10b46149429cc183f5eaa2e703d9c7be303a31a2f",
+    "tune_out\\weight_space\\curve_test.parquet": "77d66dc5e9ba108b5bba9eb9af5d31863accdc0db2ba07a0261b2acddbefc0f9",
+    "tune_out\\weight_space\\ar_law_train.parquet": "1187a987f329c35189a56ea366ac0e030523e3b89693a42b8d6b53e6ba8b9af6",
+    "tune_out\\weight_space\\ar_law_test.parquet": "c1a5d11f2d3eb89bcf5a1dbdc8c0cb65e3ea9170a786823943de567db46f8f89",
+    "tune_out\\weight_space\\trend_train.parquet": "86c8bdd666b957825856c4c0bd64cb65d6c3332f8438943f7f7d2c272982ee84",
+    "tune_out\\weight_space\\trend_test.parquet": "1afb5bcec27d553b0bcb21621b2dac705bba6f45bac3a22d27ba59ecb11e9e85"
+  }
+}

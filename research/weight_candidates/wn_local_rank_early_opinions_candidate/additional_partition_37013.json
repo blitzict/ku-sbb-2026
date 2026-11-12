@@ -1,0 +1,104 @@
+{
+  "recipe_sha256": "a48c04afdcee3ed8cc4a0cca3b2470fe5b7963036726c358f16ea95b5abb6a43",
+  "scores": {
+    "7": {
+      "baseline": {
+        "auc": 0.8709431458333334,
+        "weighted": 0.8655303739933105,
+        "remaining": 0.9010736499985093,
+        "target_vs_neg": 0.46067651238327245,
+        "target_vs_wn_neg": 0.4646720193667462,
+        "wn": 0.8741609840573812,
+        "target_above_median": 52
+      },
+      "stage": {
+        "auc": 0.8768270763888888,
+        "weighted": 0.8713819185197852,
+        "remaining": 0.9042417926469272,
+        "target_vs_neg": 0.5035394843686561,
+        "target_vs_wn_neg": 0.5014657949816335,
+        "wn": 0.878780035848906,
+        "target_above_median": 93
+      },
+      "candidate": {
+        "auc": 0.8781816319444444,
+        "weighted": 0.8726000061883639,
+        "remaining": 0.9059847705519277,
+        "target_vs_neg": 0.4996051563134389,
+        "target_vs_wn_neg": 0.5000972660241773,
+        "wn": 0.879521286833304,
+        "target_above_median": 89
+      },
+      "recovery": {
+        "parent": {
+          "fpr_5": 8,
+          "fpr_10": 11,
+          "fpr_20": 42,
+          "fpr_30": 98,
+          "fpr_50": 354
+        },
+        "candidate": {
+          "fpr_5": 12,
+          "fpr_10": 20,
+          "fpr_20": 86,
+          "fpr_30": 157,
+          "fpr_50": 412
+        },
+        "net_target_pairs": 383525,
+        "up": 540,
+        "down": 279,
+        "tied": 2
+      }
+    },
+    "37013": {
+      "baseline": {
+        "auc": 0.8713616527777779,
+        "weighted": 0.8658152266927697,
+        "remaining": 0.9014199615350211,
+        "target_vs_neg": 0.4620780552172148,
+        "target_vs_wn_neg": 0.465619462491139,
+        "wn": 0.8742853177075682,
+        "target_above_median": 50
+      },
+      "stage": {
+        "auc": 0.876937423611111,
+        "weighted": 0.8713470412241353,
+        "remaining": 0.904260525688046,
+        "target_vs_neg": 0.5048972797401543,
+        "target_vs_wn_neg": 0.5013477148288258,
+        "wn": 0.8786535426911168,
+        "target_above_median": 94
+      },
+      "candidate": {
+        "auc": 0.8778800625,
+        "weighted": 0.8722036586843483,
+        "remaining": 0.9055174956018726,
+        "target_vs_neg": 0.501559886317499,
+        "target_vs_wn_neg": 0.5005932026659696,
+        "wn": 0.8791925557885842,
+        "target_above_median": 89
+      },
+      "recovery": {
+        "parent": {
+          "fpr_5": 8,
+          "fpr_10": 12,
+          "fpr_20": 44,
+          "fpr_30": 97,
+          "fpr_50": 358
+        },
+        "candidate": {
+          "fpr_5": 13,
+          "fpr_10": 25,
+          "fpr_20": 85,
+          "fpr_30": 168,
+          "fpr_50": 409
+        },
+        "net_target_pairs": 388975,
+        "up": 524,
+        "down": 297,
+        "tied": 0
+      }
+    }
+  },
+  "scope": "New output-weight partition on the same series and existing base OOF predictions. Primary split 7 was independently reconstructed first."
+}

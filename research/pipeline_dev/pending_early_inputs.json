@@ -1,0 +1,6 @@
+[
+  "new weights/hard_state_tree_candidate/replay.py",
+  "tune_out/ver_VARC4harm_ns3_s0.npz",
+  "tune_out/ver_VARC4harm_ns3_s1.npz",
+  "tune_out/weight_space/hard_state_tree_verified_oof.npz"
+]

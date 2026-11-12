@@ -1,0 +1,4 @@
+# Install from this directory for the raw-only CPU trainer.
+-r requirements.txt
+pyarrow==26.0.0
+lightgbm==4.7.0

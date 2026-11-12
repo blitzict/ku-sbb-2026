@@ -1,0 +1,38 @@
+{
+  "weights": [
+    0.1,
+    0.1
+  ],
+  "method": "physical",
+  "members": [
+    "claude_joint_objectives",
+    "law_linked_plus_rank"
+  ],
+  "parent_quantiles": [
+    -1.3220265633222568,
+    -0.5212411328752017,
+    2.396870644292485
+  ],
+  "member_quantiles": [
+    [
+      -1.346890627782085,
+      -1.2441235356590277
+    ],
+    [
+      -0.4606421003524181,
+      -0.4571288381146203
+    ],
+    [
+      1.9865285596781024,
+      1.8087438552120814
+    ]
+  ],
+  "hashes": {
+    "new weights\\wn_local_rank_early_mode_peaks_candidate\\weights.json": "efe152bc674880095b262725d2654dde0bc864876fe97392a027e515402f147c",
+    "experiments\\weight_space\\white_fold_vote.py": "7f3216fdcd60988b6a95d5dbb8e45559bd4631164d8d8b9f8a28ee08d3995173",
+    "tune_out\\weight_space\\claude_joint_objectives.npz": "9f7a02a08827088e8abd33db456b8bde775eda202ec3685b6c4ff69ba7db5392",
+    "tune_out\\weight_space\\law_linked_plus_rank.npz": "550e980b28fefcef908b549f76276c238c3aa7296d0007489af5e20bbf73ef31",
+    "tune_out\\weight_space\\innov_v2_train.parquet": "98a93f4e8591079a4fa1eb900d75b6c60b76bbc1afad2362c0a80b8167e3d741",
+    "tune_out\\weight_space\\innov_v2_test.parquet": "bba33de9e5e5c3527c93bfc07f6094ab8b3888fdb3ce7c6d0b420ff231b53421"
+  }
+}

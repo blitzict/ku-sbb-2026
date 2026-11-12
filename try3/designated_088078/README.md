@@ -11,7 +11,7 @@ This command writes the designated CSV and checks it against `model/submission.c
 How the prediction is made:
 
 - The final layer is `p = sigmoid(parent_logit + features @ weights)`, with 5 weights. Its inputs are stored in `model/mixed_replay.npz`.
-- The parent logit is the output of the 0.879 detector ensemble. Its code is the full recipe in `pipeline/`, documented in `extra/FEATURES.md` and `extra/qualification/report.pdf`.
+- The parent logit is the output of the 0.879 detector ensemble. Its code is the full recipe in `pipeline/`, documented in `docs/FEATURES.md` and `docs/qualification/report.pdf`.
 - **Limitation:** many of the original upstream models were saved only as predictions, so `predict.py` replays the saved detector outputs. Retraining the recipe from raw data (`python -m pipeline.train_gpu ...`, see `try3/`) saves every model, but fresh fits give slightly different predictions, so it will not match this CSV within 1e-6.
 - The synthetic-data MLP part can be recomputed from the raw test series:
 

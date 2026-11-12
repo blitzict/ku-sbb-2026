@@ -1,0 +1,2058 @@
+{
+ "meta": {
+  "requires_env": [
+   "KU_SBB_ROOT",
+   "KU_SBB_THREADS"
+  ],
+  "fixed_config_copy_into_workspace": [
+   "tune_out/selected_ns3.csv",
+   "tune_out/selected_ns3_lm.csv",
+   "tune_out/var/all_cols.csv",
+   "tune_out/var/cols_cggd.csv",
+   "tune_out/redesign/cols_ns3_harm.csv",
+   "tune_out/best_xgb5.json",
+   "tune_out/loop/fam_gh.csv",
+   "tune_out/loop/fam_dd.csv",
+   "tune_out/loop/fam_lr.csv",
+   "tune_out/loop/fam_grid.csv",
+   "tune_out/selected_ns1.csv",
+   "tune_out/selected_ns1_sel1.csv",
+   "tune_out/selected_ns1_sel2.csv",
+   "tune_out/selected_ns2.csv",
+   "tune_out/selected_ns_max.csv"
+  ],
+  "codex_weight_space_inputs": 50,
+  "note": "Run steps in id order. Group view_features is the slow part. Argv is a list: run without a shell. Model saving is on by default; set SAVE_WEIGHTS=0 to disable."
+ },
+ "steps": [
+  {
+   "id": 1,
+   "group": "foundation",
+   "argv": [
+    "python",
+    "pipeline/build_foundation.py"
+   ],
+   "env": {},
+   "outputs": [
+    "clean/features_train.parquet",
+    "clean/features_test.parquet"
+   ],
+   "note": "Codex owns this step; it also writes the workspace marker and seq_cache."
+  },
+  {
+   "id": 2,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v5/augment.py"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/aug_features.parquet",
+    "tune_out/aug_meta.csv"
+   ],
+   "note": null
+  },
+  {
+   "id": 3,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v5/features_grid.py",
+    "train",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/grid_train.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 4,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v5/features_grid.py",
+    "test",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/grid_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 5,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v5/features_grid2.py",
+    "train",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/grid2_train.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 6,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v5/features_grid2.py",
+    "test",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/grid2_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 7,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v5/aug_grid.py"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/aug_grid_features.parquet",
+    "tune_out/aug_grid2_features.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 8,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_dd.py",
+    "train",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/dd_train.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 9,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_dd.py",
+    "test",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/dd_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 10,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_dd.py",
+    "aug",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/aug_dd_features.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 11,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "train"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/lr_train.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 12,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "test"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/lr_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 13,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "aug"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/aug_lr_features.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 14,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "train",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/lr5_train.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 15,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "test",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/lr5_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 16,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "aug",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/aug_lr5_features.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 17,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "train",
+    "6"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/lrz_train.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 18,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "test",
+    "6"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/lrz_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 19,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "aug",
+    "6"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/aug_lrz_features.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 20,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "train",
+    "6"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/lrz6_train.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 21,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "test",
+    "6"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/lrz6_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 22,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "aug",
+    "6"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/aug_lrz6_features.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 23,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "train"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/gh_train.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 24,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "test"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/gh_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 25,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "aug"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/aug_gh_features.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 26,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "train"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/lm_train.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 27,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "test"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/lm_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 28,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "aug"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/aug_lm_features.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 29,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_bf.py",
+    "train"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/bf_train.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 30,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_bf.py",
+    "test"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/bf_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 31,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_bf.py",
+    "aug"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/aug_bf_features.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 32,
+   "group": "base",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/generator_probe.py"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/generator_segments.parquet"
+   ],
+   "note": "Check arguments in a small run first."
+  },
+  {
+   "id": 33,
+   "group": "harmonic",
+   "argv": [
+    "python",
+    "COPY",
+    "tune_out/weight_space/harmonic_train.parquet",
+    "tune_out/harm_train.parquet"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/harm_train.parquet"
+   ],
+   "note": "Verified identical to the historical table (max difference 0). Runs after Codex's harmonic table."
+  },
+  {
+   "id": 34,
+   "group": "harmonic",
+   "argv": [
+    "python",
+    "COPY",
+    "tune_out/weight_space/harmonic_test.parquet",
+    "tune_out/harm_test.parquet"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/harm_test.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 35,
+   "group": "harmonic",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_aug.py"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/aug_harm_features.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 36,
+   "group": "views",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/make_variants.py"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/train_rev_series.parquet",
+    "tune_out/var/train_flip_series.parquet",
+    "tune_out/var/train_revflip_series.parquet",
+    "tune_out/var/test_rev_series.parquet",
+    "tune_out/var/test_flip_series.parquet",
+    "tune_out/var/test_revflip_series.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 37,
+   "group": "views",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/make_crops.py",
+    "c1",
+    "11"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/train_c1_series.parquet",
+    "tune_out/var/test_c1_series.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 38,
+   "group": "views",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/make_crops.py",
+    "c2",
+    "23"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/train_c2_series.parquet",
+    "tune_out/var/test_c2_series.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 39,
+   "group": "views",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/make_crops.py",
+    "c3",
+    "37"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/train_c3_series.parquet",
+    "tune_out/var/test_c3_series.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 40,
+   "group": "views",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/make_crops.py",
+    "c4",
+    "41"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/train_c4_series.parquet",
+    "tune_out/var/test_c4_series.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 41,
+   "group": "views",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/make_halves.py",
+    "5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/train_hv_series.parquet",
+    "tune_out/var/hv_meta.csv"
+   ],
+   "note": "Seed 5 is the script default used historically."
+  },
+  {
+   "id": 42,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "train_rev"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_train_rev.parquet",
+    "tune_out/var/grid_train_rev.parquet",
+    "tune_out/var/grid2_train_rev.parquet",
+    "tune_out/var/dd_train_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 43,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:train_rev",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_train_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 44,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:train_rev"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_train_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 45,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:train_rev"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_train_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 46,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:train_rev"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_train_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 47,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "train_rev",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_train_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 48,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "train_flip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_train_flip.parquet",
+    "tune_out/var/grid_train_flip.parquet",
+    "tune_out/var/grid2_train_flip.parquet",
+    "tune_out/var/dd_train_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 49,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:train_flip",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_train_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 50,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:train_flip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_train_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 51,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:train_flip"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_train_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 52,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:train_flip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_train_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 53,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "train_flip",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_train_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 54,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "train_revflip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_train_revflip.parquet",
+    "tune_out/var/grid_train_revflip.parquet",
+    "tune_out/var/grid2_train_revflip.parquet",
+    "tune_out/var/dd_train_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 55,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:train_revflip",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_train_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 56,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:train_revflip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_train_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 57,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:train_revflip"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_train_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 58,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:train_revflip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_train_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 59,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "train_revflip",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_train_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 60,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "train_c1"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_train_c1.parquet",
+    "tune_out/var/grid_train_c1.parquet",
+    "tune_out/var/grid2_train_c1.parquet",
+    "tune_out/var/dd_train_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 61,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:train_c1",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_train_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 62,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:train_c1"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_train_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 63,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:train_c1"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_train_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 64,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:train_c1"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_train_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 65,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "train_c1",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_train_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 66,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "train_c2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_train_c2.parquet",
+    "tune_out/var/grid_train_c2.parquet",
+    "tune_out/var/grid2_train_c2.parquet",
+    "tune_out/var/dd_train_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 67,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:train_c2",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_train_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 68,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:train_c2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_train_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 69,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:train_c2"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_train_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 70,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:train_c2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_train_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 71,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "train_c2",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_train_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 72,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "train_c3"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_train_c3.parquet",
+    "tune_out/var/grid_train_c3.parquet",
+    "tune_out/var/grid2_train_c3.parquet",
+    "tune_out/var/dd_train_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 73,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:train_c3",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_train_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 74,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:train_c3"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_train_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 75,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:train_c3"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_train_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 76,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:train_c3"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_train_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 77,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "train_c3",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_train_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 78,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "train_c4"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_train_c4.parquet",
+    "tune_out/var/grid_train_c4.parquet",
+    "tune_out/var/grid2_train_c4.parquet",
+    "tune_out/var/dd_train_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 79,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:train_c4",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_train_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 80,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:train_c4"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_train_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 81,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:train_c4"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_train_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 82,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:train_c4"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_train_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 83,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "train_c4",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_train_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 84,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "test_rev"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_test_rev.parquet",
+    "tune_out/var/grid_test_rev.parquet",
+    "tune_out/var/grid2_test_rev.parquet",
+    "tune_out/var/dd_test_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 85,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:test_rev",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_test_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 86,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:test_rev"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_test_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 87,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:test_rev"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_test_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 88,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:test_rev"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_test_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 89,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "test_rev",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_test_rev.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 90,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "test_flip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_test_flip.parquet",
+    "tune_out/var/grid_test_flip.parquet",
+    "tune_out/var/grid2_test_flip.parquet",
+    "tune_out/var/dd_test_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 91,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:test_flip",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_test_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 92,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:test_flip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_test_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 93,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:test_flip"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_test_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 94,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:test_flip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_test_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 95,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "test_flip",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_test_flip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 96,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "test_revflip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_test_revflip.parquet",
+    "tune_out/var/grid_test_revflip.parquet",
+    "tune_out/var/grid2_test_revflip.parquet",
+    "tune_out/var/dd_test_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 97,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:test_revflip",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_test_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 98,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:test_revflip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_test_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 99,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:test_revflip"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_test_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 100,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:test_revflip"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_test_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 101,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "test_revflip",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_test_revflip.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 102,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "test_c1"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_test_c1.parquet",
+    "tune_out/var/grid_test_c1.parquet",
+    "tune_out/var/grid2_test_c1.parquet",
+    "tune_out/var/dd_test_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 103,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:test_c1",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_test_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 104,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:test_c1"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_test_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 105,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:test_c1"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_test_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 106,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:test_c1"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_test_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 107,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "test_c1",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_test_c1.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 108,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "test_c2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_test_c2.parquet",
+    "tune_out/var/grid_test_c2.parquet",
+    "tune_out/var/grid2_test_c2.parquet",
+    "tune_out/var/dd_test_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 109,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:test_c2",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_test_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 110,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:test_c2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_test_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 111,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:test_c2"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_test_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 112,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:test_c2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_test_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 113,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "test_c2",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_test_c2.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 114,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "test_c3"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_test_c3.parquet",
+    "tune_out/var/grid_test_c3.parquet",
+    "tune_out/var/grid2_test_c3.parquet",
+    "tune_out/var/dd_test_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 115,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:test_c3",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_test_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 116,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:test_c3"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_test_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 117,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:test_c3"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_test_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 118,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:test_c3"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_test_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 119,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "test_c3",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_test_c3.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 120,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "test_c4"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_test_c4.parquet",
+    "tune_out/var/grid_test_c4.parquet",
+    "tune_out/var/grid2_test_c4.parquet",
+    "tune_out/var/dd_test_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 121,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:test_c4",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_test_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 122,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:test_c4"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_test_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 123,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:test_c4"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_test_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 124,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lm.py",
+    "var:test_c4"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lm_test_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 125,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "test_c4",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_test_c4.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 126,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/var_numpy_features.py",
+    "train_hv"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/clean_train_hv.parquet",
+    "tune_out/var/grid_train_hv.parquet",
+    "tune_out/var/grid2_train_hv.parquet",
+    "tune_out/var/dd_train_hv.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 127,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lr.py",
+    "var:train_hv",
+    "lr5"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/lr5_train_hv.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 128,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_garch.py",
+    "var:train_hv"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/gh_train_hv.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 129,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/features_lrz.py",
+    "var:train_hv"
+   ],
+   "env": {
+    "LRZ_TAG": "lrz6"
+   },
+   "outputs": [
+    "tune_out/var/lrz6_train_hv.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 130,
+   "group": "view_features",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/redesign/harm_var.py",
+    "train_hv",
+    "2"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/harm_train_hv.parquet"
+   ],
+   "note": null
+  },
+  {
+   "id": 131,
+   "group": "matrices",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/train_var.py",
+    "--tag",
+    "EXP",
+    "--kinds",
+    "",
+    "--tta-kinds",
+    "",
+    "--export",
+    "tune_out/var/mat_ns3_plain.npz"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/mat_ns3_plain.npz"
+   ],
+   "note": null
+  },
+  {
+   "id": 132,
+   "group": "matrices",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/train_var.py",
+    "--tag",
+    "exp_c7",
+    "--aug",
+    "--kinds",
+    "rev,flip,revflip,c1,c2,c3,c4",
+    "--tta-kinds",
+    "rev,flip,revflip,c1,c2,c3,c4",
+    "--export",
+    "tune_out/var/mat_ns3_c7.npz"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/mat_ns3_c7.npz"
+   ],
+   "note": null
+  },
+  {
+   "id": 133,
+   "group": "matrices",
+   "argv": [
+    "python",
+    "pipeline/legacy_cpu/experiments/v6/train_var.py",
+    "--tag",
+    "EXP_cggd_hv",
+    "--aug",
+    "--kinds",
+    "rev,flip,revflip,c1,c2",
+    "--tta-kinds",
+    "rev,flip,revflip,c1,c2",
+    "--extra",
+    "hv",
+    "--colfile",
+    "tune_out/var/cols_cggd.csv",
+    "--export",
+    "tune_out/var/mat_cggd_hv.npz"
+   ],
+   "env": {},
+   "outputs": [
+    "tune_out/var/mat_cggd_hv.npz"
+   ],
+   "note": null
+  }
+ ]
+}

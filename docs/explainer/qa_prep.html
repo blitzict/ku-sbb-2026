@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Q&amp;A Prep Sheet</title>
+<style>
+:root{--bg:#F7F6F2;--card:#FFFFFF;--ink:#14213D;--muted:#4A5568;--line:#DDD9CE;--acc:#C2621B;--blue:#3D5A80;--soft:#FCE8D5;--soft2:#E3ECF7}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#11182B;--card:#18223A;--ink:#EEF1F6;--muted:#AEB8C8;--line:#2C3954;--acc:#F2A65A;--blue:#8FB3E0;--soft:#3A2A1C;--soft2:#1F2E48}}
+:root[data-theme="dark"]{--bg:#11182B;--card:#18223A;--ink:#EEF1F6;--muted:#AEB8C8;--line:#2C3954;--acc:#F2A65A;--blue:#8FB3E0;--soft:#3A2A1C;--soft2:#1F2E48}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Inter,Arial,sans-serif}
+main{max-width:980px;margin:0 auto;padding:32px 16px 80px}
+h1{font-size:34px;line-height:1.15;margin:0 0 6px}
+h2{font-size:22px;margin:40px 0 12px;padding-top:8px;border-top:2px solid var(--line)}
+h3{font-size:17px;margin:20px 0 6px}
+.kicker{color:var(--acc);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:13px}
+.lede{color:var(--muted);margin:0 0 20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+.pitch{border-left:5px solid var(--acc)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat b{display:block;font-size:26px;line-height:1.1;color:var(--blue)}
+.stat span{color:var(--muted);font-size:14px}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:15px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:var(--soft2);font-weight:600}
+td.r,th.r{text-align:right;white-space:nowrap}
+td.n{white-space:nowrap;color:var(--muted)}
+tr.sel td{background:var(--soft)}
+tr.sec td{background:var(--soft2);font-weight:700;color:var(--blue)}
+.tablewrap{overflow-x:auto}
+code{font:14px ui-monospace,Consolas,monospace;background:var(--soft2);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;margin:8px 0;padding:0 14px}
+summary{cursor:pointer;font-weight:600;padding:11px 0;list-style:none}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";display:inline-block;width:18px;color:var(--acc);font-weight:700}
+details[open] summary::before{content:"–"}
+details>div{padding:0 0 12px 18px;color:var(--ink)}
+.muted{color:var(--muted)}
+.tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--soft2);color:var(--blue);margin-left:6px;vertical-align:middle}
+.warn{border-left:5px solid var(--blue)}
+nav{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:14px;margin:8px 0 0}
+a{color:var(--blue)}
+nav a{color:var(--blue);text-decoration:none}
+.toolbar{display:flex;gap:8px;justify-content:flex-end}
+button{font:inherit;font-size:13px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:4px 10px;cursor:pointer}
+ol,ul{padding-left:22px;margin:6px 0}
+li{margin:3px 0}
+@media print{details{break-inside:avoid}details>div{display:block}.toolbar,nav{display:none}}
+</style>
+</head>
+<body>
+<main>
+<div class="toolbar"><button onclick="document.querySelectorAll('details').forEach(d=>d.open=true)">Open all</button><button onclick="document.querySelectorAll('details').forEach(d=>d.open=false)">Close all</button></div>
+<p class="kicker">KU SBB · Team Blitzict · Q&amp;A prep</p>
+<h1>Technical prep sheet</h1>
+<p class="lede">Matches the 33-slide deck. Every number comes from the repo (<code>blitzict/ku-sbb-2026</code>), the saved models, the evidence scripts in <code>docs/slides/evidence</code> or the Kaggle runs. Terms are explained in <a href="glossary.html">glossary.html</a>.</p>
+<nav><a href="#pitch">Pitch</a><a href="#numbers">Key numbers</a><a href="#deck">Slide by slide</a><a href="#problem">Problem</a><a href="#tries">The 4 tries</a><a href="#specialist">The specialist</a><a href="#final">try4</a><a href="#features">Features</a><a href="#example">Worked example</a><a href="#validation">Validation</a><a href="#errors">Errors</a><a href="#limits">Limitations</a><a href="#compute">Inference</a><a href="#repro">Reproduce</a><a href="#qa">Likely questions</a><a href="#hard">Hard questions</a></nav>
+
+<h2 id="pitch">The 30-second answer</h2>
+<div class="card pitch">
+<p style="margin:0">Each series comes with a <b>suspected change point</b>; I predict the probability that the process generating the data <b>really changed there</b>. Simple before/after checks barely beat a coin flip (AUC 0.62), so I built <b>mechanism features</b>: Bayes-factor tests of <i>how the series was produced</i> on each side (noise volume, noise shape, restarts, memory, rhythm), plus a <b>noise-law prior</b> fitted inside each round. LightGBM and XGBoost learn from those, and I average their ranks.</p>
+<p style="margin:10px 0 0">My <b>full model, try3</b>, scored <b>0.88078</b> public, but scoring new series takes hours. The rules allow <b>30 minutes on 2 CPU cores with 8 GB</b>, so I had to nerf my own model: <b>try4</b> scores <b>0.87583</b> public in <b>21.8 minutes</b> with <b>2.6 GB</b>, keeping 99.4% of try3's score.</p>
+</div>
+
+<h2 id="numbers">Key numbers</h2>
+<div class="grid">
+<div class="stat"><b>0.87583</b><span>try4 public (final, submission 58142084)</span></div>
+<div class="stat"><b>0.8724</b><span>try4 held-out AUC (rebuilt from saved models: 0.87234; recorded 0.87235)</span></div>
+<div class="stat"><b>21.8 min</b><span>try4 scoring 4,000 series on Kaggle, 2 cores (8.2 min to spare)</span></div>
+<div class="stat"><b>2.6 GB</b><span>try4 peak memory (limit 8 GB)</span></div>
+<div class="stat"><b>0.88078</b><span>try3 public (best score, benched)</span></div>
+<div class="stat"><b>0.8748</b><span>try3's single specialist alone (99.5% of the 51-model 0.8791)</span></div>
+<div class="stat"><b>0.62</b><span>“eyeballing”: change in average or spread, AUC alone</span></div>
+<div class="stat"><b>4,790 / 4,800</b><span>breaks among the series try4 is most sure about (top 20%)</span></div>
+</div>
+<div class="tablewrap" style="margin-top:12px"><table>
+<tr><th>Try</th><th>What it is</th><th class="r">Held-out AUC</th><th class="r">Public</th></tr>
+<tr><td>try1</td><td>XGBoost + LightGBM on 977 base statistics (ate most of my week)</td><td class="r">0.83835</td><td class="r">0.83313</td></tr>
+<tr><td>try2</td><td>One LightGBM on 3,625 statistical + mechanism features</td><td class="r">0.86987</td><td class="r">0.87539</td></tr>
+<tr><td>try3</td><td>Full recipe: 51 models, 8 views, specialists, correction heads, made-up-data MLP</td><td class="r">0.87910</td><td class="r">0.88078</td></tr>
+<tr class="sel"><td>try4 <span class="tag">final</span></td><td>try3 cut down: 136 columns per round, 2 LightGBM + 1 XGBoost, rank blend</td><td class="r">0.87235</td><td class="r">0.87583</td></tr>
+</table></div>
+
+<h2 id="deck">Slide by slide: what to say</h2>
+<div class="tablewrap"><table>
+<tr><th>#</th><th>Slide</th><th>Key point / number</th></tr>
+<tr class="sec"><td colspan="3">01 · The task</td></tr>
+<tr><td class="n">1–4</td><td>Cover, problem, scoring, scores</td><td>One yes/no per series; AUC; try1 → try4 scores.</td></tr>
+<tr class="sec"><td colspan="3">02 · try1 to try3</td></tr>
+<tr><td class="n">5–8</td><td>try1, try2</td><td>try1 took most of the time for 0.833; try2's mechanism features jumped to 0.875 public.</td></tr>
+<tr><td class="n">9</td><td>Simple comparisons barely beat a coin flip</td><td>0.62 average/spread, 0.838 try1, 0.870 try2. 39% of breaks move the average by &lt; 0.1 SD.</td></tr>
+<tr><td class="n">10–11</td><td>try3, views</td><td>8 views of each series: original, reversed, flipped, both, 4 crops.</td></tr>
+<tr><td class="n">12</td><td>The specialist that carried the team</td><td>MECH3C12V alone 0.8748 = 99.5% of 51 models.</td></tr>
+<tr><td class="n">13–15</td><td>Corrections, ladder, cost</td><td>How try3 climbed to 0.879; why it takes hours.</td></tr>
+<tr class="sec"><td colspan="3">03 · try4, the final model</td></tr>
+<tr><td class="n">16–19</td><td>try4, cut 1 (models), cut 2 (measurements), cut 3 (computing)</td><td>51 → 3 models; ~5,100 → 136 columns; 473 → 77 steps, only the columns that are read.</td></tr>
+<tr><td class="n">20</td><td>Where the 21.8 minutes go</td><td>Real Kaggle timing; 2.6 GB of 8 GB.</td></tr>
+<tr><td class="n">21</td><td>The exact columns try4 picked</td><td>3,589 candidates → top 100 per round; 39 picked in all 5 rounds; +36 prior columns.</td></tr>
+<tr><td class="n">22</td><td>The 8 measurements that matter most</td><td>Noise volume test 17.9%; rhythm phase 0.50 alone but still used.</td></tr>
+<tr><td class="n">23</td><td>One real break, explained</td><td>Invisible by eye; 67% → 99.97% step by step.</td></tr>
+<tr class="sec"><td colspan="3">04 · Testing it honestly</td></tr>
+<tr><td class="n">24</td><td>Whole series in, whole series out</td><td>5 groups of 4,800 whole series; each tested once.</td></tr>
+<tr><td class="n">25</td><td>Held out whole, fitted on training only</td><td>Picking, priors, models all per round; the 0.8774 → 0.873 leak.</td></tr>
+<tr><td class="n">26</td><td>Steady in every round, and on Kaggle</td><td>0.868–0.882 per round; 0.8723 pooled; 0.8758 Kaggle.</td></tr>
+<tr><td class="n">27</td><td>When try4 is sure, it is right</td><td>4,790/4,800 in the top 20%; 8.9% in the bottom 10%.</td></tr>
+<tr><td class="n">28</td><td>Where try4 gets it wrong</td><td>Short series 0.82 vs long 0.91; quiet breaks caught 57% vs 88%.</td></tr>
+<tr class="sec"><td colspan="3">05 · Limits, reproduction and credits</td></tr>
+<tr><td class="n">29</td><td>The trade-off I chose</td><td>0.881 benched vs 0.876 that follows the rules.</td></tr>
+<tr><td class="n">30</td><td>What try4 can't do</td><td>6 limitations (see below).</td></tr>
+<tr><td class="n">31</td><td>Rerun it with 3 commands</td><td>build_features → train → predict.</td></tr>
+<tr><td class="n">32</td><td>What it ran on, and who helped</td><td>Versions, sources, AI use.</td></tr>
+<tr><td class="n">33</td><td>My contribution, and what I learned</td><td>Mechanism features, one specialist, nerf on purpose. Questions?</td></tr>
+</table></div>
+
+<h2 id="problem">The problem and data</h2>
+<ul>
+<li><b>Data format:</b> <code>train_series.parquet</code> has one row per point (<code>id, time, value, period</code>), 15.35 million rows for 24,000 series. <code>period</code> is 0 before the marked point and 1 after it, and never flips back. <code>train_labels.csv</code> has one row per series: label 1 = the process really changed at the point (exactly 12,000 of each).</li>
+<li><b>Task:</b> for each of 4,000 test series, give the probability that it really changed at the marked point.</li>
+<li><b>Lengths:</b> 256 to 1,024 points (median 637); the point always sits 30–70% of the way in.</li>
+<li><b>Metric:</b> ROC-AUC. Only the order of predictions matters.</li>
+<li><b>Why it is hard:</b> most breaks change how the noise behaves (volume, shape, memory, spikes, rhythm), not the average. 39% of breaks move the average by under 0.1 SD.</li>
+<li><b>Inference rule:</b> 30 minutes on 2 CPU cores with 8 GB.</li>
+</ul>
+
+<h2 id="tries">How each try improved</h2>
+<div class="tablewrap"><table>
+<tr><th>Step</th><th>What was added</th><th class="r">Held-out AUC</th></tr>
+<tr><td>try1</td><td>977 base statistics: moments, quantiles, ranks, KS/AD/MMD tests, autocorrelation, spectra; XGBoost + LightGBM</td><td class="r">0.838</td></tr>
+<tr><td>try2</td><td>Window grids, change tests (likelihood ratios, Bayes factors), first mechanism tables: 3,625 features, one LightGBM. Beat a week of polishing try1.</td><td class="r">0.870</td></tr>
+<tr><td rowspan="6">try3</td><td>Trees on before/after windows</td><td class="r">0.840</td></tr>
+<tr><td>+ best extra measurement groups</td><td class="r">0.845</td></tr>
+<tr><td>+ 7 extra views (reversed, flipped, both, 4 crops)</td><td class="r">0.850</td></tr>
+<tr><td>+ periodic / phase detectors</td><td class="r">0.859</td></tr>
+<tr><td>+ mechanism specialist with noise-law priors</td><td class="r">0.874–0.875</td></tr>
+<tr><td>+ blending and correction heads (then made-up-data MLP for 0.88078 public)</td><td class="r">0.879</td></tr>
+<tr class="sel"><td>try4</td><td>try3 cut to its most useful parts to meet the inference rule</td><td class="r">0.872</td></tr>
+</table></div>
+
+<h2 id="specialist">The specialist (MECH3C12V)</h2>
+<ul>
+<li><b>What it is:</b> one XGBoost model, one of try3's 51 (code: <code>nested_crop.py</code>).</li>
+<li><b>What it sees:</b> mostly “how was it produced” measurements: 11 mechanism tables (harmonic, ar_law, bounds, curve, noise_tests, partition, periodic, phase_law, trend, innov_v2, mixture_law), all 5 jump-law tables, the volatility_law table, the ns3 statistical block and the 36 noise-prior columns.</li>
+<li><b>Extra practice:</b> each training series also appears as 2 zoomed-in crops around the point (c1, c2) with their own measurements. At test time it averages original (×2) and crops (×0.125 each).</li>
+<li><b>Fair testing:</b> trained 5 times on 4/5 of the data; its priors are fitted on those 4/5 only.</li>
+<li><b>The name is the recipe:</b> MECH = mechanism model; 3 = version 3, which adds all 5 jump-law tables (MECHNEST2 → MECHNEST3); C12 = trained with crop views c1 and c2; V = volatility_law table added. _s0/_s1/_s2 = seeds, _bag = their average.</li>
+<li><b>How it was built up</b> (held-out AUC, seed 0): base 0.8713 → + all 5 jump laws 0.8716 → + crop c1 0.8730 → + crop c2 0.8733 → + volatility law 0.8743 → 3-seed bag <b>0.8748</b>. The full 51 models + corrections: 0.8791.</li>
+</ul>
+
+<h2 id="final">Final model: try4 step by step</h2>
+<ol>
+<li><b>Features:</b> 35 label-free tables (3,589 columns), built by 77 of the full recipe's 473 steps.</li>
+<li><b>Rounds:</b> 5 groups of 4,800 whole series (seed 7), the same groups the noise priors were fitted on.</li>
+<li><b>Per round:</b> a LightGBM on that round's 19,200 training series ranks all 3,589 columns by gain; keep the <b>top 100</b>, add the round's <b>36 prior columns</b>.</li>
+<li><b>Three models per round</b> on those 136 columns, fixed tree counts (no early stopping).</li>
+<li><b>Blend:</b> average the three models' ranks.</li>
+<li><b>Inference:</b> compute only the columns the 15 saved models read (<code>slim_*.py</code>), with identical values.</li>
+</ol>
+<div class="tablewrap"><table>
+<tr><th>Model</th><th>Settings</th><th class="r">Held-out AUC</th></tr>
+<tr><td>lgb_law</td><td>learning rate 0.025, 27 leaves, min 58 rows per leaf, L2 = 6, feature fraction 0.62, max_bin 127, 720 trees, seed 7</td><td class="r">0.8718</td></tr>
+<tr><td>lgb_law_s2</td><td>same but seed 29, learning rate 0.015, feature fraction 0.5, 1,300 trees</td><td class="r">0.8717</td></tr>
+<tr><td>xgb_law</td><td>depth 6, learning rate 0.02, subsample 0.8, colsample 0.6, min child weight 4, λ = 6, 1,100 trees</td><td class="r">0.8714</td></tr>
+<tr class="sel"><td>rank blend</td><td>mean of the three models' ranks</td><td class="r">0.8723</td></tr>
+</table></div>
+<p class="muted">39 columns are picked in all 5 rounds; 192 different ones across the 5. k = 100 came from a sweep over 25 to 1,600 (<code>try4/select_features.py</code>).</p>
+
+<h2 id="features">The 8 measurements that matter most</h2>
+<p class="muted">Share of LightGBM gain averaged over the 5 rounds; AUC of the raw column on all 24,000 series (slide 22).</p>
+<div class="tablewrap"><table>
+<tr><th>Column</th><th>Plain meaning</th><th class="r">Share</th><th class="r">AUC alone</th></tr>
+<tr><td><code>native_law_state__native_free_scale</code></td><td><b>Noise volume test:</b> log Bayes factor, “each side has its own noise volume” vs one shared noise law</td><td class="r">17.9%</td><td class="r">0.82</td></tr>
+<tr><td><code>latent_level_pulse__restart_new_process</code></td><td><b>Restart test:</b> one hidden drifting process, or two split at the point?</td><td class="r">10.2%</td><td class="r">0.76</td></tr>
+<tr><td><code>boundary_law_state__any_at</code></td><td><b>Change at the point:</b> evidence for any change exactly at the point</td><td class="r">5.7%</td><td class="r">0.79</td></tr>
+<tr><td><code>law__v0</code></td><td><b>Noise prior:</b> how often noise like this meant a break (fitted per round)</td><td class="r">3.1%</td><td class="r">0.79</td></tr>
+<tr><td><code>boundary_law_state__any_far_strong</code></td><td><b>Change is local:</b> stronger at the point than far before or after</td><td class="r">3.0%</td><td class="r">0.80</td></tr>
+<tr><td><code>phase_law__common_phase</code></td><td><b>Rhythm phase:</b> useless alone, sharpens the others</td><td class="r">2.4%</td><td class="r">0.50</td></tr>
+<tr><td><code>latent_level_pulse__restart_new_scale</code></td><td><b>Restart, new volume:</b> same process, new volume after the point</td><td class="r">2.0%</td><td class="r">0.76</td></tr>
+<tr><td><code>ar_law__aggregate</code></td><td><b>Momentum law:</b> did the pull from one value to the next change?</td><td class="r">1.9%</td><td class="r">0.78</td></tr>
+</table></div>
+<p>The 36 noise-prior columns together make 9.9% of the decisions. <b>First tree of round 1:</b> root asks <code>any_far_strong ≤ 3.07</code> (19,200 series → 12,511 / 6,689, gain 4,868). <b>Boosting curve, round 1:</b> 0.845 with 1 tree, 0.859 with 10, 0.865 with 100, 0.869 with 720.</p>
+
+<h2 id="example">The worked example (slide 23)</h2>
+<ul>
+<li>A held-out break from round 4: 972 points, marked point at 440. The average moves 0.025 SD and the spread 8%: invisible by eye.</li>
+<li>try4 ranks it in the top 0.1% of all 24,000; <code>lgb_law</code> says 99.97%. Truth: a break.</li>
+<li>LightGBM <code>pred_contrib</code> (SHAP-style), in log-odds: start 0.73 (67%), then noise shape jumped +0.67, restart test +0.63, 10-point range CvM test +0.59, volatility memory +0.51, noise volume test +0.45, momentum jump +0.36, volume clustering +0.33, own momentum each side +0.26, 128 other columns +3.63 → 8.16 = 99.97%.</li>
+<li>Each of the 8 values is higher than at least 99.9% of the no-break series in the same round.</li>
+<li><b>Chosen on purpose</b> as an illustration; the confidence slide (27) shows the overall picture. The raw series isn't shown because the competition data isn't mine to publish.</li>
+</ul>
+
+<h2 id="validation">Validation and leakage control</h2>
+<ul>
+<li><b>Whole-series validation:</b> 5 groups of 4,800 complete series. Each series is held out exactly once; none of its points are ever trained on. This copies the real test: 4,000 brand-new series.</li>
+<li><b>Training-only preprocessing:</b> column picking, the 36 noise priors and all 3 models are fitted on each round's 4 training groups only. Fixed tree counts (720, 1,300, 1,100), so no early stopping on held-out data.</li>
+<li><b>No labels inside features:</b> all 35 tables are computed without labels. <code>transition_odds</code> and <code>transport_state</code> (priors fitted on all labels) are excluded.</li>
+<li><b>The leak I caught:</b> picking columns once with every round's labels (the union of the 5 rounds' picks, 192 columns) scored 0.8774. Too good to be true. Picked inside each round: 0.873.</li>
+<li><b>Did I fool myself?</b> Held-out 0.8723, Kaggle 0.8758 on unseen series. Same direction for try3 (0.8791 vs 0.8808); the order of the 4 tries is the same locally and publicly.</li>
+<li>No outside data, no pretrained models, no test labels.</li>
+</ul>
+
+<h2 id="errors">Error and robustness analysis (slides 26–28)</h2>
+<div class="tablewrap"><table>
+<tr><th>Group</th><th class="r">AUC</th><th>Note</th></tr>
+<tr><td>Series 256–512 points</td><td class="r">0.824</td><td>Shortest third: fewest points to estimate the noise</td></tr>
+<tr><td>Series 513–765 points</td><td class="r">0.876</td><td></td></tr>
+<tr><td>Series 766–1,024 points</td><td class="r">0.908</td><td></td></tr>
+<tr><td>Point at 30–43% / 43–57% / 57–70%</td><td class="r">0.881 / 0.869 / 0.866</td><td>Position barely matters</td></tr>
+</table></div>
+<ul>
+<li><b>Quiet breaks</b> (average or spread moves &lt; 0.15 SD): 57% land in the top half; visible ones 88%.</li>
+<li><b>Missed breaks</b> move a median 0.12 SD (caught: 0.40). <b>False alarms</b> are restless no-breaks: 0.22 SD (typical no-break: 0.11).</li>
+<li><b>Confidence:</b> break rate by tenth of the ranking: 100%, 99.6%, 87.5%, 60.7%, 44.2%, 33.3%, 28.7%, 21.9%, 15.2%, 8.9%. The top half holds 78% of all breaks.</li>
+<li><b>Robustness:</b> 5 rounds 0.8696, 0.8677, 0.8734, 0.8819, 0.8695; the 3 models within 0.0004 of each other; Kaggle above held-out.</li>
+</ul>
+
+<h2 id="limits">Limitations (slide 30)</h2>
+<ol>
+<li><b>Quiet breaks slip through:</b> 43% of breaks under 0.15 SD land in the bottom half.</li>
+<li><b>Short series are harder:</b> 0.82 vs 0.91.</li>
+<li><b>Nerfed by the rules:</b> the 30-minute limit costs about 0.005 (0.876 vs 0.881).</li>
+<li><b>Picks aren't “the truth”:</b> only 39 of 100 columns are picked in every round; many are interchangeable.</li>
+<li><b>A ranking, not a probability:</b> the output orders series but isn't calibrated, and all test series are scored in one run.</li>
+<li><b>Built for this data:</b> untested on other data; a 4,000-series score wobbles by about ±0.005 (Hanley–McNeil standard error).</li>
+</ol>
+
+<h2 id="compute">Inference within the limit</h2>
+<ul>
+<li>Kaggle, 2 cores: <b>1,307 s</b> wall time for 2,477 processor-seconds across 41 steps; peak <b>2.64 GB</b>.</li>
+<li>By family (processor time): hidden-level and change-location laws 14.1 min, mechanism laws 11.8, noise-law tables 11.2, window grids and change tests 3.5, setup 0.6.</li>
+<li>Slowest steps: component moves (state) 361 s, filtered step 205 s, component moves (pulse) 144 s, boundary laws 131 s + 129 s.</li>
+<li><b>Cut 1:</b> 51 models + heads + MLP → 3 trees. <b>Cut 2:</b> ~5,100 → 136 columns; dropping the 4 slowest tables saved ~7 min for −0.0004 (public 0.87659 → 0.87583). <b>Cut 3:</b> 77 steps instead of 473, only the columns read, in parallel: 26.5 → 21.8 min. Values checked identical against the full steps.</li>
+</ul>
+
+<h2 id="repro">Reproduce, environment, AI use (slides 31–32)</h2>
+<pre class="card" style="overflow-x:auto;font:14px ui-monospace,Consolas,monospace;margin:12px 0">python try4/build_features.py --data data --work try4_run --workers 4
+python try4/train.py --work try4_run --out try4/model
+python try4/predict.py --series data/test_series.parquet --ref try4_run --out predict_try4 --csv submission.csv --workers 2</pre>
+<ul>
+<li><code>data/</code> needs the 4 competition files (not in the repo). <code>train.py</code> runs XGBoost with <code>device=cuda</code>; set it to cpu without an NVIDIA GPU.</li>
+<li>Rescoring with the saved models gives 0.87234 vs 0.87235 recorded. <code>KU_TRY4_NO_SLIM=1</code> switches off the trimmed steps to check identical values.</li>
+<li><b>Environment:</b> Python 3.12, LightGBM 4.7.0, XGBoost 3.4.1, scikit-learn 1.9.1, numpy 2.5.4, pandas 3.1.0, scipy 1.18.1 (<code>requirements-cpu-full.txt</code>). Trained on my PC; scored on Kaggle, 2 cores, 8 GB.</li>
+<li><b>AI use:</b> Claude Opus 5.5 turned my ideas into code, sped up training on my 2 GPUs, ported the features to CPU, and helped build the slides and the evidence scripts.</li>
+</ul>
+
+<h2 id="qa">Likely questions</h2>
+<details><summary>Why is your final model not your best-scoring one?</summary><div>The inference rule: 30 minutes on 2 CPU cores, 8 GB. try3 (0.88078) needs hours. try4 is try3 cut down to fit: 21.8 minutes, 2.6 GB, 0.87583, 99.4% of the score.</div></details>
+<details><summary>What exactly are you detecting?</summary><div>Every series already has a marked point (where <code>period</code> flips 0 → 1). I predict whether the process really changed there. Half the series did, half didn't, and both look the same in the data format.</div></details>
+<details><summary>Why not a time-ordered (walk-forward) cross-validation?</summary><div>That's for forecasting the future of one series. Here each series is one separate example with one label, the model always sees the whole series, and the test set is new series, not the future of old ones. So the right thing to hold out is the whole series, which is what I do: each of the 24,000 is held out once, and nothing learned from labels sees it.</div></details>
+<details><summary>What is your single most important feature?</summary><div><code>native_free_scale</code>: a log Bayes factor of “each side has its own noise volume” vs “one shared noise law”, averaged over the unknown mean and scale with a prior and tested against a bank of noise shapes. 17.9% of the decisions, AUC 0.82 alone, vs 0.62 for a plain spread ratio.</div></details>
+<details><summary>What is the noise-law prior (law__ columns)?</summary><div>Each series' likelihood under a library of noise laws; a mixture is fitted separately for break and no-break series using only that round's training labels. <code>law__v0</code> is the resulting log-odds of change. Refitted every round, so it never sees held-out labels. Together 9.9% of the decisions.</div></details>
+<details><summary>What made the specialist so good?</summary><div>It only sees mechanism measurements (how the series was produced), carries the noise priors, and trains on 2 zoomed-in crops of every series as extra practice. Alone 0.8748, 99.5% of the 51-model ensemble. Built up step by step: base 0.8713, + all jump laws 0.8716, + crops 0.8733, + volatility law 0.8743, 3 seeds averaged 0.8748.</div></details>
+<details><summary>How did you pick 100 features?</summary><div>A sweep over k = 25 to 1,600, ranking by LightGBM gain on each round's training series. 100 was the best balance of score and inference time.</div></details>
+<details><summary>Is the worked example cherry-picked?</summary><div>Yes, on purpose, as an illustration: a break you can't see by eye, to show which measurements catch it. The overall picture is on the confidence and error slides: 4,790 of the 4,800 most-sure series are breaks, and quiet breaks are where it fails.</div></details>
+<details><summary>Where does the model fail?</summary><div>Short series (0.82 vs 0.91 on long ones) and quiet breaks: only 57% of breaks under 0.15 SD reach the top half. False alarms are no-break series that happen to be restless.</div></details>
+<details><summary>Why gradient-boosted trees and not a neural network?</summary><div>The signal is in engineered features on very different scales; trees need no scaling, ignore useless columns and are fast on 2 CPU cores. try3 has an MLP and a CNN, but they cost a lot of compute for a small gain.</div></details>
+<details><summary>Why LightGBM and XGBoost together, and why rank averaging?</summary><div>They grow trees differently (leaf-wise histograms vs level-wise Newton steps), so their errors differ. AUC depends only on order and the probabilities sit on different scales, so I average ranks: 0.8723 vs 0.8714–0.8718 each.</div></details>
+<details><summary>Does a prediction depend on the other test series?</summary><div>Only through the final rank step, which changes the scale, not the order within each model. That's why all test series are scored in one run.</div></details>
+<details><summary>Why is Kaggle higher than your held-out score?</summary><div>Mostly sample noise: a 4,000-series AUC wobbles by about ±0.005. It goes the same way for try3, and the order of the tries matches. It at least shows the held-out score isn't optimistic.</div></details>
+<details><summary>Is it reproducible?</summary><div>Yes: 3 commands from raw files, 15 saved models in the repo, and the saved models reproduce the held-out score (0.87234 vs 0.87235). The notebook ran on Kaggle in 21.8 minutes. try1's and try2's notebooks reproduce their CSVs exactly; try3 was retrained from raw files to 0.87886 vs 0.87910.</div></details>
+<details><summary>What did you build yourself?</summary><div>The mechanism measurements (describe how a series was made, not just how it looks), the specialist with noise priors and crops, and the deliberate cut from try3 to try4 that keeps 99.4% of the score in 21.8 minutes.</div></details>
+<details><summary>What would you do with more time?</summary><div>Move more of try3 into the budget: a specialist-style XGBoost as a 4th try4 model gained +0.0021 locally but needs whole feature tables, which breaks the time limit; a cheaper column set might fit. Also distil try3's predictions into try4's trees.</div></details>
+<details><summary>How did you use AI?</summary><div>Claude Opus 5.5 turned my ideas into code, sped up training on my two GPUs, ported the features to a CPU-only run, and helped build the slides and the scripts behind their numbers. I chose the ideas, reviewed results and decided what to submit.</div></details>
+
+<h2 id="hard">Hard questions: answer honestly</h2>
+<div class="card warn">
+<p style="margin:0 0 8px"><b>“Can try3 score new data from scratch?”</b> Its training recipe is reproducible from raw files and its inference code is in the repo, but a full end-to-end inference run stopped at a feature-export step. Its CSV comes from the original run. This doesn't affect try4, whose raw-data inference is measured on Kaggle.</p>
+<p style="margin:0 0 8px"><b>“Is 0.88078 vs 0.88077 meaningful?”</b> No. The MLP correction changed public by 0.00001; within noise.</p>
+<p style="margin:0 0 8px"><b>“Your top-feature ranking: is it the truth?”</b> No. Only 39 of 100 columns are picked in all 5 rounds; many measure similar things and stand in for each other.</p>
+<p style="margin:0"><b>“Is the output a probability?”</b> Not a calibrated one. It's a rank average, which is all AUC needs.</p>
+</div>
+</main>
+</body>
+</html>

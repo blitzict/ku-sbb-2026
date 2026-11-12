@@ -1,0 +1,54 @@
+{
+  "primary": {
+    "all": {
+      "parent": 0.8709431458333332,
+      "candidate": 0.8781364305555556,
+      "delta": 0.007193284722222223,
+      "fixed_score_interval_95": [
+        0.0057544082603322964,
+        0.00863216118411215
+      ]
+    },
+    "remaining": {
+      "parent": 0.901073649998509,
+      "candidate": 0.9059356382502907,
+      "delta": 0.004861988251781617,
+      "fixed_score_interval_95": [
+        0.0035110627098513835,
+        0.00621291379371185
+      ]
+    },
+    "historical_vs_all_negatives": {
+      "parent": 0.46067651238327245,
+      "candidate": 0.499613479496549,
+      "delta": 0.038936967113276495,
+      "fixed_score_interval_95": [
+        0.030953829077079997,
+        0.04692010514947299
+      ]
+    }
+  },
+  "fixed_false_positive_rates": {
+    "parent": {
+      "fpr_5": 8,
+      "fpr_10": 11,
+      "fpr_20": 42,
+      "fpr_30": 98,
+      "fpr_50": 354
+    },
+    "candidate": {
+      "fpr_5": 12,
+      "fpr_10": 23,
+      "fpr_20": 86,
+      "fpr_30": 156,
+      "fpr_50": 417
+    },
+    "net_target_pairs": 383607,
+    "up": 544,
+    "down": 276,
+    "tied": 1
+  },
+  "hard_auc_needed_if_remaining_holds": 0.5268520097442152,
+  "pairs_needed": 268354,
+  "scope": "Paired fixed-score uncertainty on the reused local cohort. Excludes training, model selection and hidden-test uncertainty."
+}

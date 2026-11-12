@@ -1,0 +1,159 @@
+{
+  "spec": "curve.net+bank.both+pulse.joint",
+  "scores": {
+    "7": {
+      "parent": {
+        "auc": 0.8684041666666666,
+        "weighted_auc": 0.8619642660203741
+      },
+      "35.0": {
+        "auc": 0.8695574027777778,
+        "weighted_auc": 0.8638291159030036
+      },
+      "140.0": {
+        "auc": 0.8695962013888888,
+        "weighted_auc": 0.8638014892244145
+      }
+    },
+    "29": {
+      "parent": {
+        "auc": 0.8689333472222223,
+        "weighted_auc": 0.8624508852951618
+      },
+      "35.0": {
+        "auc": 0.8702400555555555,
+        "weighted_auc": 0.864518133761824
+      },
+      "140.0": {
+        "auc": 0.8702348333333334,
+        "weighted_auc": 0.8644265935397899
+      }
+    },
+    "0": {
+      "parent": {
+        "auc": 0.8685751388888889,
+        "weighted_auc": 0.8621031364225423
+      },
+      "35.0": {
+        "auc": 0.8697132916666667,
+        "weighted_auc": 0.86394267814699
+      },
+      "140.0": {
+        "auc": 0.8697724722222223,
+        "weighted_auc": 0.8639269358218404
+      }
+    }
+  },
+  "selected": 140.0,
+  "weights": [
+    0.03491069871313871,
+    0.0032979106707326585,
+    0.0538974169266892,
+    -0.025763993375296643,
+    -0.006497887291435161,
+    -0.044299125923413445,
+    -0.03539395605082029,
+    0.007110792530540416,
+    -0.03363952768862702,
+    0.024945733262101876,
+    0.0559973188785416,
+    0.010958980561189439,
+    -0.007807032557150049,
+    0.011648543557917664,
+    0.007395425237188087,
+    0.0429186496063602,
+    0.014848340760056035,
+    -0.013150437329135707,
+    0.09346255836105333,
+    -0.037939860534677995,
+    -0.017546101712084743,
+    0.0663433374512035,
+    -0.00316218079786009,
+    -0.07594398459968921,
+    0.05949663691884261,
+    0.0034768223497578126,
+    0.09958216650953107,
+    0.01710474615863294,
+    -0.0319417729067874,
+    -0.00344551542698674,
+    -0.0052644161598518905,
+    0.0022481425982385866,
+    0.008701468849935523,
+    -0.02773666527339487,
+    0.04572044173940436,
+    -0.024106257193223273,
+    0.018450747930941393,
+    0.07127524078491579,
+    0.0039035071188899145,
+    0.017649898084948015,
+    -0.033481462596085705,
+    -0.032380478672032635,
+    0.049757233481358645,
+    0.11490043075689277,
+    0.00289429857654461,
+    -0.00984629742085242,
+    -0.08108876262771404,
+    -0.08583655179715294,
+    0.020977862542328866,
+    0.008833316992278524,
+    0.0151579415769919,
+    0.025805530675995118,
+    0.06328049666588755,
+    0.07035320825765268,
+    0.027322390637309745,
+    -0.002299129297568051,
+    0.011520958634876751,
+    0.011267464523736791,
+    0.003101093020241316,
+    0.0022102376618542627,
+    0.0019286454151186056,
+    0.0015292792355314044,
+    -0.010712322917457563,
+    0.05933843556720154,
+    0.04339461156670021,
+    -0.02387124394438648,
+    0.05062530254470104,
+    -0.013932361973180403,
+    0.006236166961935669,
+    0.041382467967759635,
+    0.00019318338099933878,
+    -0.000238639309028935,
+    0.007820098268905958,
+    0.0065689323494642566,
+    0.05842114525386154,
+    0.021359718972684034,
+    -0.0192372506124218
+  ],
+  "hashes": {
+    "new weights\\trend870_net_candidate\\weights.json": "d8e4d487cb559a3849a5f068c98862c4977c89e624201900f9b1b04aa2d9e293",
+    "new weights\\trend870_net_candidate\\submission.csv": "ccfe13b574cafe0d7991b897417b01c603bff13f0115a09c56939a7fd0a3b9e4",
+    "experiments\\weight_space\\extend_readout.py": "a291ffcbe436ae8af8dcc2466e6a8c70a755719963e1fd810b91fd6818a72c3e",
+    "experiments\\weight_space\\curve_channels.py": "f2998adfa3e51a3921674702e3e1752b0aca3fdfe6892d99a0f3a545fb6ad386",
+    "experiments\\weight_space\\bank_channels.py": "0480d326d9c3f890d20373fae8bf2e2511af7765d06e461a259acc423b0a33eb",
+    "experiments\\weight_space\\pulse_channels.py": "dc347ca90530770530a1f345acf1f848311683d1d85f991b422aa317a9ac6dc7",
+    "tune_out\\weight_space\\curve_train.parquet": "a0eeed877332026ee6b4e4c10b46149429cc183f5eaa2e703d9c7be303a31a2f",
+    "tune_out\\weight_space\\curve_test.parquet": "77d66dc5e9ba108b5bba9eb9af5d31863accdc0db2ba07a0261b2acddbefc0f9",
+    "tune_out\\weight_space\\ar_law_train.parquet": "1187a987f329c35189a56ea366ac0e030523e3b89693a42b8d6b53e6ba8b9af6",
+    "tune_out\\weight_space\\ar_law_test.parquet": "c1a5d11f2d3eb89bcf5a1dbdc8c0cb65e3ea9170a786823943de567db46f8f89",
+    "tune_out\\weight_space\\trend_train.parquet": "86c8bdd666b957825856c4c0bd64cb65d6c3332f8438943f7f7d2c272982ee84",
+    "tune_out\\weight_space\\trend_test.parquet": "1afb5bcec27d553b0bcb21621b2dac705bba6f45bac3a22d27ba59ecb11e9e85",
+    "tune_out\\weight_space\\curve_seq_train.parquet": "ed9ad4246b9894c2daddea90dc5a63427fdb92b1a0a8c2f2ad5483c56d073f9a",
+    "tune_out\\weight_space\\curve_seq_test.parquet": "07d072b27ab47f54420e7dd4b617a95330134eaf134d52f9ee1fc458a1d17bfa",
+    "tune_out\\weight_space\\shape_bank_base_train.parquet": "0e9ec2c663baff7b96125a991fe686bbde1abb86e7b9a31f2f9bd9ea55e0c500",
+    "tune_out\\weight_space\\shape_bank_base_test.parquet": "0b5c590ec0c0edaa6750b8633a19875c8b494c3d1bcde5232f6cadcbd814a82f",
+    "tune_out\\weight_space\\shape_bank_adjusted_train.parquet": "f3374105a59f41e92246d11dedae6e766d05a383680213b3ff199b6a908a435b",
+    "tune_out\\weight_space\\shape_bank_adjusted_test.parquet": "c6350cf89c9c476b8f2486bf68e77353ee77d6e570aa009eb775ab408a9cd0ae",
+    "tune_out\\weight_space\\periodic_train.parquet": "4795aabc59a670b3149c26be148510946704748751bb523a725864b60e70f7f3",
+    "tune_out\\weight_space\\periodic_test.parquet": "534358ce50b76801049b4ba175358abbbba0f7f9af7b467cadb66a31a89481ff",
+    "tune_out\\weight_space\\innov_v2_train.parquet": "98a93f4e8591079a4fa1eb900d75b6c60b76bbc1afad2362c0a80b8167e3d741",
+    "tune_out\\weight_space\\innov_v2_test.parquet": "bba33de9e5e5c3527c93bfc07f6094ab8b3888fdb3ce7c6d0b420ff231b53421",
+    "tune_out\\weight_space\\mixture_law_train.parquet": "98f57d9fc9d0337bb4d7100441a4d66f7a73aac98ef472c432ba86c0df11ed40",
+    "tune_out\\weight_space\\mixture_law_test.parquet": "31c1b7e1528a58015b67545cce3f9e29d8626f6d9f2e9fd32e2968841f5cf90e",
+    "tune_out\\weight_space\\pulse_train.parquet": "39e449cb7732037de3041771fa46523d0b93351316ad4026c5dddb27d3b2f83f",
+    "tune_out\\weight_space\\pulse_test.parquet": "3a7dbcfc525c592920af40bd0f1ce1544ddcd5a8fd5f4028502a041b888821fd",
+    "tune_out\\weight_space\\pulse_seq_train.parquet": "7dbc764b59f0a496bf527a16af6d2e79441d3157c93c1ddbd8ad4360c915833e",
+    "tune_out\\weight_space\\pulse_seq_test.parquet": "1d7212c8d01deeb16dd1c1e735a83514fe654bb4f320eabd70c5532b3ecee50e",
+    "tune_out\\weight_space\\periodic_seq_train.parquet": "d945aa5770ae4409e97cf047133aa718cb1f91439d8e9cc592dfa2918e2d9fbc",
+    "tune_out\\weight_space\\periodic_seq_test.parquet": "8f4d2bfbf95d66c63673ee4a169d04eb3b168fee52ffb1e8c4430b2e771815d9"
+  }
+}

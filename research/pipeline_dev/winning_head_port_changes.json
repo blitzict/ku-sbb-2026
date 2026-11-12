@@ -1,0 +1,93 @@
+[
+  {
+    "module": "expert_fusion",
+    "status": "already adapted"
+  },
+  {
+    "module": "extend_readout",
+    "status": "already adapted"
+  },
+  {
+    "module": "hard_expert_trial",
+    "status": "already adapted"
+  },
+  {
+    "module": "mechanism_edit",
+    "status": "already adapted"
+  },
+  {
+    "module": "residual_trial",
+    "status": "already adapted"
+  },
+  {
+    "module": "seasonal_head",
+    "status": "already adapted"
+  },
+  {
+    "module": "trend_870",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_concordance",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_consult",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_crop_replication",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_extended",
+    "status": "adapted; full runtime check pending",
+    "before_sha256": "94165147e45fe49ec06aa58628a5bc41dbc1bb4ae58f949b4aeef2ebe0d9329f",
+    "after_sha256": "9e4320960ef052339f029fbb77e7454f59b1b8f39c12e0c17e968d0b1a306a04",
+    "changes": [
+      "label recipe selection independently of validation",
+      "export fixed recipe independently of measured promotion criterion"
+    ]
+  },
+  {
+    "module": "white_fold_vote",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_joint",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_local_rank_weights",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_loop",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_nested",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_regime_branches",
+    "status": "adapted; full runtime check pending",
+    "before_sha256": "6f630cc06bffb22124f18cdecf333e1c488caac79546c001aa3a9cd4a004cb88",
+    "after_sha256": "4a74c44fa9a426be8c2545e5eb318077def00af6074b11f557df6fa51d9d5b76",
+    "changes": [
+      "label recipe selection independently of validation"
+    ]
+  },
+  {
+    "module": "white_shared_residual",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_signal_package",
+    "status": "already adapted"
+  },
+  {
+    "module": "white_stage",
+    "status": "already adapted"
+  }
+]

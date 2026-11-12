@@ -1,0 +1,939 @@
+{
+  "status": "Reviewed late physical inputs; full-size and CLI checks pending",
+  "stages": [
+    {
+      "id": "late_feature_mode_residual_train",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "mode_residual",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/mode_residual_train.parquet",
+        "tune_out/weight_space/mode_residual_streams_train.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_remove_noise_modes.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_mode_residual_test",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "mode_residual",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/mode_residual_test.parquet",
+        "tune_out/weight_space/mode_residual_streams_test.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_remove_noise_modes.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_walk_jump_train",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "walk_jump",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "tune_out/weight_space/pulse_streams_train.npz",
+        "tune_out/weight_space/innov_v2_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/walk_jump_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "experiments/weight_space/white_walk.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_walk_jump_test",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "walk_jump",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "tune_out/weight_space/pulse_streams_test.npz",
+        "tune_out/weight_space/innov_v2_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/walk_jump_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "experiments/weight_space/white_walk.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_quantile_alignment_train",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "quantile_alignment",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_train.npz",
+        "tune_out/weight_space/state_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/quantile_alignment_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_quantile_alignment.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_quantile_alignment_test",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "quantile_alignment",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_test.npz",
+        "tune_out/weight_space/state_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/quantile_alignment_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_quantile_alignment.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_component_moves_state_train",
+      "argv": [
+        "pipeline_helpers/component_moves_cpu.py",
+        "state",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/weight_space/state_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/component_moves_state_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/component_moves_cpu.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_component_moves.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_component_moves_state_test",
+      "argv": [
+        "pipeline_helpers/component_moves_cpu.py",
+        "state",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/weight_space/state_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/component_moves_state_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/component_moves_cpu.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_component_moves.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_component_moves_pulse_train",
+      "argv": [
+        "pipeline_helpers/component_moves_cpu.py",
+        "pulse",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/component_moves_pulse_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/component_moves_cpu.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_component_moves.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_component_moves_pulse_test",
+      "argv": [
+        "pipeline_helpers/component_moves_cpu.py",
+        "pulse",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/component_moves_pulse_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/component_moves_cpu.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_component_moves.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_latent_level_pulse_train",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "latent_level_pulse",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/latent_level_pulse_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_latent_level.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_latent_level_pulse_test",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "latent_level_pulse",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/latent_level_pulse_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_latent_level.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_latent_level_raw_train",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "latent_level_raw",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/latent_level_raw_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_latent_level.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_latent_level_raw_test",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "latent_level_raw",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/latent_level_raw_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_latent_level.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_native_law_state_train",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "native_law_state",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/weight_space/state_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/native_law_state_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "experiments/weight_space/white_native_law.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_native_law_state_test",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "native_law_state",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/weight_space/state_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/native_law_state_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "experiments/weight_space/white_native_law.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_native_law_pulse_train",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "native_law_pulse",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/native_law_pulse_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "experiments/weight_space/white_native_law.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_native_law_pulse_test",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "native_law_pulse",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/native_law_pulse_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "experiments/weight_space/white_native_law.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_tail_edges_train",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "tail_edges",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/tail_edges_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_tail_edges.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_tail_edges_test",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "tail_edges",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/tail_edges_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_tail_edges.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_tail_channels_train",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "tail_channels",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/tail_channels_train.parquet",
+        "tune_out/weight_space/tail_channels_streams_train.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_tail_channels.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_tail_channels_test",
+      "argv": [
+        "pipeline_helpers/late_features.py",
+        "tail_channels",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/weight_space/pulse_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/tail_channels_test.parquet",
+        "tune_out/weight_space/tail_channels_streams_test.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/late_features.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_tail_channels.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_transport_state",
+      "argv": [
+        "experiments/weight_space/white_population_transport.py",
+        "state"
+      ],
+      "inputs": [
+        "data/train_labels.csv",
+        "tune_out/weight_space/state_streams_train.npz",
+        "tune_out/weight_space/innov_v2_train.parquet",
+        "tune_out/weight_space/state_streams_test.npz",
+        "tune_out/weight_space/innov_v2_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/transport_state_train.parquet",
+        "tune_out/weight_space/transport_state_test.parquet",
+        "tune_out/weight_space/population_transport_state_models/fold0.npz",
+        "tune_out/weight_space/population_transport_state_models/fold1.npz",
+        "tune_out/weight_space/population_transport_state_models/fold2.npz",
+        "tune_out/weight_space/population_transport_state_models/fold3.npz",
+        "tune_out/weight_space/population_transport_state_models/fold4.npz"
+      ],
+      "code_inputs": [
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_law_head.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "experiments/weight_space/white_population_transport.py",
+        "experiments/weight_space/white_walk.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    },
+    {
+      "id": "late_feature_transition_odds",
+      "argv": [
+        "experiments/weight_space/white_transition_priors.py"
+      ],
+      "inputs": [
+        "data/train_labels.csv",
+        "tune_out/weight_space/native_law_state_train.parquet",
+        "tune_out/weight_space/native_law_pulse_train.parquet",
+        "tune_out/weight_space/innov_v2_train.parquet",
+        "tune_out/weight_space/native_law_state_test.parquet",
+        "tune_out/weight_space/native_law_pulse_test.parquet",
+        "tune_out/weight_space/innov_v2_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/transition_odds_train.parquet",
+        "tune_out/weight_space/transition_odds_test.parquet",
+        "tune_out/weight_space/transition_prior_models/fold0.npz",
+        "tune_out/weight_space/transition_prior_models/fold1.npz",
+        "tune_out/weight_space/transition_prior_models/fold2.npz",
+        "tune_out/weight_space/transition_prior_models/fold3.npz",
+        "tune_out/weight_space/transition_prior_models/fold4.npz"
+      ],
+      "code_inputs": [
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "experiments/weight_space/white_native_law.py",
+        "experiments/weight_space/white_transition_priors.py",
+        "ku_workspace.py",
+        "pipeline_helpers/replay_saved_head.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "KU_SBB_REBUILD_FIXED": "1"
+      }
+    }
+  ]
+}

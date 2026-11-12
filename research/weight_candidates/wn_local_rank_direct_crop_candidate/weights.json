@@ -1,0 +1,32 @@
+{
+  "weights": [
+    0.2
+  ],
+  "method": "fixed",
+  "members": [
+    "claude_crop_two_partitions"
+  ],
+  "parent_quantiles": [
+    -1.3220265633222568,
+    -0.5212411328752017,
+    2.396870644292485
+  ],
+  "member_quantiles": [
+    [
+      -1.391497861582279
+    ],
+    [
+      -0.4753013923509798
+    ],
+    [
+      2.0702758083254142
+    ]
+  ],
+  "hashes": {
+    "new weights\\wn_local_rank_early_mode_peaks_candidate\\weights.json": "efe152bc674880095b262725d2654dde0bc864876fe97392a027e515402f147c",
+    "experiments\\weight_space\\white_fold_vote.py": "7f3216fdcd60988b6a95d5dbb8e45559bd4631164d8d8b9f8a28ee08d3995173",
+    "tune_out\\weight_space\\claude_crop_two_partitions.npz": "b411e89db4547d785affe4f02a46bb049cd475716b020b6d903bd64ba2982d19",
+    "tune_out\\weight_space\\innov_v2_train.parquet": "98a93f4e8591079a4fa1eb900d75b6c60b76bbc1afad2362c0a80b8167e3d741",
+    "tune_out\\weight_space\\innov_v2_test.parquet": "bba33de9e5e5c3527c93bfc07f6094ab8b3888fdb3ce7c6d0b420ff231b53421"
+  }
+}

@@ -5,3 +5,5 @@ notebook_settings.json
 __pycache__/
 *.pyc
 .env
+try4_run/
+predict_*/

@@ -1,0 +1,44 @@
+{
+  "weights": [
+    0.06666666666666667,
+    0.06666666666666667,
+    0.06666666666666667
+  ],
+  "method": "physical",
+  "members": [
+    "claude_crop_three_partitions",
+    "law_independent_rank_bag_29_7",
+    "law_symmetric_binary"
+  ],
+  "parent_quantiles": [
+    -1.3220265633222568,
+    -0.5212411328752017,
+    2.396870644292485
+  ],
+  "member_quantiles": [
+    [
+      -1.3924524555999045,
+      -1.1901408602315193,
+      -1.2897210456511516
+    ],
+    [
+      -0.4748844100448577,
+      -0.456067687983704,
+      -0.4258546097453497
+    ],
+    [
+      2.0702497732423626,
+      1.6830328758518087,
+      1.8124384926859227
+    ]
+  ],
+  "hashes": {
+    "new weights\\wn_local_rank_early_mode_peaks_candidate\\weights.json": "efe152bc674880095b262725d2654dde0bc864876fe97392a027e515402f147c",
+    "experiments\\weight_space\\white_fold_vote.py": "7f3216fdcd60988b6a95d5dbb8e45559bd4631164d8d8b9f8a28ee08d3995173",
+    "tune_out\\weight_space\\claude_crop_three_partitions.npz": "2462062f3992bbf582360c0e22c2f3c9004c12574bfe79864850e512b9d06dae",
+    "tune_out\\weight_space\\law_independent_rank_bag_29_7.npz": "ff96ac625b96f52738e27032aa450be825f1875cc0d5f792e8ce1e7ce3a57dfe",
+    "tune_out\\weight_space\\law_symmetric_binary.npz": "9e55345d5f1cb1e45ed75de4dc5949874250112cbf7ed58c977f345a1af5c1c8",
+    "tune_out\\weight_space\\innov_v2_train.parquet": "98a93f4e8591079a4fa1eb900d75b6c60b76bbc1afad2362c0a80b8167e3d741",
+    "tune_out\\weight_space\\innov_v2_test.parquet": "bba33de9e5e5c3527c93bfc07f6094ab8b3888fdb3ce7c6d0b420ff231b53421"
+  }
+}

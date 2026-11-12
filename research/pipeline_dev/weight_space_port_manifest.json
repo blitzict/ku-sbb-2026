@@ -1,0 +1,2247 @@
+[
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/ar_likelihood.py",
+    "source_sha256": "620278c3f018c06160bfce6fb7a558498e6203b0924f33caa7403bc18aecae91",
+    "port_sha256": "67c635f3587bb88bfde15401751f36bd62e3180c4ddfa69431ba008ad1584ba5",
+    "changes": [
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/bank_channels.py",
+    "source_sha256": "0480d326d9c3f890d20373fae8bf2e2511af7765d06e461a259acc423b0a33eb",
+    "port_sha256": "68c30a5550f6bc8024d911e433d12f15b1ae0ad005a229c375c2c666210e4e89",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/boundary_probe.py",
+    "source_sha256": "268cb22ad7a88cd69830df716cf593bcd7c786272f8ad14738923a900592d758",
+    "port_sha256": "59173c9b25e305cb3a76b93a28ff3c485867ee3583d2ef79e486ebc12bab32de",
+    "changes": [
+      "disable_accelerator_autocast",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/bounded_prior.py",
+    "source_sha256": "e7650da795b12ca7096f8d0ed59cb7665c78cc8fda8c634889df0e110b98e370",
+    "port_sha256": "b5c0958f04eb75c3eddcbae64ad7a4c370554b6d8d92af138a13dd3deebcab64",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/claude_pair.py",
+    "source_sha256": "9d092826e510df752c772b0b0a4a98b95216876d71ed1e1c21dcf8307e3a13e1",
+    "port_sha256": "2ff3bc578e438e9556eb5f5375c82007b3b3a238836e197a00da539e4cc0df29",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/clock_channels.py",
+    "source_sha256": "427c3f53493a56f18d580c1a9469a12ff343219204639b2f11d66c4829c65217",
+    "port_sha256": "96ce3e94dd78a31be89046e3e17566b8ce222be69331cbd6ada6051274ae6bcc",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/consensus_check.py",
+    "source_sha256": "7114d4c32037a1740170f6daf04d5236ddc4575d9f52ec86508a71ce82af3377",
+    "port_sha256": "1fee2496048f4e235768d64ae43123557cbe23f5051b538cdbfe10c468887983",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/curve_channels.py",
+    "source_sha256": "f2998adfa3e51a3921674702e3e1752b0aca3fdfe6892d99a0f3a545fb6ad386",
+    "port_sha256": "cf45ef09a184323947169e5e41ba54b40f04824bf54a4ae9716aaeab0eb5b39c",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/curve_likelihood.py",
+    "source_sha256": "6e820b7c0647b96de78a269775034ad5f3a2ea3468365646c82162f9752bf34b",
+    "port_sha256": "804fd15c1dee186cc8cfd9baa6747518b94f654c7e8fc8f980958c982d40e24d",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/direction_channels.py",
+    "source_sha256": "a8f3d07f08e7f68336225320da4ae3ff3c7612a0e3d484fa1dc1c15db0eec3b9",
+    "port_sha256": "3b27839adc404359c6740e99fcccbe08440aa54d710014c2b0567642797690ce",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/early_tree_check.py",
+    "source_sha256": "59affb5a4a7ca0b61fe51d67f4f69ed75fea8c2f514f8589a6a054f0493585e9",
+    "port_sha256": "7f0bda0788d5d12e08bfaa0bf4f8eef8910711d34a34fc0c14d01490ddea7e95",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/evaluate.py",
+    "source_sha256": "5e207e229f166446c256e9101f2070e8e6da5de3079d229877b63307893b6f16",
+    "port_sha256": "4f76d33fcfb7dd8d7030f71a7699a1373cb0367b9a2288eb242f54ef185b9b77",
+    "changes": [
+      "workspace_root"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/expert_fusion.py",
+    "source_sha256": "526b7059d999ceb8c91deceda6bbf6a1953643afacb321af58e192d67c18a823",
+    "port_sha256": "6716fa52587c8055dbd0a7c163467bca105dbb0d203fb604081ef17403562e33",
+    "changes": [
+      "workspace_root"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/export_candidate.py",
+    "source_sha256": "72e67a7f04f098a2bcd06ba5692a43bd83dc86abe5ddda5327201be87234315a",
+    "port_sha256": "f81436bd281e0c523c335debf4af6160f4b2c44251735703fa792057d910e681",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/extend_readout.py",
+    "source_sha256": "a291ffcbe436ae8af8dcc2466e6a8c70a755719963e1fd810b91fd6818a72c3e",
+    "port_sha256": "4ecfd0781b779d305b47dd44ebe2d8c40abb8bdfeaef6942bc88980420214519",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/hard_case_signals.py",
+    "source_sha256": "b1e99b87b55eab82d52b1e638a7ec97ad6f54b957e719306eb3723a84e58003c",
+    "port_sha256": "8442e08539278072648ce800f868250208008f6e2ab0d6def025ece89c684a9b",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/hard_case_trial.py",
+    "source_sha256": "fda223f3308c69e34c98e76dc1ba33b28ce4394e6b914f45c53c52f472b70c6b",
+    "port_sha256": "116b7cb742b4e588f4bb4286b9ef6fd821e9fe32e5d92dc9acb8b13968565b64",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/hard_expert_trial.py",
+    "source_sha256": "0cd371bb9da4215661de73311ea4a68dc2662348542a5e565ceceaa56dcef609",
+    "port_sha256": "4b10b18fe7b9eacfd66785d5593bc5e357b810b2b9e8500e01c8fefd35280bcc",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/hard_pair_budget.py",
+    "source_sha256": "b947da23ef4417932cea9a8fe02fa0e6c498a88d171d9fef9007399a78115d03",
+    "port_sha256": "88e0f1bd0b8755f7a47f5900b6ea37f77e2dcd7cca81ddc09fec6c325b6e851c",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/harmonic_change.py",
+    "source_sha256": "af16e403dda79b6fa545560f7046ce76fec6462c5c4cad46a7b8dbe8290ef3b5",
+    "port_sha256": "e0f9a6293f7328ed3277514dde36c95fc583c9d450cdf8d0364bfd532e69574f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/head_channels.py",
+    "source_sha256": "8b4aa1b5dc52141ceefee78c80c0d2f07c52327608f984a696b10dc5bdff9a44",
+    "port_sha256": "ba6cdf901b98f6be923ea14427d511e2f2cacdfc9e69bfea28f1e4cf5fa8fac9",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/innovation_head.py",
+    "source_sha256": "cd193bfa544cd8c4189f8aa456b2aa87ba06b00c89851216a76d65c57eedd81f",
+    "port_sha256": "09d93ba64416491d726278514274f745bef10ff315b7a14bcc8a343119d4b1d1",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/innovation_library.py",
+    "source_sha256": "d40892e8c0c20bf4de2507a31ab11469ce4fdf80c136f7880680bedaee9c17dc",
+    "port_sha256": "b2ab97079cfb3ed4f0e2d2bf32bcf23303586a0dbb760e0629322faae0c9270a",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/innovation_transform.py",
+    "source_sha256": "64035a61168ac07b1ef4dd085d832b128a5c4aae60aaab533f80f69d713f9f83",
+    "port_sha256": "fae2831feecbac21d81cb3eb373b26d0abd13fedca28d8e162965ae72f5b2ada",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/mechanism_edit.py",
+    "source_sha256": "8176d1db47985e1ef854e839a8ef45c3553976addd462f3c65235421af5a3563",
+    "port_sha256": "4c67a83bcda6f23331abe5be09efc801cac5eae9fe626c4a29e5b6fcbd3d734d",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/member_routes.py",
+    "source_sha256": "af2e77fde38875953bf21c6fb794f02ae4aa3f251661fb525bfcf94a0d596bb7",
+    "port_sha256": "a1d670811d293de50d4aee2dc78073bbaef6a0736778281210cc1a658d9bc98d",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/mixture_law.py",
+    "source_sha256": "e20ce19baac320f3175083dcb23bb72921ed5c8b0a219f2c8f61d5cc52ce0c5a",
+    "port_sha256": "059c1b687a76f5b8a7de88b1055a6763547422c97fef16b54db09a5e634c252c",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/offset_trees.py",
+    "source_sha256": "19ce291f3169524fc62e28f8ce0fa614a9dace9ddc8815d9d4138d2f97c2430f",
+    "port_sha256": "daa16af5564cfe44b1cdc860bd99b695be4745daa3964175865b431b1ad58665",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_aligned_identity.py",
+    "source_sha256": "95ac323acbc370f1c1a31d8d3ca0f009876c604fe73159c5c491c45a95041c19",
+    "port_sha256": "820525fadad8f360d2389ad4dc1f3fa4f14f0c3ee5a9b65af116cd3fb8969d29",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_archived_votes.py",
+    "source_sha256": "81b24fae79e9cf602b716f65a232f3afbd30ecb8c6e736f620e1a4fa6e257541",
+    "port_sha256": "1b7df6552b2d5c2113ab791394dfb6d5d6c1f1b769d2e4f8a2a2f1554bcbd611",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_below_cutoff.py",
+    "source_sha256": "e1003babc1811e0807a231fd55b00db359c2aa8b1649797bcffbe2961faf3ac9",
+    "port_sha256": "572ad56aaefe761cbe552d14d4aedd49c6f089674fe352c238a4f9c296d166eb",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_control_calibration.py",
+    "source_sha256": "d9770de16a82da784a251ed335bc9a08d6fb36e5c0f4e7d9a480920a6b93def3",
+    "port_sha256": "0ea742d83b5c4a123a9251f07ccd011befc85705bf6a18fec645318d25796553",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_disagreement_signals.py",
+    "source_sha256": "587b5b9aa3eff107311550ced726f079b817d94a0159c6847fa7f30354badaff",
+    "port_sha256": "eefa8ac6dec17b0e452528bb8b9d6fae48d9c9c9b844d4280c60ae7cd083c615",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_dynamics_weights.py",
+    "source_sha256": "767f273617e7e48b4854bbd2d01da2a35acfe701979f76c9917b2867b2e06cd9",
+    "port_sha256": "56faa2597ecf87485256f9f267d79f4a3e5ff1cbe501802b2c7d9ffaf0586cec",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_family_evidence.py",
+    "source_sha256": "69d13195ac25aa7ac97c2e49b94e2da287fd730073c0c38c4c216b26d8b44c7c",
+    "port_sha256": "819f940c6625385c6c0b02dcdedb389ddf49c1e897f1f0718798358d45efd82b",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_fold_alignment.py",
+    "source_sha256": "a999a99bddeccfa576ada89d9192550245fc570e4cb610312a6f147a5bbfe8e4",
+    "port_sha256": "f57a1ad5d3a06655daea8da9eae43ded30b6b5ae3fe30a32dbcb77be6a7f58b1",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_freeze_current.py",
+    "source_sha256": "ab9aba4f03fae8c0796c4e6156044bdffbf9dc2044831608909935a9e07c5ee3",
+    "port_sha256": "62c4758a5da49c2be08ac207ec2a1ece9e879efe6205f2541e8fbec18c3fd320",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_horizon_trial.py",
+    "source_sha256": "3b2977e3418c48e5de7edb5d68d1394fc9d311e892ee93f7e27250c31e95b321",
+    "port_sha256": "aedc99e2d675f1b6a27af4f186922db2bb7c352e919904c7907d37cff00bb6a1",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_joint_originals.py",
+    "source_sha256": "f3b824b8a9e6f368e83395795a7ea6d86f79ce8586af757e0da5d4b9ad19b570",
+    "port_sha256": "62be4e9f22033b27b016efb9de73ca57f44b294bf636c9efb7c33441dbf98e1a",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_kernel_timing.py",
+    "source_sha256": "52bbccfd7fa5f2b6108fb8fc703bf3066c34ebc1373b77dbc9ea00adb0e906ce",
+    "port_sha256": "9e943ebd6488e8286d23c62c86179b2f403807ebf4081c03ac4c11f828744ea2",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_localization_trial.py",
+    "source_sha256": "2bf38bc0352b9b7409527ddff13b4237f9ea23a196ec78d60716b83647ea0e15",
+    "port_sha256": "ce51cd87d05b87006315624de6e8e3e0732fe5305987c2ad944f5a6a626e1a93",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_mechanism_readout.py",
+    "source_sha256": "c8a9f64a907d155f5ba289eb8c306740175fa422f237767545acd26c533529d6",
+    "port_sha256": "b20facf243a5ec8609ef6a5beead7fe25b37b7c9dbc9a557297e5e53843836a3",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_memory_horizons.py",
+    "source_sha256": "e6cb6625a5e011bb987a82ea8ecd2eeb8a10f9e777be06b12d3410927bed8b5c",
+    "port_sha256": "ff8ce4a473b4c12d4d98e476a412e54eb65aae3717f8b40c2b84632f5e6b45bf",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_miss_witnesses.py",
+    "source_sha256": "bc9561e248e4234ae690ba5d66e811f25aa40228535e8e5e3aacca19fdda10c8",
+    "port_sha256": "7687632bd01bcb1d7f4e57c252d9abe3a850cfdacf2a604f93ff34700f2615ee",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_missed_breaks.py",
+    "source_sha256": "79f6c11701229b909c27ecd301b49c3a6dc4fc2d90ef77b704ee98d5f58c7d40",
+    "port_sha256": "ba91f4ec03bee6192e7e9eedf14c533f40a8f0bafc0099ae7f4b21c9cbdb8e93",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_neighbor_trial.py",
+    "source_sha256": "5130013de0327703a70c24f445d6598791ec5ae50f5607a8c9cd3c7791d2d86c",
+    "port_sha256": "1e0ee397e6630962853144206bc6c8f4aafeae32597b6a19a542ecbd9e88bf73",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_noise_score.py",
+    "source_sha256": "5ed2e256e569f5ccad354108e804a7d1315e0c352fa959b344e5028d2ea9661f",
+    "port_sha256": "c2180da4fb1a635fe43590d04715441065ab1c3830f8550b8047ca373395d727",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_paired_detectors.py",
+    "source_sha256": "008ad53d4060303cf2057e75a9112b1e8ea33bf1f4e27f34a6246856e2dc83b5",
+    "port_sha256": "9d66729cd39d9e3f9fde192e7ca401badfc5c2484ab9844ab7fef53068bab4a3",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_process_identity.py",
+    "source_sha256": "15540844790e40b49ba234a47541d233a899dcdb5a1270e8dd6b1800e816be73",
+    "port_sha256": "0a3269b0fed5f4d1f568ef42b41d072453d2a047a1cb93fc729361e427375b7f",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_quiet_reordering.py",
+    "source_sha256": "0547421f30952266a37e0c5b2bb03ca47b0dc30dab2f530a0b143c19da0d07ce",
+    "port_sha256": "af94b18413de62cc5657dd169a1f3fa292047a8dd3d8cff41eb97968e6bc59c2",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_rank_policy.py",
+    "source_sha256": "0d490c378fa17ecaca2daeea07c3605df6ef43942e36a824265987dd59dc03ff",
+    "port_sha256": "4fa233b42ea7c820ff697c71ad187edaef7621573914480a36df38d6ae741bc2",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_repeatability_trial.py",
+    "source_sha256": "07d59293574b69a3e0e38cb962fa0e102178ff2d501c141af377679963283d9a",
+    "port_sha256": "608aaefb6d55154ae7eeb2e3c945249de10e0568c28950f3f6cf112b817f9659",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_response_gate.py",
+    "source_sha256": "3953f3e24f22afb0c680018d4e788b8c739a0d9dadd1a29e19b71aa0336b69a2",
+    "port_sha256": "76e9515653a76bdfe0acdaa1e208a0053aab5ef0afef14cf51d52a6df93824a1",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_reversible_pairs.py",
+    "source_sha256": "53d6cc11ac0d724ebaa8bde9ec01ae2eef767b26801fcc748752f3b6508c309c",
+    "port_sha256": "f0791e607b3f5fee46eb06d5e83fea01eeb14c548b1b2aae677db0e5aead30c3",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_sign_symmetries.py",
+    "source_sha256": "b5d6921046a3b320cff001ff30a6f506065d6f09956f3cf2046e2496d3714c95",
+    "port_sha256": "cd8823d0528cff9db4cb7b74d105b58b854748c06b32a31cde4f85a05ced3d51",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_slope_asymmetry.py",
+    "source_sha256": "4ebedae05f190720b688f0378003fe7f703b6560e15fb460b483763aa991fca9",
+    "port_sha256": "b97cc9ad41971f6fc5eef959f849ee5434809368c255bae255d876d637e07b31",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_source_measurements.py",
+    "source_sha256": "d7109613645f6a1df25950a9990a474e4416d5e30257dcc511799cb0c9470fa1",
+    "port_sha256": "b09d9e4d51e0063b761f2e66a5925963d48afabd572063b5917cf2b9fe27f935",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_strict_memory.py",
+    "source_sha256": "1838b758de3f52b0b47acf40a1ecf0469209633c1a1cdb040b35f167cdd42f10",
+    "port_sha256": "c3218a5772cc771b7210b012497d0cd9ed1896338ebc573fe0cfe69563a25635",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_transition_catalog.py",
+    "source_sha256": "a2b2017a5930584d2faa823456d44c81aac22966599d6251139bfffaa2b987db",
+    "port_sha256": "fa0f5afd30f8b95a5600aa7773e5bfa4b8e724d00d46e5b2281ac40b0f46c00b",
+    "changes": [
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_transition_neighbors.py",
+    "source_sha256": "fbcfebb8fb5384443b945c16fe176da9950886ec055fc5ffb5329ed75bce6228",
+    "port_sha256": "e3cf5790fae410dc9748cb86d4fbce82e450223d8411f86a5ae1da6c05c4a52c",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_transition_prior.py",
+    "source_sha256": "7382772031ad34fa65bd8e23e1f55a87f70aadc005b4cd6e66559b236944cc00",
+    "port_sha256": "523dda382a39c17251fdbf713ac5ab755d1b91b8b7b7c79b7bc35a6e8d7dc2d8",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_trial_accounting.py",
+    "source_sha256": "5a51cf9469e5f6768eaeed05612797f8cfc2f5368631946e1912b8c0c03d1f3f",
+    "port_sha256": "0c3d5b65beacf283717e580d52a2a6b0589fd21ef19e094a2169f70c4d25067f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_trial_export.py",
+    "source_sha256": "05bf906a9a944a8f988f0253248cd1be8ebebf1f808bed883fb17431bd028adb",
+    "port_sha256": "e0970bfe0645a4da8fdbaf592e100567655155e066dd743041e16543f791e808",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_unit_memory.py",
+    "source_sha256": "a8f5467f098d93268621f635038b452e41a03c5bd5bc1a04796c012edd3fd8fb",
+    "port_sha256": "d3d955ea028bd1e2570e5628499d327d6500d938c126cd053228cdf43f70429e",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/other_unit_replication.py",
+    "source_sha256": "6582aafa606f27ce5bca71101ec2b18a1e2afe8d14d3d06cd52f15f3564b12eb",
+    "port_sha256": "2e88c309fd23ac9254387b4ce909f3a2be3325519b27833315d7f6e5b0848b08",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/paired_regimes.py",
+    "source_sha256": "1ebed3345960d29ec35c69244be8e2424cdd66e896d65ef39025e51db9a5e62f",
+    "port_sha256": "24e816605191cfe181920a96a37a28309c670057cfc0da8e6b69078ab9381cdc",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/partition_evidence.py",
+    "source_sha256": "8c39b412a2e4ca8087cfc31e1875a164755868fbb66378ca7600aecaaee47cd7",
+    "port_sha256": "6c5d4efa795c64eaa0ef76c774bfeecdc6c68321dc1c9c710d7d2af643fbf0df",
+    "changes": [
+      "workspace_root"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/periodic_components.py",
+    "source_sha256": "29b702ad39a7ce816e80853dacc82448a9325257563ea67383097f3d6fced291",
+    "port_sha256": "e301c1875363b74f2e351741aa14fa24b8d12e17dd57846b78e71bb0cf190e22",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/periodic_replay.py",
+    "source_sha256": "a067fd6bb8cc6674bd1bd554d128bc8e5c1c621a1336707dfcba7b35a2211a07",
+    "port_sha256": "3650a07efcce64d79452c36c0abd0b3d86b9d66312d71307f79aaf1491a64b2f",
+    "changes": [
+      "disable_accelerator_autocast",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/phase_likelihood.py",
+    "source_sha256": "86a5f1545ee3957670af4872bbde6a85bd8fd372b319dcd6c2ec10a12b85eac1",
+    "port_sha256": "c067267170b76729f251965948004b225a19cc9994efa9ba551d92a1896409e4",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/physical_870.py",
+    "source_sha256": "abff17f3a2720b3f961411878d6e5c873656c5c475b328da59099cd792f17dda",
+    "port_sha256": "6dea83e09c730914cb479785a750d59e7e9e093bdf0e3b1f72f1bc4a44972c8b",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/population_null.py",
+    "source_sha256": "cf9fb7d449e61d0b287eb2c2a1be3e01c3ffe470a72503d9996ca72def6a0d01",
+    "port_sha256": "ddf28464a28d4799af29497f3620581ac347fcfeb251d899127bcb0e440d840b",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/projected_curves.py",
+    "source_sha256": "92f70e8e87fd842ac18d00a101ca72aff9df3e4ad50601df4cae2c5db52a5bd2",
+    "port_sha256": "d01c50fbbf9153dca7d3bc2dbf02ffc1ff3a573623cec39cbdb6c5c6f83b8259",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/projected_member.py",
+    "source_sha256": "721a4b987b958d3a9130a2e33e6a72b70e48c51a88aafd975fbb61e207f86399",
+    "port_sha256": "6dc51559ccd95888e3b3261af36b3fc658dba7573c7f2c3c50fa738b67b9e57c",
+    "changes": [
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "cpu_random_seed",
+      "disable_accelerator_autocast",
+      "remove_accelerator_requirement"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/pulse_channels.py",
+    "source_sha256": "dc347ca90530770530a1f345acf1f848311683d1d85f991b422aa317a9ac6dc7",
+    "port_sha256": "1d7a2788a74ec1b2da1dc60ba14b1ce04c915641f6083a0af9c6382add7f5569",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/pulse_filter.py",
+    "source_sha256": "90f011a2a48a90cd797a08708ab87b1442965880a1e21648c36278c729c4bb4f",
+    "port_sha256": "f877c3cd44f90266d88b02134d4bb61b1d0db26a6ba169f20dd76db7b745aa1b",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/readout.py",
+    "source_sha256": "3bce60b6cb8310daf8a805c7e673d0c84dddddbd480adaa99d9694a093c71d84",
+    "port_sha256": "b9890d4c5538aa84b3c70f5797cfad1eeeb715aa7395fdebf22e7614a6a3a6f7",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/residual_trial.py",
+    "source_sha256": "176a836b8c19479d4cc6b111dcd26fc8bb888137b4b5d61e426dac7e44bed84c",
+    "port_sha256": "9618248803a7f88627037b08bce551ec6a98bada76b7697bbe3f51ccea96dcdc",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/screen_bank.py",
+    "source_sha256": "0ac19c61b1fde346ab09ac647e7649ad2111a492fb8cac806692a35174ffb2ea",
+    "port_sha256": "1e561fd6585688855ab4ed016b92557e6f33c5e6abe0194d50e9713b8ee06b4c",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/seasonal_head.py",
+    "source_sha256": "af56322e70c15c7ed82e4c6254b2828f71185da952baac954cd86c5c2c4933af",
+    "port_sha256": "42baf901af5c5dd9fd4fb22c8a2441705aabdcb642bbf14e53068c698edd8a67",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/sensitivity.py",
+    "source_sha256": "01a60f4c709bd5566bc9cc12dee94ba52766c4e9aa52260e4aba4b9465cc143c",
+    "port_sha256": "8a3bcde68ff285acd86a4cab586904976f3c97974d967c495eb764dc2081cc3f",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "remove_accelerator_cache_call"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/sequence_edits.py",
+    "source_sha256": "b371244b0cf9eba794d05da6f13bbfccc8ddb20d777076d35fade626d9a2b4f9",
+    "port_sha256": "334e484300640f848419de6ccb7a1ec75573a5d90c9d02c25cd73489d74cf191",
+    "changes": [
+      "workspace_root",
+      "disable_accelerator_autocast",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/shape_bank.py",
+    "source_sha256": "ef08e3dffa36f3aa0f8540500e40197a47fb2e1a06b3043dcc3c29d4c99938b8",
+    "port_sha256": "1fc569c735409b7a8a4403ad6f1dcb013cdeca5e340e91cf884f76e9adca14ed",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/simple_models.py",
+    "source_sha256": "c04eab69edfd3e155b52b8723687d165f03572a771f6247a752f940ab5500583",
+    "port_sha256": "d6ba727ef53ad3c0f4234f2b7f971876df75733963f61788ee8ce1ae509027aa",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/state_channels.py",
+    "source_sha256": "d6c3ba9141a03cecbe29bbac1726d190d1698fda182e32e34e49c0113e104869",
+    "port_sha256": "af6278b63b5d1568facac8e1db76c249c111b5e9f1bc51fe1b62ab4a55390b6b",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/state_filter.py",
+    "source_sha256": "c19d9bec9747c3f778e0af88bfe6628c0d4d5624b828dcfbeeb3722b5bbdb02a",
+    "port_sha256": "fb380b84ec7c2f468308cb8f2aaae8c6735e13179b112414f200ce74bc39e36e",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/state_tests.py",
+    "source_sha256": "9a5d976f52bd9ee502fe223b8f22a55d1713a47f13d63c7869d36a5ad00aa6d4",
+    "port_sha256": "c73da95f77f13326814d1c61408ecfe9a2589da131c8681f29b580e12e7a605f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/transfer_member.py",
+    "source_sha256": "3f4bc49af9dc11dc25ea943646a0378aa486b8df5414a8124e50526068242681",
+    "port_sha256": "ab42119b568d7b8c2fb263636e2e65672deab3b17b759a20ee31a2e48e436df9",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/trend_870.py",
+    "source_sha256": "ea5bf3fa5a8ccb307badeeaf2f82e5fe52f0411a5a78bb8cdeca66e5bd9d3e67",
+    "port_sha256": "48edc18ecc4bf388de20ddddeb9e3f3ed72ccbc5580998dfd0a392a58f899199",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/trend_clock.py",
+    "source_sha256": "a38c612747308be2cfb7cf33b22b7284480c139d70c9d5b1db6fceb2a99fb40d",
+    "port_sha256": "67ac4244a64037b9fb373919e83147ba88c729684211b3970b592e4a00f0ee21",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/trend_components.py",
+    "source_sha256": "42c9afc852be7431e71c1d7463cdbf4408960b440c472f1200a02ea82fc90296",
+    "port_sha256": "8e6b15a6da68b47dd0f9825a8a63cda24e37573e5c0fe72497f9f9804de71352",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/verify_target.py",
+    "source_sha256": "02091c5efdbf21f02b2208e6a350ddc3ef33d291a2942b4bec8e47bde31d19eb",
+    "port_sha256": "6e7251909f67b8226aa93f2bd5c58000c45f3dc44f620f46efbc155041916432",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_after874.py",
+    "source_sha256": "d93f45f5fc3b2d47ddc5ac77a215ce1a2e4c99e752a1e512dedfb24b4d41d77c",
+    "port_sha256": "f9d6c30d17a6fb276601b336bb9f9384d394e4d1a5bc34cc9fd11088d31906fa",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_alt_innov.py",
+    "source_sha256": "aa84e3549b80b2f95af20d32d1f702a8d7ac19e01064202105a3637beff4f7ee",
+    "port_sha256": "2cb2fd440012254e49974be2fc0728b6bffb6e7723ba4159fc1d10e87fbfe099",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_asymmetric_response.py",
+    "source_sha256": "3aea74fb34dea2cb3aa9f4488836311e5b9978b6e391c3422fb4613cafc6d58c",
+    "port_sha256": "05f8065119b7da4d3f8340fd7192aa8d36ce7c9a50a60e2a585b36022fc21848",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_baseline_opinions.py",
+    "source_sha256": "329b5957601d0c648c125b305f98e833e550f54f7b170a2c2df694a1068d1819",
+    "port_sha256": "8b8f3d5ad3afefbb5a39bd485eacb69c90e24df66c265f5c4dae1b505e20719f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_block_kernel.py",
+    "source_sha256": "7778289bfa9a799a76e0a87e05e1845c96221cc49a9fe7c1e50c9b0582a6128b",
+    "port_sha256": "b24d710419e31dd50dbf5df65be290326413b817cd00d79f8a9d1b94dd7044ec",
+    "changes": [
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "disable_accelerator_autocast"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_boundary_law.py",
+    "source_sha256": "cae0b521aca9472332175e5d9496875d232b75bc5ae2c7be7ac1db06e49f4f4e",
+    "port_sha256": "5643aebf6bf888e3480851102b8ffe5962e1b069b114fa60cafdb2247aa92311",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_boundary_shapes.py",
+    "source_sha256": "d514c534fb4051f26164d91a59eb6208f96bfa8e58a2f0054ae82dc40f15205e",
+    "port_sha256": "b04c9ec1aa64adb692b63c946be0a47bf2e936fe0ce17761fce36e15f512e184",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_channel_replay.py",
+    "source_sha256": "6e7c421b8215e6cdcad8da6a33cf3ae2669ea6c2cf80dccb0e8515660ec15d11",
+    "port_sha256": "f1506107507e8ea9c85c615f3e10babbd4e5aa21c2f9739a049e7642ffba9b7d",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_checkpoint.py",
+    "source_sha256": "636951f7ca56e664452f1015a5e6d81bb666b2fa22dc53b939081b5550abe784",
+    "port_sha256": "5726e6c6d440ccbd41d897fc8f889d38857bf898102944cc7b3ccf37b98353de",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_component_moves.py",
+    "source_sha256": "234e9b06d3f5c6e0fc787010663fbcffef53a6a9f4d125705ea1e6d204ee135d",
+    "port_sha256": "1e776b0e1f8fae281ad1357f5915a6eb6e87c15cf5287b8256ac77fa96a87f58",
+    "changes": [
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_concordance.py",
+    "source_sha256": "bd7ff4ed38a214d0d15bec95a7b39a942739c2360debfc0e55a09c4ad89d82b1",
+    "port_sha256": "983436bd00c4367b22159b6360b447ac2beaf00689c9b920c78194ef40a06b6e",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_conditional_drift.py",
+    "source_sha256": "ee1a8020bc0ccbb08c8de618af9335b95f5a3fd717fd07fcea737ab3ec820925",
+    "port_sha256": "65514a9538e75b29341e0d7d40f43ab488d2375a1552d3c86e790cf9eb208a6c",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_conditional_noise_law.py",
+    "source_sha256": "78268ac5e1e481c8086a440394fa0a5a82919d2673a75a11459038f014612e0a",
+    "port_sha256": "c04ab1ea7175802c18e0a368e652609761224155bff6dae5880d2ae51bc72479",
+    "changes": [
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_conditional_votes.py",
+    "source_sha256": "d5ffe72a25b274febab0dc4c5b1fd4467c62191b205ae0a36cfaca4663f60ab8",
+    "port_sha256": "3f4a4eeaa959335fc5c6f1fa1e31eb6bd870b83abcc716540c5bf2e966d98ce6",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_conditional_weights.py",
+    "source_sha256": "ba52fc78f699e1bbbe5a903acf7043fe988cfa7a30178da3a0d63263f1b3c35e",
+    "port_sha256": "3fb654e9211d9a75a7eff751b4409a3d8e7499924ad04a55c8bbeb1084515f2d",
+    "changes": [
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "disable_accelerator_autocast"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_consult.py",
+    "source_sha256": "a8c55ac87cb12f012db6f138abcee7d5d582d6fac16c4357a380809920fd1d98",
+    "port_sha256": "b5cbc533c6e601256f4d11043cf5a16f35cdad2cfe911ebc0c55701e43c5d331",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_context_changes.py",
+    "source_sha256": "d7326a54846b427b92cb725fcf98c3db2682a443d6d4bf2fd4e0070eb3800486",
+    "port_sha256": "94e24675070f4821a38959ce35b507039b07e2b4758350d6bc8ce5caed4d33ea",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_control_ranks.py",
+    "source_sha256": "6267542e936ceb5b726d4e2db4ef63f64156b2c922a9fd58955ccd9ca8f4b2ab",
+    "port_sha256": "0ab36d7e95e9f38e7cc2f65a49188ba23d393dd5a623c65d4da2ecba38e56fc6",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_crop_growth.py",
+    "source_sha256": "702588e98dcc2228cb8c2952a999de58b83daf4251ea006cd56c2f1d97c0845a",
+    "port_sha256": "0f6e9aeed2f955eeb6c37c815645a3f8bcae395c629445c272e73f45f0310352",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_crop_laws.py",
+    "source_sha256": "fdf43a694f489656772dab5e211093a52e6476e093923e18c46d455cf05f3439",
+    "port_sha256": "6640f05e21b4890f057efafbc912218367b5795a0fc6902eb753095731489198",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_crop_partition.py",
+    "source_sha256": "73df67178c931e4bc3602a4a52ebdb684adf9b4c575d010b2756275e725baa33",
+    "port_sha256": "415b6932f2b7f20fdd41db554eae1b404c3602f2f1a43c85e804a48c6de86797",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_crop_replication.py",
+    "source_sha256": "a2ebe3be1984b74b390f96798435ac154b60d02cf73b6351e066b18066f01d94",
+    "port_sha256": "4a681f07920400cd8f58ee86689fb150550796a70c5297f83da8413ce0a92c0f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_cube_components.py",
+    "source_sha256": "1849dfd89f0909e2d435ce917c4be21b14362e8fa9a484ebe56d798aa2834bd9",
+    "port_sha256": "0aac57e847ffc002ad028d5a861453da74664a3d566a77057a44bf7637240048",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_deconv.py",
+    "source_sha256": "42c369c113bfb29c514656ca56f25aeb63a487d013117acd5f16061ac5137090",
+    "port_sha256": "e1940fa628a847b41f83aa00dd2112ee1c1f5cd7be2655235157e51b60b1d437",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_expert_agreement.py",
+    "source_sha256": "3a56f16d8f2ad17dfac761fd4eeb4159e2fad11701bff2ad452a002df221f599",
+    "port_sha256": "b97f563453e3b5ca200af9bfc74875bcce6f52450ae27ab1600ef7911690354f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_extended.py",
+    "source_sha256": "c415eef7c9c838a2ac85ede8c9d02972510b84cd645514042ada97a3af699d57",
+    "port_sha256": "2e461b1100eb33891bae5ac5f9f37685da4b5c18751b678b9a2a86bbb956b658",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_false_alarm_groups.py",
+    "source_sha256": "2adc36ffb073e84c8ffaf0756878befad1aca1b5e570aee3d7a9afdb4a2e8ea6",
+    "port_sha256": "4f5af257a2ffaa7bb21521f02d32eb2c73afb77069ab5e451d02c602cdc64699",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_family_ablation.py",
+    "source_sha256": "ebd25c840e1efe589240590034647f9f4b19e43843c09e44533d259a8bed854b",
+    "port_sha256": "8e864fef0562c3c59572dfb6e6cb4076591e103e03879ab64e77b0c286fa7427",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_family_calibration.py",
+    "source_sha256": "223479007fb20ee17b9ce694a252d80aa28cb6dfd34d94f243262fa56c6ca675",
+    "port_sha256": "638853a8952657b92323439131e35be9b567e4af4f30cb4103877d8c523baf17",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_family_objectives.py",
+    "source_sha256": "d13580b7852c0ab0dbd8b7a6d1bec28d83dc120993f54f42e46d9482d2256ded",
+    "port_sha256": "d59dfe6a9dcf4a8afabfffd76d102c76c3c977381984ff6ee4e5189ce0bcaded",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_filtered_steps.py",
+    "source_sha256": "681ee17aa02ddd707ab67ba641a35d60d3a47db2a5a7551db46371cf31b8c068",
+    "port_sha256": "1f0395b67ce80618ad06d56cc7c7db59cc649ad7564ff979b8f9dccb5485d18e",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_first_family_weights.py",
+    "source_sha256": "ae72ffde0473a6de16df2915a25144db72938aaecff9150b196b793d4dc1698a",
+    "port_sha256": "a1bcc2fca3f40047f4e6e2c285e113a8ce46faf9c1dd2c276d14dc1ed4db3faa",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_first_physics.py",
+    "source_sha256": "3d2a9f53fcf8f47057caaa0013b4086986bbb4e4bc7f47ec3f4acbbbdd5f3c6d",
+    "port_sha256": "b6ec944a9442a9dcb29cd3ae9fd325ec6be6f18f43a5184ac63115ceed247719",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_fold_vote.py",
+    "source_sha256": "7f3216fdcd60988b6a95d5dbb8e45559bd4631164d8d8b9f8a28ee08d3995173",
+    "port_sha256": "317741352b32b07c0d13e659d5a6a7e13d9561347f1a29c3cd87eb22f014b4ca",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_forecast_density.py",
+    "source_sha256": "108959134b6d12743eec18e8caec3806855dab10055378e5e680add429c1b27f",
+    "port_sha256": "9790c1e010f67b229fac8bf8176c0c3272bff6f828f0049e50ed0722cbd5c71e",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_forecast_directions.py",
+    "source_sha256": "b70e876f4919c80b1b27e3a60b247d27e85327a5672a6a3f1bf491f07fa9fb52",
+    "port_sha256": "d9f70f570f4bb33189d390caf7b48937918765b8da4105e9b4a240640a181a61",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_forecast_weight_change.py",
+    "source_sha256": "e13eccbe9903494c295b3e316fa8df77b53dacef9577d339e30dc7aee8fd2607",
+    "port_sha256": "9307e55205b738ce16c715ffc3932bf4f1467c13a056e1c258a1ddff0e869a4e",
+    "changes": [
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_fourier_kernel.py",
+    "source_sha256": "020d6fff1db4463c2adf41df37089206ebb87bf72ac80e61d38d09dd9488b17e",
+    "port_sha256": "2bf86b1725b86a04f26f4bac2eb648c25478380fc17a0cf2c8e66f393e2e8544",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "disable_accelerator_autocast"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_freeze_agreement.py",
+    "source_sha256": "63db42399784faf061bc3e13c3d07ecb7205ced1269cf6f18fd893c7ea92358e",
+    "port_sha256": "2608128adc4fd21b5ed79d2c4a1b9786c66ff3d11e4897a30f786e4d72a3ad42",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_freeze_first_layer.py",
+    "source_sha256": "f557cab62adf297adb8cb21a4d60032e8c8860882ee36e9e3a032d86ef439efd",
+    "port_sha256": "0fb3c0a59efe86c732849c0d575851de287528cce007932351c1baf0bd840c4f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_freeze_opinion.py",
+    "source_sha256": "edccb20e58c0bfabe261273300dd7deafe7247793d3ee28c8f1bb1e56a38720b",
+    "port_sha256": "22ddbc4e7c52be7789d4ff1fd11689a3155891581827260a7da5923bb482a777",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_frozen_stage.py",
+    "source_sha256": "4efe78fe340479de1bb3cfc3d8f630794c4a6f7cf78a9f242cdcfbc7b47d0d50",
+    "port_sha256": "f64f112ae5ab0bd368ff99d2808ea1d4b61f29564d7df0dc3c4c2c085b0030be",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_group_contrasts.py",
+    "source_sha256": "b7e9d9535bb48655156385ac047f8a6adaacf1a62408fb7ee4769c63bbeb5419",
+    "port_sha256": "f65e60b55c1cfed316343aad370e4f79ae97aeb411c1ab50aaa055228a12c966",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_hetero_shift.py",
+    "source_sha256": "d0a452ed33e03674f13514d1f2bc8b0a22c6ea97dc8419ec2b9cca44e0d59596",
+    "port_sha256": "a467971c4773a9714b1a9358dcfbae8ade57ccd31045c2cc625fb0c4d35ed809",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_hidden.py",
+    "source_sha256": "c7e6999f6756f16929da5c14b20db0d04c00556ba0abd71b67d4805f13c18357",
+    "port_sha256": "fc7444e8ca0f4a923f87def8af158f589a4d0d2c0de06bcd5c3e61e2ea0abeda",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_holdout_pair_head.py",
+    "source_sha256": "c0d1c64713837e704dd8083707a3f34dcf376001f3f495ea8e374c20efedc0f6",
+    "port_sha256": "10df35d45a4bb1ecbae46167520eff6ac17cfd71b0f86035d613dea17e2b4414",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_import_tree.py",
+    "source_sha256": "6b6682fe78e0a5624fc19fd56d1033aca45d7cac5e406ea5fa273dfbd5b56737",
+    "port_sha256": "9a6bb6fc8b68ba6176de8d517be04c3b3d3d211a06c0e1249c4865ab2771024e",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_independent_rank_folds.py",
+    "source_sha256": "7cb9514ec9b96336b780a048789dccca856f8a1b0851ba75446bf4a1688b376a",
+    "port_sha256": "048460c05995cd6532dbe3fae4cb249f9d12b7be9e9e1f70afb2973de8c891a5",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_influence.py",
+    "source_sha256": "55b857f727175b110bde6fb87f5f2c4400b45aa305d476018635f0cbe0f1e9f3",
+    "port_sha256": "04bd9c13ead6e3b3adcaf427e7636b8a7ce810bad8db90d9f44387dd989bbe6f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_intrinsic_time.py",
+    "source_sha256": "2382625d21902d2799ddc0e1fc0f1cae31dfc5792cf8ef7f4058bc833772f5fc",
+    "port_sha256": "5be9a619eec7f378c48f18af077632253c2a7b99616c6c5f0be0fd964e666321",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_joint.py",
+    "source_sha256": "f4ec07feed8c9f8c835a5b277a7a5ef2a8cbcdbb9badcf6a33473eeb689dff47",
+    "port_sha256": "81387c19375e9221cf480e7b0c42932e7aaa34f7a25a6f5a3cb0392eec2af521",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_joint_density.py",
+    "source_sha256": "92c66f2be155bfd49385751a4027ab18836cedeb3584b8ec07bc47d05aa520e1",
+    "port_sha256": "ea433bc2a17c792cf818cd2971a86e91ec5f14d1123c974fb230d271eae2a9af",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_jump_priors.py",
+    "source_sha256": "6273ff95e87d15d95a284d9309dba451842d9532248e37341906a915ee63b053",
+    "port_sha256": "cb2c4c9b56cf8d979e5d976aae2123728c77e3faa2229c2be73446c8bf1d7ca8",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_kernel_readout.py",
+    "source_sha256": "13fbbf53cd649c0b4413b9f1ed4a88b56c4e3cea9b7098779e1e0a0d3e1d9385",
+    "port_sha256": "4cb0a3f602de5ee1387c5c8db147d35ca862e41dd590001d6529d70353ec852e",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_latent_duration.py",
+    "source_sha256": "1129fdb860adb5714ee0c6d66764524dffd1ac3aa742c009e8bf35b4642c81ca",
+    "port_sha256": "e8158b0e2995c4e7eaf39746678b92fe9310f68a1cbacef6271e85c507653a90",
+    "changes": [
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_latent_level.py",
+    "source_sha256": "ecca0d0b9717c18041baee6fbed77857ad848c0d773e346b3e21c2401db0a721",
+    "port_sha256": "e6741325c66883c678d33e320043cf4860038c7e8f111b3ccfa95ec76e272f20",
+    "changes": [
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_law_head.py",
+    "source_sha256": "12b1cda3e2be921304dd4f4e61c6d6665ec9a0d5684a2b5dd46f1c3b1236aa11",
+    "port_sha256": "38004730e193e1b6056f4e61174c5cbbf1d3006834153660b15f79ce1e9270a3",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_laws.py",
+    "source_sha256": "6be511481b04a6d7c100e80753760bfb9d7370569bf6bf8f6e5ef392e8769d43",
+    "port_sha256": "b033f900bdad4cbf5b0d18487a38c8f5d47592178cae0557217c54a8a2b5c70b",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_local_covariance.py",
+    "source_sha256": "f6b9b92027d76db0211f4543b430eea50666c0d4de2dadfb4bcfc5ae595cd78b",
+    "port_sha256": "0c1d688b5cdda686efc9cf7acd8667b4b7f38a3af6422aa748d0d898d18436bf",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_local_rank_weights.py",
+    "source_sha256": "f22817fb343914d4c1151661d5de6270ce87bcf1a88fd553ee2a7ab6ad74f96e",
+    "port_sha256": "5b14f96f3ebc509b2c8204d29a34606a2bfe5d5b8bb3753ab443ea39584d9dfc",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_local_residual.py",
+    "source_sha256": "9e2f025fdc4964a3526d33ad7a2abd5f627e67625076f5ebf14fea39e59e686c",
+    "port_sha256": "0a80f37de4cdbcffcd688afa2ced309b331a5ba4aedba096f01421adb4d0f3d4",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_local_transport_score.py",
+    "source_sha256": "b9e1c8beb74c76f9092ba40c4dd09bc05cf969606f05571000ce55794516fed8",
+    "port_sha256": "cf10e0a1bfbcd695fd34753194b914199a4e9899e96ceebacd27ac06bb102053",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_loop.py",
+    "source_sha256": "6c47f41a87117836020d6fe996c3ff53b4e07760c4eae62204151dfb4481b0ad",
+    "port_sha256": "793fff8601fb733cc26ed2a90114076740be107eea32d828959a67926a5d99bb",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_markov_copula.py",
+    "source_sha256": "ed59532f98ce8aa4d8f340fbc6db2c61e24b4c377f3b10ed99cc3f75fa17c14a",
+    "port_sha256": "e48517003758503af3b4717a2bdb2786eb722f2f6891ef5faa1bee2dcc1c991c",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_matched_regimes.py",
+    "source_sha256": "47c2cf333878892611d2cf73e6634cc0cb3eabdcb38677aed89041c04f45c2f8",
+    "port_sha256": "47c570e39fec5c1d91e3c1d466c8a9fea91ca0353cd0006d21c603e90c799a5e",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_mech_tree.py",
+    "source_sha256": "8f6fcbebdddf2601707c44847e546f53697c2c4a63ca92a248cd2000572631e9",
+    "port_sha256": "28fbff79af1e07cda31902b6c0e021a659c1b25d6a142832748328f878964482",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_memory_events.py",
+    "source_sha256": "d52508c880e420af692860d93d9f7e596b3c2bb98a104e0454ff504634ac7001",
+    "port_sha256": "d0cf4225471ad6a93bd5f95d8c567b64bd53c741e2145cb790e0fe5c26289815",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_memory_law.py",
+    "source_sha256": "9137efede662f4345242d0a62750745b32cfdb7a7284bffc40810dee6e934a9c",
+    "port_sha256": "9a9c06718951cba78e75073f674adc4d729112bdba83ab6f951879e935f5506c",
+    "changes": [
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_memory_replication.py",
+    "source_sha256": "10b97a79fde04453a1af13d941c0e58c2b46b98f73ed9f6119ab89d669e27175",
+    "port_sha256": "fd328b4d1bff1e11af596e2f3ee93ae4af20647b5835e29d388463fea63076bf",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_mixture_program.py",
+    "source_sha256": "731170c73a13aef3052925b020de3570ea91a135c47921538a6815bfb6699778",
+    "port_sha256": "2198c45ec47046e96cbb278e67b6285449c5176a2fcee12b9fc29a88f4f53f62",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_mode_encoders.py",
+    "source_sha256": "d8c65e3681740e0ea9e3df79d766193ec84f0d301b8520a7ae4c0079e6188c41",
+    "port_sha256": "55efc2f71bec23fa0b6545e39e5647637c2f3d8e580dc67b7be4335483672b3b",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_mode_switching.py",
+    "source_sha256": "74abbb77f2c2d48780e6464487b4d6f857d498629ee38ceceb1c23416df32343",
+    "port_sha256": "b04126e3f75bc2bbeb5e9a587be01b23bf755d10cb824e43253eae8fdc6ffdb2",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_motif_dictionary.py",
+    "source_sha256": "91c8c130a4e0ff2bc782edb0528cf414f123c952e3995738482a0bbd87cb3107",
+    "port_sha256": "fa33ed23972ccae003310aa96375d6c12743481eb857f5727c9a20416373d8ab",
+    "changes": [
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_named_signals.py",
+    "source_sha256": "18583af0778d91e6ef177d251e652c0f8840f0d64dbe514773161c478bdb7ada",
+    "port_sha256": "463340fa228ef90cfb7a4e9223827287f082d6f318ce3b7e412e23dd0cdaf2dc",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_native_law.py",
+    "source_sha256": "a232f32b0781ca131b3f721db40ddc5bb4f0f6b9d6794a4cb6239a72356d214a",
+    "port_sha256": "712fda69624242e82350d13edc5054db4816189ee6ce1c92950ff8d95266d4be",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_nested.py",
+    "source_sha256": "6c6782470658f11a2c49977539e65ef103f370a1444e69a7e485a8fc30652cae",
+    "port_sha256": "b5d90c8abb84573c709bb2ebf3913b73579ed502069fa0598001bee43afeeb4b",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_new_partition.py",
+    "source_sha256": "2fb14bdc2f0c9a1ef6518f78ff357ef6f17d33cb370604ffee4073ba13923610",
+    "port_sha256": "11cae843812609d508fbca5ad5756b8490316a27ccba5481298ca8fe0bab62a1",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_noise_polarity.py",
+    "source_sha256": "e6b3b894d009e82f634e12f3aff71ececafa9ab41808b98053623e4cde09bffc",
+    "port_sha256": "db8278a2607898e1fcc3ddcdf1e6165e2540f66b92bfd5db13ae59c2b5314ab3",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_opinion_spectrum.py",
+    "source_sha256": "36f831abca6419d88b8ab562986eeaf9a8dd9760dfb2b6d53a300e0f54b143ea",
+    "port_sha256": "b78e0a2239d23630c7b2c98c3487efb3e689c3a63d29a7bed3dc31917bf2b54f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_ordered_paths.py",
+    "source_sha256": "985b1798e3fb5707b5b7aff2169e40507ce8592614ce2419e64e65f9e70645e3",
+    "port_sha256": "dc274ae4cde38c603155b47e69f52c22f6d14de37cb94672a13a2a9476bf8592",
+    "changes": [
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_ordinal_motifs.py",
+    "source_sha256": "f065f5efa8b3fd214c97fc6b99c0e358c5322cb4e2f1c5c1c9dc2a1fa71d92e9",
+    "port_sha256": "1004e2eb3a15c4b968535f610c7a4d60ad053e6379b771de313c99f71419a79c",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_oscillation.py",
+    "source_sha256": "ca0804110271283f8a7d67dc69928c6adeaaf6cbe6068a00bece7b36f24c0db0",
+    "port_sha256": "b00009167cffb6c56936c0950173521098560e3f7d47f8d9e92d0120ef38897a",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_outer_priors.py",
+    "source_sha256": "fcc68809d868f7e70a7759eb6a3b3ad11623c0cfeaa05bb7d64f73de0da5be17",
+    "port_sha256": "5ebe4b3ef0d4106c8336ec2ea7c37d9d4a1e2120611b6fad38002b144f5fb21e",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_pair_trees.py",
+    "source_sha256": "3d5dd02dbc3dffe4e3f6b31a6fc0906f1aacdbe275ae70d02ac6046733ec35d5",
+    "port_sha256": "49e2154cd342352bd4193d98517f8739d0940db1a7efa0d29d0d8b0642f6b527",
+    "changes": [
+      "workspace_root"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_paired_audit.py",
+    "source_sha256": "99a482438ea80f0b1ca4ea2329a4a2e9986f323542a82dfcc8053ced5eeb875d",
+    "port_sha256": "cc61f6919716543ce7273fc1e4d45a4909b91f10b564cc0f8d268cb5fe5027e8",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_paired_branches.py",
+    "source_sha256": "b78f5d451bb62a00a23b2f1b1cbc8d516992f0c924f808206a9971337a0b7d21",
+    "port_sha256": "0f45575fdb43a8354f76ffd8e472c6c746318e5391b9fd6941de5cc7e854eb0f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_paired_source_votes.py",
+    "source_sha256": "3cffd4346322cda7374a4dcdec75707d083f2d069fd2842eba5682bcfa4db290",
+    "port_sha256": "0af6e64efe8abd6c6e47535015110d0e18f185ac2e40b50376608fa80c857581",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_partition_readout.py",
+    "source_sha256": "92a6c62375a1e88fa275afb81f83239d80c9db696d2caef7322e78672dc8e110",
+    "port_sha256": "6c9c29b936b3857516c7ca7c7c0accffd49eabce643894c93cf455394c422bbc",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_patch_forecast.py",
+    "source_sha256": "a81b1b2090ad2aabfd887c999e29dc44e3e910667ec72950b1e37b99df262362",
+    "port_sha256": "1f0a3f60767cc7d0343b793bd910df6462950ab7f371a0255890313d15402562",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_phase_coupling.py",
+    "source_sha256": "f2cd3e43b96938f8f9f5434793d3d6f471ebdc32bceb495188e0dda932939598",
+    "port_sha256": "3f65ae6abeea97e3ccfd85eb4ddab33decb40be24d98051c54f4f8ea7c775403",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_phase_distribution.py",
+    "source_sha256": "0620b8267374fe57052ac29f061b8833b1ca503d2c2698c35f9b78858435f739",
+    "port_sha256": "38fdfa5041a6b17976539972a5ac44cca3133d91e729673f28f3dc62cc87b642",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_physical_net.py",
+    "source_sha256": "d6c3fe57a10aa17e1413fd0d96c11b9ce801491e51e07da4809c3b8f75897144",
+    "port_sha256": "cec6c709a954abf6bb3272f25451dafeb7c4ae11a163f2c03a5cae3b08296778",
+    "changes": [
+      "disable_accelerator_autocast",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_population_transport.py",
+    "source_sha256": "967bd7b6a426cfcbd35534e44cfca76c5740f69f1f0bef1bc17785634802be26",
+    "port_sha256": "bdc0e9fb580995e3599489e1bd805590c9a8d8a6755fa1c285cebb15e9514fd8",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_predictive_density.py",
+    "source_sha256": "b386659959146006ac13aaa2ec2a72f32ff3101ad41da547d6992bef5ee95d81",
+    "port_sha256": "a73573937682648d4de3ecee5a7ae7ccca44241a9e1160bd84bc7e9d47432898",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_quantile_alignment.py",
+    "source_sha256": "8bb86a39ea34037c2f1c5c5f492ef158a05d149d3ad6bd6043ef7c4fbf924d36",
+    "port_sha256": "652ccb57a7faf3b9d540ffb15639c76172757745fe64e611cf070ecb2af03267",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_rank_boost.py",
+    "source_sha256": "9d0cc27f2033ae24c3f4be5384474cee9829f3b8207c8f0e2a5cb560f09ab827",
+    "port_sha256": "df61e091acb660a50e07a35aa8205e0ef2478b1842686660b11b03db3039a7f7",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_rank_dependence.py",
+    "source_sha256": "320d235bf54fdcb2816f9f8e2bd11155f712ee05cc79e321e9766f08a2343cb5",
+    "port_sha256": "67a79c4b0e401f9cc18e85e609b6e2f23b104f20700b4fc0d8608481c67c95a8",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "disable_accelerator_autocast"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_rank_likelihood.py",
+    "source_sha256": "89b0285775958bcde376626d218501c7b97e61e803e225c70cb641da9ca2c081",
+    "port_sha256": "7629776153734b290ba9803844860201ddd34bfd054c1b639b29562831ae9049",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_regime_branches.py",
+    "source_sha256": "aeaad833cff8994c0913448dd2045fa9aaa3ba0a5aa23af910660b617be0d069",
+    "port_sha256": "16ec39e883927c82ace05da523922621e79217041714cfceb860df103962f705",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_reliable_signals.py",
+    "source_sha256": "7ff53c265a26846e940dfa269a664d7f7350b5dc80a12bf8077fa58650b1bded",
+    "port_sha256": "f947973c971b45175b598427917b01057f13feb866b2d7328aa6979f536af18c",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_remove_noise_modes.py",
+    "source_sha256": "84cdfc1d6441749528d9a29537f18b428716ee430444f0855697dd88672bf196",
+    "port_sha256": "345c7dcf88d350ae7cfde495cbeaf37a429c2d8f82c2a38d388557267c2d0640",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_repeat_probe.py",
+    "source_sha256": "0dc6086428f35ece76c915611454fec94ae8833e3b6b5e25846b3c6b884a2641",
+    "port_sha256": "2baab1844e3f08f93b64f0d76979d4e523b4fd02c9c2e086edb5bed0f5652527",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_replicated_directions.py",
+    "source_sha256": "8b2d3b9754a04d92cb7d4411d728895614f7df8e34e39acbb3650303774bcaae",
+    "port_sha256": "5638e634e73137ab688bf94588703897f75cb0f6584a1ea06a455420cb173ee6",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_restart_audit.py",
+    "source_sha256": "fa014b406ae402414094ccbe42a4351ed145f7a8578976d792e10013ec1eaf0b",
+    "port_sha256": "ca9aa76fe1c5f1dd99ea3f5e1c72307f163938deaede9e08ae0237182f9faa90",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_restart_density.py",
+    "source_sha256": "bc98c8ad2b82637fdb3b332644416aec6bdc040188bab68c52d5c93abb0eeb36",
+    "port_sha256": "b1d37bef14d57b896eb59befae1a48cd8e1ddca5537fc556b2adf8b2ed6e6bdd",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_retrieval.py",
+    "source_sha256": "53496df96959ac69d5dc8d938016c924a62b2bd9034f6e6d10ef0200dae0c6fa",
+    "port_sha256": "33e8941888dbdc106c073fe268a81b8d97c3fb7cde44125f0edb2adaf8bf3b08",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_run_age.py",
+    "source_sha256": "ee7c211431d29d7a715d2a8ad7291abe9601868f7f2be5c9b6e3f6da2b499ab2",
+    "port_sha256": "450e602e2fd5b18a6f587cd3d24de9b2bcb311f0b0c6475db3cbad3b3546accf",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_score_scale.py",
+    "source_sha256": "eaf7f2ef6c7d41de74a8dc15546d63b72a2d9dcac3bced35c3742208ed396917",
+    "port_sha256": "f7895107839b9bc991e9b0f7abe8f0010f516cb174c6be239a01d3f9824d3ff8",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_seasonal_memory.py",
+    "source_sha256": "bf15704417b51a7841b1d0569427da3b061605508216eecfa354eaa29fe0ad35",
+    "port_sha256": "84d4b9dc35f0057ef85671d98544f1e8cede321b35ed36bc77a68ae8a1a19d40",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_second_clock.py",
+    "source_sha256": "9bcb73d43bf87dc984c81ae95da06fcd909a082887fd439ebb22ec954b4ab32f",
+    "port_sha256": "7e1b5a4fa1920d653b75de20baa62ada6cc92097b13ee6e50071f60e32285578",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_second_tree.py",
+    "source_sha256": "480267b225335f353140d4118727bf5582ce9139618cd596faf88e861e0d13be",
+    "port_sha256": "c82cb6e93056f8b1b91b678ef068da9c3c28d5bfd49f7d6ad485bf533733549d",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_segment_population.py",
+    "source_sha256": "9b110526337a764fde7fbd50a5ce50595abdfbcfb1911448057b056588e07b42",
+    "port_sha256": "2abdf98f00f2bf2d0770a4dc5c80ebd71d210c776ca2a5c65a236115b8920389",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_shapes.py",
+    "source_sha256": "18ec7bf684f77c2a38270157955b55d0ea05c34416aa12b0d7728e843ecd6f17",
+    "port_sha256": "c07278a283ebca5aad6d5da4889695de4d5a4f7cf9582fa6bebf136afd8a247d",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_shared_net.py",
+    "source_sha256": "2311cbe6f4598f71f09e27a7f3b3abb506322ec1389ad1ce1c8c2a93f9c5bed2",
+    "port_sha256": "b0aa6b0d00de00238374a2977d16ac9efd9edbf26e1d4e8188c1d4cc1fc70a1f",
+    "changes": [
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "disable_accelerator_autocast"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_shared_residual.py",
+    "source_sha256": "d6a7b243665a7b7cc6065169ff04c7f4081ac00148c7b0968bf9b173c3649f72",
+    "port_sha256": "89b3b95114cbec7e5a8449251f6e8491480957263d851480c0b69e922167e9f7",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_shock_echo.py",
+    "source_sha256": "147593c39900c20cfafa83ba3bf41f8120d0e4938e22069aa6a788ed64ae5d46",
+    "port_sha256": "bb6b7d0d47b5414b682f2a4c2386d18158a6d2a814c34faeb2eebfc9dfc9f929",
+    "changes": [
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_shock_quantile_vote.py",
+    "source_sha256": "795ce4e7ec85a1947d28254fd79d5059fdb00ddf337fa5ad5b6b6044891a1973",
+    "port_sha256": "e9f71306fabbef3d0f8143bcf4b129850e632a29ea205d91494927b6a3de7bf6",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_shock_quantiles.py",
+    "source_sha256": "2ccba4f558e2b1a8dd05cc4efb74b94787ef5c86462ba68f5a5d70039885e47b",
+    "port_sha256": "8c5333fd02b2e15c1da9f7352a11afb5d5f4b93e43e151209a9106dc7612eb70",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "disable_accelerator_autocast"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_shock_ringing.py",
+    "source_sha256": "4e3ca2958d04b76919f40c065f01897ffa788f0e3e84f6dfc8f853092c82b099",
+    "port_sha256": "26bfb82e0625030bbfa6df5e923afa5a6b93993b6fad43d42c4232d3d1de20d3",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_shock_spacing.py",
+    "source_sha256": "e163d9e8f6027ef90f1562ba657b53d69b1ae52e682db1dd14021b8290ae5b87",
+    "port_sha256": "3db28e07af9d4897b3310cfd815f67aedb5d1c93138e5dabf79f5095f1db58ed",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_signal_audit.py",
+    "source_sha256": "e843bcbc823415822ec480871ec3f06f4ff61447639a8424c256cd93f2e622e1",
+    "port_sha256": "575bf0a98796df6d8654ce77d99ab4c4488e734bc0a8a947963ff43a290eb461",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_signal_figure.py",
+    "source_sha256": "648e44ac691226b64f1acbe3eaf78f6cba91263a3bd8e3fddd9c9cc7169a2592",
+    "port_sha256": "82fa719bb5f99318fa0b1e41fe6a10bc2421bc93c7310f6c1c7733370d6f7a9e",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_signal_package.py",
+    "source_sha256": "1776557b5443f47c937f6e34c2865584c2301ff58fc9d4f0def99bb52d612da4",
+    "port_sha256": "10a6de545dc095b0f89fd7d57c33f4e7918a397d4fcb58ecf5068dc28b2360e4",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_signature_screen.py",
+    "source_sha256": "7d539f1eb929ea3427290eef473ddb85c208201b9930a385002113ea21e4ae27",
+    "port_sha256": "e19f3d720563bc559f86ecba9f0046f6070300698e51357dfbe2d98c02a560ea",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_smooth_path.py",
+    "source_sha256": "28d7368bc7e2406f1a5d6691a8ad3b9e12a7d4901e09802b8f512e36fa8fa58d",
+    "port_sha256": "1c37ca388d07800fa425a3e48a894ea722416c21b2b6cfc64e3f0203e942ccd6",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_source_bag.py",
+    "source_sha256": "52470c7f943d0cf1d68f58e725e4a3f0a958fa9fece8c7baf2db011f13183382",
+    "port_sha256": "8c096694c3d8557397dbbecb43e21b34a477e9448c6ad17b878956ca6ee1b68c",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_stable_factors.py",
+    "source_sha256": "c7395ca26b35815cf6df67f29a9b7474e47a02d6a42306a425a2514a6a0d4e0f",
+    "port_sha256": "db980e80f254e84589b308b78c97e5d8a82943b5897cb3cc48c3dbab1639d0a7",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_stage.py",
+    "source_sha256": "a2fd880410fd1a384b47682ef4c8f5a639628da94ac1db1e7cd271df30e09614",
+    "port_sha256": "a3b4356e33aab8612feb3bbd8a3386337ea1030737864e31c389808add165ac0",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_symmetric_tree.py",
+    "source_sha256": "08275ef14235bda4a3266a6289a1a182ce1cf6f83180aafbfbd6f7002382c304",
+    "port_sha256": "b61f855de1052423cd7f504360cdc0fa46c5b46ade5bf29358194076b75e4923",
+    "changes": [
+      "workspace_root"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_tail_channels.py",
+    "source_sha256": "dd2b37b92d64b1515715307a4524061f75733c05d740127703684fc124e3086f",
+    "port_sha256": "bfc7c74efc312242fa687114995b9ecfbf78c5c9ddc20c1160ab78ed02cf59bf",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_tail_edges.py",
+    "source_sha256": "ee227ff7de5ec8dcb4667b661f87fa897232c773894f2a9e64094ba34d15037e",
+    "port_sha256": "213b919363725dfd325af3e5cd33629133f4613457cc7f9ad293841c7f9b415e",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_tenfold_priors.py",
+    "source_sha256": "7a360a766aa129a723d35826e9eeb3c73a988b3054dbf487a72619936ed7743f",
+    "port_sha256": "91e2c4e898d1d3878f1d08ee8bb55146efbc28bc015827acec13a084ffb0d7ff",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_time_arrow.py",
+    "source_sha256": "1dd9d7ca954434b924e4d614bbdc72ff3aa881495c3a6024a49845a82c1f1a76",
+    "port_sha256": "35c37bf78bdddea36a15a0924de58e511d035bc7be73a763ee5871821d8f1b5f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_timing.py",
+    "source_sha256": "36aaa7b6bc4a8cb212f63112a1b5494fc26282631644db233e204fbb8b432fc3",
+    "port_sha256": "8eb1e0ad7bb285d22b18d2b549a3b9e282167fdfb1b5715d3c783e647c99fe82",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_transition_priors.py",
+    "source_sha256": "493c202802b6b4e33b6d14c0e94213e73d9c27f18618d51964dc80066904826b",
+    "port_sha256": "9d0a23d14f891e638805f50aae6b0ba6913ce049ff42779fdd98e1300bf9d7d0",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_tree_channels.py",
+    "source_sha256": "c40db019590ae1eb6c6c1eb82c64f3af5954d98eb3b280310909bcb60f441861",
+    "port_sha256": "55c919d432dd40fd749fe6d2d573da6105c666a18caee647a2349f4de4144021",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_trend_prior.py",
+    "source_sha256": "a456d9c9ed8464c7366a5b966fcfe1df4620286405c60feb671e5c32e6f4d1bf",
+    "port_sha256": "c00f0467a7c06d1d3e7d53c267eb3424fd311baa77aed5e963d14a6767fe8ee5",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_upstream_stack.py",
+    "source_sha256": "b577ccb4afa70d5a0424f9c3d1122129e2df24a17ffe8e74a5dc33585e1158d4",
+    "port_sha256": "ea669f18e7a3262e97b1fbda3f0653c8cfa8b24fe43885e8ba25bf9833825b41",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_value_bands.py",
+    "source_sha256": "fdadfcd93e6d01cc1cb4f4ace0dd84e8c2e11efdaf940e427b5142ff37955378",
+    "port_sha256": "cec7322e54db79060d715de9177435285105ffbe376f6056e08d895aacc4d484",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_value_spacing.py",
+    "source_sha256": "06ac32981ee77df3fadcebad9de2243bfc826ff1e7443da89b5ffb24079ab194",
+    "port_sha256": "84fbc6a918f3fb0bbcf3fe10af007a4781030042fcf41ad11b63f0caaeb98903",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_variance_ramp.py",
+    "source_sha256": "58e66be6b01ab5dfc8bf4218dae120b31b750fa9032cb810fec19ae6113f975f",
+    "port_sha256": "96a6f15f56676376e678e7738420d2c8d897f689987b3cd8800abfe5c679f310",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_view_components.py",
+    "source_sha256": "4f872981e943e64a02b26fee8955126b423ebe174bcdfea9376af6f0790d8b1f",
+    "port_sha256": "990bc8136b82eae6c1afc68f777a2e41fd8d5d090920af5ca3763f4a3b8fea38",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_view_contrasts.py",
+    "source_sha256": "1fcce8d96daf1373de42f2db8ba2e2f080d8b62b8cce29b27269c7aacb9bf2ff",
+    "port_sha256": "f5f0270f4592bbdba968fd1448dae56cc96b68070bc97d0ce9734330d7e14694",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_view_extra.py",
+    "source_sha256": "ef1f44f833224d100ff3ed09675f13384c269add2557725c6a7602afa618b4ee",
+    "port_sha256": "ee24c8536a35e0826adbab0235563bcd4b24fb12a6ade174db24fb7c51fbfd26",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_view_network.py",
+    "source_sha256": "b9cb98a61b13b527b14a322ade2d1ab69aa02e4dac6612aa6786326a98d84652",
+    "port_sha256": "882529e6c7dcb33262136cc7f8feae969d4fbf1eac035a46e335cbc69641d453",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "disable_accelerator_autocast"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_view_pipeline.py",
+    "source_sha256": "3ce022e011dc67b6aeed7bdfb15f836b614486c283a694629d17c8c25a7d1bfd",
+    "port_sha256": "af0a025d9a32b667d9dc7c992c8ce8cc02a91db91f64851eb5965dc4bd7e2830",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_view_spectrum.py",
+    "source_sha256": "c58a88c6f0a2c128d45cc3aca79ffc6200769656a1838fc8357cdb26b9abdb41",
+    "port_sha256": "d82d903908e84efbe4264545f5acb58694a5dee23c805fab54a5041dd9254b43",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_view_states.py",
+    "source_sha256": "877e0130e9d54ac32e303cffa8cc474d240d9a92ef905349ad9fd67072b2cb54",
+    "port_sha256": "c6eba399827dc2ef5014a13a2ae52b4b0e1c665871a4e6ca3604c00ba5a41131",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_volatility_channels.py",
+    "source_sha256": "0859591483262551b832604ef21a3dd87c3e84a6f3729200d9589bb49f56e17d",
+    "port_sha256": "4fade2963fd3461c865d96b9b868a3c0c98e0611a6aef85615ff6afaa0307b6d",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_volatility_law.py",
+    "source_sha256": "7da0e85493dec55589281049888e96087c3f045c47cf7bd01972c6a2eddd0b11",
+    "port_sha256": "33094b26b4881342726203c602a5695e663d424a9cf06ffbc30e287511530773",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_volatility_restart.py",
+    "source_sha256": "0e2de1e153f9a1611ca1423e73189db6be811c6dcda7ba0c16c1ba35e3f61f6d",
+    "port_sha256": "be4b85702953bd46fa058331d454487a7d415b93553b64cddc2a00f52f568f0b",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_walk.py",
+    "source_sha256": "fdb2c5aacebe37df7a78d6e312401f5cadbfd5162a0d0b2a250ba8186a7eace7",
+    "port_sha256": "fc62933778a18ab353058b9cf0e1bcfe49ac3343bf7644ebd9f9d55b907d0162",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_walk_false_alarms.py",
+    "source_sha256": "fbdf3d833491dcb9e05422ab8f1dc3fec298907dbd53ee5b84f4d7ab757bf859",
+    "port_sha256": "f6a1ab4b2c44c659546a91e2d8912e02ee2b9fb08ad5c04daba82839eeb6b809",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_wandering_frequency.py",
+    "source_sha256": "7ae4868d55af8a4cda7ff63419eca8e6c7fa623a7e8d18d61f101225bdec6f70",
+    "port_sha256": "f78d05181f26df466570b7983ecc8b1ecdc45ab6d4985979dabac0463c19e1ee",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_wandering_slope.py",
+    "source_sha256": "717cc437807e6c68811e77c8a631d5755aeb87b61e3f71e72afd73fcc69994f7",
+    "port_sha256": "3dd68c7646a933ac2b4d1de8f0b48228733c519fc9b817788fba11650e8f5488",
+    "changes": [
+      "device:xpu"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_waveform_shape.py",
+    "source_sha256": "983184f1716e4652fe9aad284463103f69784a108d62cc87c548535266b84c58",
+    "port_sha256": "06a1deff1b0ea49488a5dad699c08b79ddaeeb6fb42c04ef02665416aeeb5800",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_wavelet_envelopes.py",
+    "source_sha256": "8b2b219633c32c396e99b02f1cfe079fe06bd56351216eb9d3dd74bf7d000d8b",
+    "port_sha256": "48e479406d2596d789ec4cf3cce665df7d5b6720aa0fed6c2e041ce74b82d77f",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_weak_phase.py",
+    "source_sha256": "12f21896c4d5d258c8ca58c07db1eaaa0df76b2820e817c1271eb70884555fcd",
+    "port_sha256": "39009016a87542fe8de6206ea81d231dce413b544468739d39903505e1a05455",
+    "changes": [],
+    "compiled": true,
+    "fully_tested": false
+  },
+  {
+    "file": "pipeline/legacy_cpu/experiments/weight_space/white_weight_ensemble.py",
+    "source_sha256": "e80c03d53781cab2ff39747efe1228a25ef1ce733254acfdbb1be89799e160fa",
+    "port_sha256": "22199108994b8ac1286f4a20aa947b2e75bd3f8730f64b8b670944fab9cc0837",
+    "changes": [
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "device:xpu",
+      "disable_accelerator_autocast",
+      "disable_accelerator_autocast"
+    ],
+    "compiled": true,
+    "fully_tested": false
+  }
+]

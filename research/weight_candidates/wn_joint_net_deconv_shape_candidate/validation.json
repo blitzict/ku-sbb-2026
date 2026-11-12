@@ -1,0 +1,250 @@
+{
+  "name": "joint_net_deconv_shape",
+  "scores": {
+    "7": {
+      "base": {
+        "auc": 0.8709431458333334,
+        "weighted": 0.8655303739933105,
+        "remaining": 0.9010736499985093,
+        "target_vs_neg": 0.46067651238327245,
+        "target_vs_wn_neg": 0.4646720193667462,
+        "wn": 0.8741609840573812,
+        "target_above_median": 52
+      },
+      "new": {
+        "auc": 0.8717284791666667,
+        "weighted": 0.8663062397270931,
+        "remaining": 0.901373729015714,
+        "target_vs_neg": 0.4680692245229395,
+        "target_vs_wn_neg": 0.47214689331117965,
+        "wn": 0.8749583822394321,
+        "target_above_median": 62
+      }
+    },
+    "29": {
+      "base": {
+        "auc": 0.8715043819444444,
+        "weighted": 0.8660778164516459,
+        "remaining": 0.9015659942749799,
+        "target_vs_neg": 0.46217580186764107,
+        "target_vs_wn_neg": 0.4662570953163008,
+        "wn": 0.8747933418709467,
+        "target_above_median": 53
+      },
+      "new": {
+        "auc": 0.872220875,
+        "weighted": 0.8668568905212697,
+        "remaining": 0.901828450666428,
+        "target_vs_neg": 0.46907460414129115,
+        "target_vs_wn_neg": 0.4731823962105477,
+        "wn": 0.8754099622728623,
+        "target_above_median": 60
+      }
+    },
+    "0": {
+      "base": {
+        "auc": 0.8710914513888889,
+        "weighted": 0.8656313285911919,
+        "remaining": 0.9012455496913857,
+        "target_vs_neg": 0.4605035525781568,
+        "target_vs_wn_neg": 0.4632172318569845,
+        "wn": 0.8739653056747918,
+        "target_above_median": 56
+      },
+      "new": {
+        "auc": 0.8717080069444445,
+        "weighted": 0.8662643836371822,
+        "remaining": 0.9014478560992336,
+        "target_vs_neg": 0.4667606577344702,
+        "target_vs_wn_neg": 0.469469876151932,
+        "wn": 0.8743316121517868,
+        "target_above_median": 67
+      }
+    },
+    "123": {
+      "base": {
+        "auc": 0.8706835347222223,
+        "weighted": 0.8652093018973307,
+        "remaining": 0.900761397859081,
+        "target_vs_neg": 0.4611336784409257,
+        "target_vs_wn_neg": 0.465416124465287,
+        "wn": 0.8738243438160691,
+        "target_above_median": 52
+      },
+      "new": {
+        "auc": 0.8713754791666666,
+        "weighted": 0.8658598831636455,
+        "remaining": 0.9010859722097981,
+        "target_vs_neg": 0.4668278522127487,
+        "target_vs_wn_neg": 0.47141979976007714,
+        "wn": 0.8743847360387969,
+        "target_above_median": 58
+      }
+    },
+    "2024": {
+      "base": {
+        "auc": 0.8708599861111112,
+        "weighted": 0.8652636317259306,
+        "remaining": 0.9010143349136776,
+        "target_vs_neg": 0.46026867641088104,
+        "target_vs_wn_neg": 0.4645857608144408,
+        "wn": 0.8741132589393762,
+        "target_above_median": 53
+      },
+      "new": {
+        "auc": 0.8716838402777777,
+        "weighted": 0.8660352821804062,
+        "remaining": 0.9013327518859766,
+        "target_vs_neg": 0.46797472594397077,
+        "target_vs_wn_neg": 0.4723188100082336,
+        "wn": 0.8748811528488143,
+        "target_above_median": 62
+      }
+    },
+    "11041": {
+      "base": {
+        "auc": 0.8714227916666666,
+        "weighted": 0.8659433235643521,
+        "remaining": 0.9015416480305335,
+        "target_vs_neg": 0.4613147584246853,
+        "target_vs_wn_neg": 0.4656004495851784,
+        "wn": 0.8743577691876165,
+        "target_above_median": 51
+      },
+      "new": {
+        "auc": 0.8720830277777778,
+        "weighted": 0.8665704545044943,
+        "remaining": 0.9017876002623968,
+        "target_vs_neg": 0.4676160170523751,
+        "target_vs_wn_neg": 0.47159952175536757,
+        "wn": 0.8748907626576434,
+        "target_above_median": 58
+      }
+    }
+  },
+  "audits": {
+    "7": {
+      "parent": {
+        "fpr_5": 8,
+        "fpr_10": 11,
+        "fpr_20": 42,
+        "fpr_30": 98,
+        "fpr_50": 354
+      },
+      "candidate": {
+        "fpr_5": 8,
+        "fpr_10": 11,
+        "fpr_20": 51,
+        "fpr_30": 114,
+        "fpr_50": 366
+      },
+      "net_target_pairs": 72833,
+      "up": 451,
+      "down": 368,
+      "tied": 2
+    },
+    "29": {
+      "parent": {
+        "fpr_5": 8,
+        "fpr_10": 12,
+        "fpr_20": 41,
+        "fpr_30": 106,
+        "fpr_50": 357
+      },
+      "candidate": {
+        "fpr_5": 9,
+        "fpr_10": 11,
+        "fpr_20": 50,
+        "fpr_30": 128,
+        "fpr_50": 371
+      },
+      "net_target_pairs": 67967,
+      "up": 454,
+      "down": 365,
+      "tied": 2
+    },
+    "0": {
+      "parent": {
+        "fpr_5": 8,
+        "fpr_10": 12,
+        "fpr_20": 48,
+        "fpr_30": 102,
+        "fpr_50": 355
+      },
+      "candidate": {
+        "fpr_5": 7,
+        "fpr_10": 10,
+        "fpr_20": 59,
+        "fpr_30": 115,
+        "fpr_50": 369
+      },
+      "net_target_pairs": 61645,
+      "up": 451,
+      "down": 368,
+      "tied": 2
+    },
+    "123": {
+      "parent": {
+        "fpr_5": 10,
+        "fpr_10": 13,
+        "fpr_20": 38,
+        "fpr_30": 96,
+        "fpr_50": 352
+      },
+      "candidate": {
+        "fpr_5": 10,
+        "fpr_10": 10,
+        "fpr_20": 47,
+        "fpr_30": 118,
+        "fpr_50": 363
+      },
+      "net_target_pairs": 56099,
+      "up": 442,
+      "down": 376,
+      "tied": 3
+    },
+    "2024": {
+      "parent": {
+        "fpr_5": 8,
+        "fpr_10": 13,
+        "fpr_20": 42,
+        "fpr_30": 100,
+        "fpr_50": 351
+      },
+      "candidate": {
+        "fpr_5": 9,
+        "fpr_10": 11,
+        "fpr_20": 47,
+        "fpr_30": 123,
+        "fpr_50": 371
+      },
+      "net_target_pairs": 75920,
+      "up": 465,
+      "down": 355,
+      "tied": 1
+    },
+    "11041": {
+      "parent": {
+        "fpr_5": 8,
+        "fpr_10": 12,
+        "fpr_20": 42,
+        "fpr_30": 95,
+        "fpr_50": 359
+      },
+      "candidate": {
+        "fpr_5": 8,
+        "fpr_10": 11,
+        "fpr_20": 51,
+        "fpr_30": 126,
+        "fpr_50": 369
+      },
+      "net_target_pairs": 62080,
+      "up": 443,
+      "down": 376,
+      "tied": 2
+    }
+  },
+  "accepted": true,
+  "recipe_sha256": "c30bb70724db4064014a7ac629fdcb6cbfe0d6fe82cc12f2ee71b4093752000e",
+  "submission_sha256": "43dfc8d479db2e5ff709370bcd133373ce87fdcd75275e17565019d36c8c299d"
+}

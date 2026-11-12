@@ -1,0 +1,250 @@
+{
+  "name": "physical_pulse_state_walk_net_lawtree_both_claude_law_claude_jump_lawshared_lawblock_rank",
+  "scores": {
+    "7": {
+      "base": {
+        "auc": 0.8709431458333334,
+        "weighted": 0.8655303739933105,
+        "remaining": 0.9010736499985093,
+        "target_vs_neg": 0.46067651238327245,
+        "target_vs_wn_neg": 0.4646720193667462,
+        "wn": 0.8741609840573812,
+        "target_above_median": 52
+      },
+      "new": {
+        "auc": 0.8748118333333333,
+        "weighted": 0.8693435285121511,
+        "remaining": 0.9031690222739065,
+        "target_vs_neg": 0.48869123020706456,
+        "target_vs_wn_neg": 0.48594465923468855,
+        "wn": 0.876959031063491,
+        "target_above_median": 82
+      }
+    },
+    "29": {
+      "base": {
+        "auc": 0.8715043819444444,
+        "weighted": 0.8660778164516459,
+        "remaining": 0.9015659942749799,
+        "target_vs_neg": 0.46217580186764107,
+        "target_vs_wn_neg": 0.4662570953163008,
+        "wn": 0.8747933418709467,
+        "target_above_median": 53
+      },
+      "new": {
+        "auc": 0.8748025277777778,
+        "weighted": 0.8693421572425438,
+        "remaining": 0.9031847138980826,
+        "target_vs_neg": 0.4883415550142103,
+        "target_vs_wn_neg": 0.4852555914955072,
+        "wn": 0.8771030162328567,
+        "target_above_median": 88
+      }
+    },
+    "0": {
+      "base": {
+        "auc": 0.8710914513888889,
+        "weighted": 0.8656313285911919,
+        "remaining": 0.9012455496913857,
+        "target_vs_neg": 0.4605035525781568,
+        "target_vs_wn_neg": 0.4632172318569845,
+        "wn": 0.8739653056747918,
+        "target_above_median": 56
+      },
+      "new": {
+        "auc": 0.8743403263888888,
+        "weighted": 0.8687924134182927,
+        "remaining": 0.9028101425291468,
+        "target_vs_neg": 0.4866861550954121,
+        "target_vs_wn_neg": 0.4828783778428798,
+        "wn": 0.8762181040052333,
+        "target_above_median": 86
+      }
+    },
+    "123": {
+      "base": {
+        "auc": 0.8706835347222223,
+        "weighted": 0.8652093018973307,
+        "remaining": 0.900761397859081,
+        "target_vs_neg": 0.4611336784409257,
+        "target_vs_wn_neg": 0.465416124465287,
+        "wn": 0.8738243438160691,
+        "target_above_median": 52
+      },
+      "new": {
+        "auc": 0.8741200416666666,
+        "weighted": 0.8685764769702732,
+        "remaining": 0.9025775561320333,
+        "target_vs_neg": 0.48663337393422657,
+        "target_vs_wn_neg": 0.4839887315509768,
+        "wn": 0.8760119520107743,
+        "target_above_median": 81
+      }
+    },
+    "2024": {
+      "base": {
+        "auc": 0.8708599861111112,
+        "weighted": 0.8652636317259306,
+        "remaining": 0.9010143349136776,
+        "target_vs_neg": 0.46026867641088104,
+        "target_vs_wn_neg": 0.4645857608144408,
+        "wn": 0.8741132589393762,
+        "target_above_median": 53
+      },
+      "new": {
+        "auc": 0.874345826388889,
+        "weighted": 0.8687429057222293,
+        "remaining": 0.9026741360288636,
+        "target_vs_neg": 0.4886184531059683,
+        "target_vs_wn_neg": 0.4861592048682646,
+        "wn": 0.8768716789809887,
+        "target_above_median": 84
+      }
+    },
+    "11041": {
+      "base": {
+        "auc": 0.8714227916666666,
+        "weighted": 0.8659433235643521,
+        "remaining": 0.9015416480305335,
+        "target_vs_neg": 0.4613147584246853,
+        "target_vs_wn_neg": 0.4656004495851784,
+        "wn": 0.8743577691876165,
+        "target_above_median": 51
+      },
+      "new": {
+        "auc": 0.8750487569444444,
+        "weighted": 0.8694275291872707,
+        "remaining": 0.9034065957002715,
+        "target_vs_neg": 0.48891930572472597,
+        "target_vs_wn_neg": 0.4860207108585308,
+        "wn": 0.8769763071243073,
+        "target_above_median": 82
+      }
+    }
+  },
+  "audits": {
+    "7": {
+      "parent": {
+        "fpr_5": 8,
+        "fpr_10": 11,
+        "fpr_20": 42,
+        "fpr_30": 98,
+        "fpr_50": 354
+      },
+      "candidate": {
+        "fpr_5": 9,
+        "fpr_10": 18,
+        "fpr_20": 72,
+        "fpr_30": 139,
+        "fpr_50": 397
+      },
+      "net_target_pairs": 276001,
+      "up": 527,
+      "down": 292,
+      "tied": 2
+    },
+    "29": {
+      "parent": {
+        "fpr_5": 8,
+        "fpr_10": 12,
+        "fpr_20": 41,
+        "fpr_30": 106,
+        "fpr_50": 357
+      },
+      "candidate": {
+        "fpr_5": 11,
+        "fpr_10": 19,
+        "fpr_20": 71,
+        "fpr_30": 139,
+        "fpr_50": 396
+      },
+      "net_target_pairs": 257785,
+      "up": 521,
+      "down": 300,
+      "tied": 0
+    },
+    "0": {
+      "parent": {
+        "fpr_5": 8,
+        "fpr_10": 12,
+        "fpr_20": 48,
+        "fpr_30": 102,
+        "fpr_50": 355
+      },
+      "candidate": {
+        "fpr_5": 10,
+        "fpr_10": 21,
+        "fpr_20": 71,
+        "fpr_30": 138,
+        "fpr_50": 395
+      },
+      "net_target_pairs": 257951,
+      "up": 526,
+      "down": 294,
+      "tied": 1
+    },
+    "123": {
+      "parent": {
+        "fpr_5": 10,
+        "fpr_10": 13,
+        "fpr_20": 38,
+        "fpr_30": 96,
+        "fpr_50": 352
+      },
+      "candidate": {
+        "fpr_5": 10,
+        "fpr_10": 19,
+        "fpr_20": 64,
+        "fpr_30": 134,
+        "fpr_50": 389
+      },
+      "net_target_pairs": 251223,
+      "up": 522,
+      "down": 298,
+      "tied": 1
+    },
+    "2024": {
+      "parent": {
+        "fpr_5": 8,
+        "fpr_10": 13,
+        "fpr_20": 42,
+        "fpr_30": 100,
+        "fpr_50": 351
+      },
+      "candidate": {
+        "fpr_5": 11,
+        "fpr_10": 20,
+        "fpr_20": 73,
+        "fpr_30": 131,
+        "fpr_50": 391
+      },
+      "net_target_pairs": 279302,
+      "up": 534,
+      "down": 285,
+      "tied": 2
+    },
+    "11041": {
+      "parent": {
+        "fpr_5": 8,
+        "fpr_10": 12,
+        "fpr_20": 42,
+        "fpr_30": 95,
+        "fpr_50": 359
+      },
+      "candidate": {
+        "fpr_5": 10,
+        "fpr_10": 21,
+        "fpr_20": 74,
+        "fpr_30": 147,
+        "fpr_50": 395
+      },
+      "net_target_pairs": 271960,
+      "up": 516,
+      "down": 305,
+      "tied": 0
+    }
+  },
+  "accepted": true,
+  "recipe_sha256": "6a944f29e83fd48fc28b2379425e1c99dd38ad887591c533fe1bd0bc1f2b5ff1",
+  "submission_sha256": "7c41919248e8363a66b24fcf56811fc9fe3f20261d0d8713aa7c50a2e0c9082d"
+}

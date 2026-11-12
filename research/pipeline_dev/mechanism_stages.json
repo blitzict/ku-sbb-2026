@@ -1,0 +1,1062 @@
+{
+  "status": "Required mechanism preparation; validation is recorded per completed stage",
+  "stages": [
+    {
+      "id": "mechanism_periodic_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "periodic",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/periodic_train.parquet",
+        "tune_out/weight_space/periodic_streams_train.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/harmonic_change.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/periodic_components.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_periodic_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "periodic",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/periodic_test.parquet",
+        "tune_out/weight_space/periodic_streams_test.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/harmonic_change.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/periodic_components.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_innov_v2_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "innov_v2",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/periodic_train.parquet",
+        "tune_out/weight_space/periodic_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/innov_v2_train.parquet",
+        "tune_out/weight_space/innov_v2_streams_train.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/innovation_transform.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_innov_v2_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "innov_v2",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/periodic_test.parquet",
+        "tune_out/weight_space/periodic_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/innov_v2_test.parquet",
+        "tune_out/weight_space/innov_v2_streams_test.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/innovation_transform.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_trend_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "trend",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/periodic_train.parquet",
+        "tune_out/weight_space/innov_v2_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/trend_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/phase_likelihood.py",
+        "experiments/weight_space/trend_components.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_trend_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "trend",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/periodic_test.parquet",
+        "tune_out/weight_space/innov_v2_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/trend_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/phase_likelihood.py",
+        "experiments/weight_space/trend_components.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_curve_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "curve",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/trend_train.parquet",
+        "tune_out/weight_space/periodic_train.parquet",
+        "tune_out/weight_space/innov_v2_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/curve_train.parquet",
+        "tune_out/weight_space/curve_streams_train.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/curve_likelihood.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_curve_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "curve",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/trend_test.parquet",
+        "tune_out/weight_space/periodic_test.parquet",
+        "tune_out/weight_space/innov_v2_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/curve_test.parquet",
+        "tune_out/weight_space/curve_streams_test.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/curve_likelihood.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_ar_law_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "ar_law",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/periodic_train.parquet",
+        "tune_out/weight_space/periodic_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/ar_law_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/ar_likelihood.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_ar_law_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "ar_law",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/periodic_test.parquet",
+        "tune_out/weight_space/periodic_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/ar_law_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/ar_likelihood.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_phase_law_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "phase_law",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/periodic_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/phase_law_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/phase_likelihood.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_phase_law_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "phase_law",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/periodic_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/phase_law_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/phase_likelihood.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_mixture_law_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "mixture_law",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/innov_v2_streams_train.npz",
+        "tune_out/lr5_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/mixture_law_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/mixture_law.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_mixture_law_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "mixture_law",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/innov_v2_streams_test.npz",
+        "tune_out/lr5_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/mixture_law_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/mixture_law.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_partition_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "partition",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/partition_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_partition_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "partition",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/partition_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_harmonic_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "harmonic",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/harmonic_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/harmonic_change.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_harmonic_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "harmonic",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/harmonic_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/harmonic_change.py",
+        "experiments/weight_space/partition_evidence.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_pulse_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "pulse",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/periodic_train.parquet",
+        "tune_out/weight_space/periodic_streams_train.npz",
+        "tune_out/weight_space/curve_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/pulse_train.parquet",
+        "tune_out/weight_space/pulse_streams_train.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/pulse_filter.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_pulse_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "pulse",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/periodic_test.parquet",
+        "tune_out/weight_space/periodic_streams_test.npz",
+        "tune_out/weight_space/curve_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/pulse_test.parquet",
+        "tune_out/weight_space/pulse_streams_test.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/pulse_filter.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_state_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "state",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/pulse_streams_train.npz",
+        "tune_out/weight_space/trend_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/state_train.parquet",
+        "tune_out/weight_space/state_streams_train.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/state_filter.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_state_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "state",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/pulse_streams_test.npz",
+        "tune_out/weight_space/trend_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/state_test.parquet",
+        "tune_out/weight_space/state_streams_test.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/state_filter.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_volatility_law_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "volatility_law",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/pulse_streams_train.npz",
+        "tune_out/weight_space/state_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/volatility_law_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "experiments/weight_space/white_volatility_law.py",
+        "experiments/weight_space/white_walk.py",
+        "ku_workspace.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_volatility_law_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "volatility_law",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/pulse_streams_test.npz",
+        "tune_out/weight_space/state_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/volatility_law_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "experiments/weight_space/white_volatility_law.py",
+        "experiments/weight_space/white_walk.py",
+        "ku_workspace.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_jump_law_pulse_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "jump_law_pulse",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/pulse_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/jump_law_pulse_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_jump_law_pulse_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "jump_law_pulse",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/pulse_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/jump_law_pulse_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_jump_law_state_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "jump_law_state",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/state_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/jump_law_state_train.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_jump_law_state_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "jump_law_state",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/state_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/jump_law_state_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_edit_20261104/finalize.py",
+        "experiments/weight_edit_20261104/stack_edit.py",
+        "experiments/weight_edit_20261104/view_weight_edit.py",
+        "experiments/weight_space/expert_fusion.py",
+        "experiments/weight_space/extend_readout.py",
+        "experiments/weight_space/hard_case_trial.py",
+        "experiments/weight_space/hard_expert_trial.py",
+        "experiments/weight_space/hard_pair_budget.py",
+        "experiments/weight_space/innovation_head.py",
+        "experiments/weight_space/mechanism_edit.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/physical_870.py",
+        "experiments/weight_space/residual_trial.py",
+        "experiments/weight_space/seasonal_head.py",
+        "experiments/weight_space/trend_870.py",
+        "experiments/weight_space/white_jump_priors.py",
+        "experiments/weight_space/white_laws.py",
+        "experiments/weight_space/white_loop.py",
+        "ku_workspace.py",
+        "rebuild_policy.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_wnlaw_raw_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "wnlaw_raw",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/wnlaw_raw_train.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_laws.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_wnlaw_raw_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "wnlaw_raw",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/wnlaw_raw_test.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_laws.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_wnlaw_physical_train",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "wnlaw_physical",
+        "--part",
+        "train"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/pulse_streams_train.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/wnlaw_physical_train.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_laws.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_wnlaw_physical_test",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "wnlaw_physical",
+        "--part",
+        "test"
+      ],
+      "inputs": [
+        "tune_out/seq_cache_test.npz",
+        "clean/features_test.parquet",
+        "tune_out/weight_space/pulse_streams_test.npz"
+      ],
+      "outputs": [
+        "tune_out/weight_space/wnlaw_physical_test.npz"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/white_laws.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    },
+    {
+      "id": "mechanism_noise_tests",
+      "argv": [
+        "pipeline_helpers/mechanism.py",
+        "noise_tests"
+      ],
+      "inputs": [
+        "tune_out/weight_space/innov_v2_streams_train.npz",
+        "clean/features_train.parquet",
+        "tune_out/weight_space/innov_v2_streams_test.npz",
+        "clean/features_test.parquet"
+      ],
+      "outputs": [
+        "tune_out/weight_space/noise_tests_train.parquet",
+        "tune_out/weight_space/noise_tests_test.parquet"
+      ],
+      "code_inputs": [
+        "pipeline_helpers/mechanism.py",
+        "experiments/v6/features_lm.py",
+        "experiments/v6/features_lr.py",
+        "experiments/v6/features_sn.py",
+        "experiments/v6/train_cv.py",
+        "experiments/weight_space/partition_evidence.py",
+        "experiments/weight_space/transfer_member.py",
+        "ku_workspace.py"
+      ],
+      "env": {
+        "KU_SBB_THREADS": "2",
+        "CHUNK": "128"
+      }
+    }
+  ]
+}

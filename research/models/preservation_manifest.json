@@ -1,0 +1,142 @@
+[
+  {
+    "source": "clean\\features_train.parquet",
+    "target": "models\\v4_083313\\features_train.parquet",
+    "sha256": "2869f34b536b0c422187cba63b17aff0b26642d26a95ab19eb7799ab244d6654"
+  },
+  {
+    "source": "clean\\features_test.parquet",
+    "target": "models\\v4_083313\\features_test.parquet",
+    "sha256": "df1c44991147f89ef4b4414f243211ee9caf8f31c83c46bb0f00cf440899580f"
+  },
+  {
+    "source": "clean\\submission.csv",
+    "target": "models\\v4_083313\\submission.csv",
+    "sha256": "84f5d9478e166567ea4d9872529f1871d2264fb37ef29ce19d05c91210902fb4"
+  },
+  {
+    "source": "clean\\submission_info.json",
+    "target": "models\\v4_083313\\submission_info.json",
+    "sha256": "af168c75de409835061da91fd78004a6b8777f2a23bbacecb558a465b9b75e70"
+  },
+  {
+    "source": "new weights\\wn_local_rank_shared_residual_response_candidate\\weights.json",
+    "target": "models\\ensemble_088077\\weights.json",
+    "sha256": "89492b9fc670e6e66d9df6f782eb1fc4c5b92a5e03aea1d0d0587944bc9604c6"
+  },
+  {
+    "source": "new weights\\wn_local_rank_shared_residual_response_candidate\\replay_inputs.npz",
+    "target": "models\\ensemble_088077\\replay_inputs.npz",
+    "sha256": "6095e58bbaaeb5a9269188f394ae9b7ff41dec70964597da1f39a4cdb2319ca0"
+  },
+  {
+    "source": "new weights\\wn_local_rank_shared_residual_response_candidate\\submission.csv",
+    "target": "models\\ensemble_088077\\submission.csv",
+    "sha256": "81be6dbdbcd0202876c0991950664e1f60ab34102fbbe63dec6f5ec254ca5064"
+  },
+  {
+    "source": "new weights\\wn_local_rank_shared_residual_response_candidate\\validation.json",
+    "target": "models\\ensemble_088077\\validation.json",
+    "sha256": "b65c2b616fe45687c451207f68da3e77d651e8fa49dad8ea64508dbfbae25db4"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\mixed_replay.npz",
+    "target": "models\\mixed_088078\\mixed_replay.npz",
+    "sha256": "2fff2eb6cddca1151596a800c0b3a73df631e93eb2298dc817c2ecac65777e77"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\member_predictions.npz",
+    "target": "models\\mixed_088078\\member_predictions.npz",
+    "sha256": "9f40d8c4aa4ddaa9dedc9a5d5e018bd7e27baf4421295daa05617ed334ca1d50"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\export_report.json",
+    "target": "models\\mixed_088078\\export_report.json",
+    "sha256": "3322176b9cef72c47beeaea5e4d6efe53424193c9446b10925793b2b23d0c6fa"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\leaderboard_result.json",
+    "target": "models\\mixed_088078\\leaderboard_result.json",
+    "sha256": "a0638db3dfe3cc8437d138743e0fe851829b75647010a1dae471636d595e6cfa"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\submission_mixed_0879097.csv",
+    "target": "models\\mixed_088078\\submission.csv",
+    "sha256": "1f1a333b00113ca02f501cd6f90eef7c6afa13263eaf58284a638808a003237e"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold0.json",
+    "target": "models\\mixed_088078\\fold0.json",
+    "sha256": "7095c712398494c2cdf337834ab706838384b0a05007bece6f4584ad1b47b797"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold0.pt",
+    "target": "models\\mixed_088078\\fold0.pt",
+    "sha256": "2fc9b6f880f6731ed30c55d3a914b5d15040eee2f688e49d11f54a9cc11f4ef7"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold0_transform.joblib",
+    "target": "models\\mixed_088078\\fold0_transform.joblib",
+    "sha256": "da8679d3c0805c54f95e3a5daf52ef4ad32a8e6ba770d6650c12941cbf38d6a8"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold1.json",
+    "target": "models\\mixed_088078\\fold1.json",
+    "sha256": "0adc8368ff4a8d0386774c3631301b93bcd267f19f9ddd8473bfa1cdbef24c18"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold1.pt",
+    "target": "models\\mixed_088078\\fold1.pt",
+    "sha256": "dd0875098876de8bb367fca8339f0595df61005b7116cb2d3d49851a34e6416b"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold1_transform.joblib",
+    "target": "models\\mixed_088078\\fold1_transform.joblib",
+    "sha256": "b3eeeead49a127f4db60d49983f4813bc26ae52a95f85ddf644d3f5fb51853dc"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold2.json",
+    "target": "models\\mixed_088078\\fold2.json",
+    "sha256": "992579c497f843391cf225f0e1d713ef2bb95712c1dea5292cf203db0e16bcea"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold2.pt",
+    "target": "models\\mixed_088078\\fold2.pt",
+    "sha256": "4a44da557171f7a149343d05cb14c8df9847591a72a5b17e606c6191a1529310"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold2_transform.joblib",
+    "target": "models\\mixed_088078\\fold2_transform.joblib",
+    "sha256": "cbdffc2224b3a37355b6e83a7a5f8be9a71f142e93e17e61db50758edc481806"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold3.json",
+    "target": "models\\mixed_088078\\fold3.json",
+    "sha256": "3172c5fc5d185e9402b10f9cd01323217184ba46de4c69ca98194da1bb677681"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold3.pt",
+    "target": "models\\mixed_088078\\fold3.pt",
+    "sha256": "7e74af98b08a0cc5a41841d6f9d899b398b7c47fa4ffc3aeec47a9ca7a6d77b2"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold3_transform.joblib",
+    "target": "models\\mixed_088078\\fold3_transform.joblib",
+    "sha256": "94bf724bc827daa807c16b4915501a7b19b43303db25f513b24e1d230e650158"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold4.json",
+    "target": "models\\mixed_088078\\fold4.json",
+    "sha256": "337e290407897dfc43eca7bf77ec530a61b8940cba432da66d89940ab77b6f25"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold4.pt",
+    "target": "models\\mixed_088078\\fold4.pt",
+    "sha256": "8a1d8919d01362847a443fc78029454945d51423067b5d166e07327b2504cbb1"
+  },
+  {
+    "source": "auc_lab_20261107\\codex\\mixed_sim05_submission\\fold4_transform.joblib",
+    "target": "models\\mixed_088078\\fold4_transform.joblib",
+    "sha256": "1e7b273fbdf7ab123a0c5a2194aacc660cc9fdc3b4a64212102a0a86faca2044"
+  }
+]

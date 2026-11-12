@@ -1,0 +1,92 @@
+[
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\expert_fusion.py",
+    "annotated_reports": 1,
+    "sha256": "a1a14e05dbf001e7380b5a2d6183cd4c086e724aa0c32c8dc15fc3f61e93441c"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\extend_readout.py",
+    "annotated_reports": 1,
+    "sha256": "96e53470e00e6259225ffca98d2da6c809772ea876b1c57c36fb491c7f4868d2"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\hard_expert_trial.py",
+    "annotated_reports": 1,
+    "sha256": "12344665255158197d8247abdb3292bc3c0495687bf99d208f0e665eb8001594"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\mechanism_edit.py",
+    "annotated_reports": 1,
+    "sha256": "3ead9266c8b66281122087375ed4145a8cc45b79da2c6a5e4128d1e7475f6d51"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\residual_trial.py",
+    "annotated_reports": 1,
+    "sha256": "1a488c9e6e0ce028282b1b34912d2c9d50e784294e53a2deda3da806ac5e8ae0"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\seasonal_head.py",
+    "annotated_reports": 1,
+    "sha256": "c959a7a273d8dad0654cb8b6bc3f218bc55158d131375b7987ca349919702d31"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\trend_870.py",
+    "annotated_reports": 1,
+    "sha256": "02179697104c4276cee1c5b0e6f2ffa20083dfd97e738a5f88dff449ef80fcdf"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_concordance.py",
+    "annotated_reports": 1,
+    "sha256": "55d6a96cee6b834cc2543daf8276bbf1d9235996bd66c4ddf0fd43a3afedc4a3"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_consult.py",
+    "annotated_reports": 1,
+    "sha256": "414c0f4157bb157adf6e7b4c9c2b0c6ea42a573e2115e766754920af3dc9ac31"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_crop_replication.py",
+    "annotated_reports": 1,
+    "sha256": "d43b4af8232e0f3b0ba5dc5c0b084a0ff93e1e9b8bc37d2d8c1e4f5943146f18"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_fold_vote.py",
+    "annotated_reports": 1,
+    "sha256": "295d3ca64d5ab49be0783443ca76218604afde6427204da885096004218e2180"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_joint.py",
+    "annotated_reports": 1,
+    "sha256": "967c2b12b9c2c484bdf6b405b6e98c6843ef33bd9824053412c60821236c63fc"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_local_rank_weights.py",
+    "annotated_reports": 1,
+    "sha256": "af236ebce1cf95b450b16d3381fb86d06ff40758a53d2bf783daf7ae0aa09c8c"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_loop.py",
+    "annotated_reports": 1,
+    "sha256": "6f4e5e134ff41c3c633f370c725548bb0c2a285b239718a205d0ba0de5e3cbcd"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_nested.py",
+    "annotated_reports": 1,
+    "sha256": "4bad407fe579d20c1c789d3e26c507209e692c8ecd1042620d896b46a260fb52"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_shared_residual.py",
+    "annotated_reports": 2,
+    "sha256": "ad148a2ed0631ac946eccdfa54403c6a1c9815171f5e2c22e7d61f1d30d74d6f"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_signal_package.py",
+    "annotated_reports": 1,
+    "sha256": "ba65f9e5c8eb684cf9fa781b0eeefb52f6a3ffd027ab081dc2739f43b3857fb7"
+  },
+  {
+    "path": "pipeline\\legacy_cpu\\experiments\\weight_space\\white_stage.py",
+    "annotated_reports": 1,
+    "sha256": "1c63b45ca6b2e96313bf5dac9ba5b303234a115cfcdef496fd4fadc64651b4c1"
+  }
+]

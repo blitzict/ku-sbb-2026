@@ -1,0 +1,87 @@
+{
+  "recipe_sha256": "87b49f5e7007ca22b76b4f6b9481d3f51c7f2630a54010a0ce8e93871364a97c",
+  "primary_max_logit_error": 0.0,
+  "scores": {
+    "7": {
+      "locked": {
+        "auc": 0.8709431458333334,
+        "weighted": 0.8655303739933105,
+        "remaining": 0.9010736499985093,
+        "target_vs_neg": 0.46067651238327245,
+        "target_vs_wn_neg": 0.4646720193667462,
+        "wn": 0.8741609840573812,
+        "target_above_median": 52
+      },
+      "candidate": {
+        "auc": 0.878970763888889,
+        "weighted": 0.8733782514187408,
+        "remaining": 0.9068931255031755,
+        "target_vs_neg": 0.49877090946000807,
+        "target_vs_wn_neg": 0.4999363567989952,
+        "wn": 0.8799266534040506,
+        "target_above_median": 91
+      },
+      "recovery": {
+        "parent": {
+          "fpr_5": 8,
+          "fpr_10": 11,
+          "fpr_20": 42,
+          "fpr_30": 98,
+          "fpr_50": 354
+        },
+        "candidate": {
+          "fpr_5": 12,
+          "fpr_10": 24,
+          "fpr_20": 86,
+          "fpr_30": 153,
+          "fpr_50": 410
+        },
+        "net_target_pairs": 375306,
+        "up": 530,
+        "down": 290,
+        "tied": 1
+      }
+    },
+    "61817": {
+      "locked": {
+        "auc": 0.8711472152777777,
+        "weighted": 0.8656932147268155,
+        "remaining": 0.9012603616900737,
+        "target_vs_neg": 0.4611169305724726,
+        "target_vs_wn_neg": 0.46469883757094316,
+        "wn": 0.874112017222505,
+        "target_above_median": 50
+      },
+      "candidate": {
+        "auc": 0.878407861111111,
+        "weighted": 0.8727401167987072,
+        "remaining": 0.9063720741270835,
+        "target_vs_neg": 0.4976381445391798,
+        "target_vs_wn_neg": 0.4985257993125734,
+        "wn": 0.8794327740154656,
+        "target_above_median": 91
+      },
+      "recovery": {
+        "parent": {
+          "fpr_5": 7,
+          "fpr_10": 12,
+          "fpr_20": 43,
+          "fpr_30": 99,
+          "fpr_50": 358
+        },
+        "candidate": {
+          "fpr_5": 13,
+          "fpr_10": 24,
+          "fpr_20": 86,
+          "fpr_30": 153,
+          "fpr_50": 406
+        },
+        "net_target_pairs": 359807,
+        "up": 531,
+        "down": 290,
+        "tied": 0
+      }
+    }
+  },
+  "scope": "Same series and base-model OOF inputs. Intermediate output corrections and source priors were refitted to this additional partition, and the original primary scores were reproduced first."
+}

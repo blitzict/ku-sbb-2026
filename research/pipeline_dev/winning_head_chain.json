@@ -1,0 +1,300 @@
+[
+  {
+    "path": "new weights/ensemble.json",
+    "parents": [],
+    "sources": [],
+    "settings": {
+      "kind": "view_stack",
+      "feature_order": [
+        "L3_rank_lr03_s0",
+        "L4_fam_gh_b2",
+        "VARC4hv_ns3_wc::orig",
+        "VARC4hv_ns3_wc::rev",
+        "VARC4hv_ns3_wc::flip",
+        "VARC4hv_ns3_wc::revflip",
+        "VARC4_lm_wc::orig",
+        "VARC4_lm_wc::rev",
+        "VARC4_lm_wc::flip",
+        "VARC4_lm_wc::revflip",
+        "VARC4_full_wc2::orig",
+        "VARC4_full_wc2::rev",
+        "VARC4_full_wc2::flip",
+        "VARC4_full_wc2::revflip",
+        "MLPHV_bag_w::orig",
+        "MLPHV_bag_w::rev",
+        "MLPHV_bag_w::flip",
+        "MLPHV_bag_w::revflip",
+        "MLPHV_bag_w::c2",
+        "W_SEQ_qb5"
+      ],
+      "view_penalty": 100
+    }
+  },
+  {
+    "path": "new weights/expert_fusion_candidate/weights.json",
+    "parents": [
+      "new weights/ensemble.json"
+    ],
+    "sources": [
+      "experiments/weight_space/expert_fusion.py"
+    ],
+    "settings": {
+      "mode": "regime"
+    }
+  },
+  {
+    "path": "new weights/harmonic_candidate/weights.json",
+    "parents": [
+      "new weights/expert_fusion_candidate/weights.json",
+      "new weights/ensemble.json"
+    ],
+    "sources": [
+      "experiments/weight_space/residual_trial.py",
+      "experiments/weight_space/expert_fusion.py"
+    ],
+    "settings": {
+      "mode": "tails",
+      "feature_order": [
+        "raw_shared",
+        "raw_phase_bf",
+        "raw_phase_lr",
+        "raw_freq_lr",
+        "raw_separate_lr",
+        "raw_frequency",
+        "raw_phase_frequency",
+        "raw_frequency_gap",
+        "raw_fraction",
+        "raw_pre_fraction",
+        "raw_post_fraction",
+        "raw_amplitude_gap",
+        "raw_angle",
+        "raw_complex_gap",
+        "raw_demod_level",
+        "raw_demod_scale",
+        "raw_osc_level",
+        "raw_osc_scale",
+        "ar1_shared",
+        "ar1_phase_bf",
+        "ar1_phase_lr",
+        "ar1_freq_lr",
+        "ar1_separate_lr",
+        "ar1_frequency",
+        "ar1_phase_frequency",
+        "ar1_frequency_gap",
+        "ar1_fraction",
+        "ar1_pre_fraction",
+        "ar1_post_fraction",
+        "ar1_amplitude_gap",
+        "ar1_angle",
+        "ar1_complex_gap",
+        "ar1_demod_level",
+        "ar1_demod_scale",
+        "ar1_osc_level",
+        "ar1_osc_scale"
+      ],
+      "selected": "tails"
+    }
+  },
+  {
+    "path": "new weights/seasonal_seq_candidate/weights.json",
+    "parents": [
+      "new weights/expert_fusion_candidate/weights.json",
+      "new weights/harmonic_candidate/weights.json"
+    ],
+    "sources": [
+      "experiments/weight_space/seasonal_head.py"
+    ],
+    "settings": {
+      "selected": "local",
+      "mode": "local"
+    }
+  },
+  {
+    "path": "new weights/mechanism_phase_ar_mix_transfer_candidate/weights.json",
+    "parents": [
+      "new weights/seasonal_seq_candidate/weights.json"
+    ],
+    "sources": [
+      "experiments/weight_space/mechanism_edit.py"
+    ],
+    "settings": {
+      "mode": "phase_ar_mix_transfer",
+      "selected": 40.0
+    }
+  },
+  {
+    "path": "new weights/trend870_net_candidate/weights.json",
+    "parents": [
+      "new weights/mechanism_phase_ar_mix_transfer_candidate/weights.json"
+    ],
+    "sources": [
+      "experiments/weight_space/trend_870.py"
+    ],
+    "settings": {
+      "mode": "net",
+      "selected": 60.0
+    }
+  },
+  {
+    "path": "new weights/extended_curve_net_bank_both_pulse_joint_head_family_state_net_candidate/weights.json",
+    "parents": [
+      "new weights/trend870_net_candidate/weights.json"
+    ],
+    "sources": [
+      "experiments/weight_space/extend_readout.py",
+      "experiments/weight_space/curve_channels.py",
+      "experiments/weight_space/bank_channels.py",
+      "experiments/weight_space/pulse_channels.py",
+      "experiments/weight_space/head_channels.py",
+      "experiments/weight_space/state_channels.py"
+    ],
+    "settings": {
+      "spec": "curve.net+bank.both+pulse.joint+head.family+state.net",
+      "selected": 35.0
+    }
+  },
+  {
+    "path": "new weights/hard_state_tree_candidate/weights.json",
+    "parents": [
+      "new weights/extended_curve_net_bank_both_pulse_joint_head_family_state_net_candidate/weights.json"
+    ],
+    "sources": [
+      "experiments/weight_space/hard_expert_trial.py"
+    ],
+    "settings": {
+      "kind": "state_tree",
+      "penalty": 100.0
+    }
+  },
+  {
+    "path": "new weights/wn_stage_reversible_rank_candidate/weights.json",
+    "parents": [
+      "new weights/hard_state_tree_candidate/weights.json"
+    ],
+    "sources": [
+      "experiments/weight_space/white_stage.py",
+      "experiments/weight_space/white_consult.py"
+    ],
+    "settings": {
+      "name": "stage_reversible_rank",
+      "models": [
+        "net",
+        "lawtree_both",
+        "claude_law",
+        "claude_jump",
+        "lawshared",
+        "lawblock",
+        "lawconditional",
+        "claude_bag2",
+        "claude_bag3",
+        "claude_crop1",
+        "claude_allcrop1",
+        "claude_cropbag",
+        "claude_two_crop",
+        "claude_cropvol",
+        "claude_cropvolbag",
+        "claude_rev",
+        "claude_revvol",
+        "symtree_orig_c1_c2",
+        "symtree_extra_orig_c1_c2",
+        "lawvoltree",
+        "lawpredictive",
+        "lawforecast",
+        "lawrank_original",
+        "lawrank_crops"
+      ],
+      "tables": [
+        "transition_odds",
+        "component_moves_state"
+      ]
+    }
+  },
+  {
+    "path": "new weights/wn_local_rank_early_opinions_candidate/weights.json",
+    "parents": [
+      "new weights/wn_stage_reversible_rank_candidate/weights.json",
+      "new weights/ensemble.json"
+    ],
+    "sources": [
+      "experiments/weight_space/white_local_rank_weights.py",
+      "experiments/weight_space/white_expert_agreement.py",
+      "experiments/weight_space/white_baseline_opinions.py",
+      "experiments/weight_space/expert_fusion.py"
+    ],
+    "settings": {
+      "models": [
+        "claude_cropvolbag",
+        "claude_revlow",
+        "claude_revorig",
+        "lawrank_original",
+        "lawrank_crops",
+        "lawforecast",
+        "lawretrieval",
+        "lawpatchforecast"
+      ]
+    }
+  },
+  {
+    "path": "new weights/wn_local_rank_early_mode_peaks_candidate/weights.json",
+    "parents": [
+      "new weights/wn_local_rank_early_opinions_candidate/weights.json"
+    ],
+    "sources": [
+      "experiments/weight_space/white_signal_package.py"
+    ],
+    "settings": {}
+  },
+  {
+    "path": "new weights/wn_local_rank_three_source_votes_candidate/weights.json",
+    "parents": [
+      "new weights/wn_local_rank_early_mode_peaks_candidate/weights.json"
+    ],
+    "sources": [
+      "experiments/weight_space/white_fold_vote.py"
+    ],
+    "settings": {
+      "members": [
+        "claude_crop_three_partitions",
+        "law_independent_rank_bag_29_7"
+      ]
+    }
+  },
+  {
+    "path": "new weights/wn_local_rank_concordance_tree_channels_shared_candidate/weights.json",
+    "parents": [
+      "new weights/wn_local_rank_three_source_votes_candidate/weights.json"
+    ],
+    "sources": [
+      "experiments/weight_space/white_concordance.py"
+    ],
+    "settings": {}
+  },
+  {
+    "path": "new weights/wn_local_rank_first_layer_overall_candidate/weights.json",
+    "parents": [
+      "new weights/wn_local_rank_three_source_votes_candidate/weights.json",
+      "new weights/wn_local_rank_concordance_tree_channels_shared_candidate/weights.json",
+      "new weights/ensemble.json"
+    ],
+    "sources": [
+      "experiments/weight_space/expert_fusion.py",
+      "experiments/weight_space/white_upstream_stack.py",
+      "experiments/weight_space/white_crop_replication.py",
+      "experiments/weight_space/white_regime_branches.py"
+    ],
+    "settings": {}
+  },
+  {
+    "path": "new weights/wn_local_rank_shared_residual_response_candidate/weights.json",
+    "parents": [
+      "new weights/wn_local_rank_first_layer_overall_candidate/weights.json",
+      "new weights/ensemble.json"
+    ],
+    "sources": [
+      "experiments/weight_space/white_shared_residual.py"
+    ],
+    "settings": {
+      "mode": "response"
+    }
+  }
+]

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How KU-SBB reached 0.879114 local AUC</title>
+<style>
+:root{color-scheme:light;--paper:#faf9f4;--ink:#172d2b;--muted:#455d58;--line:#cad5ce;--accent:#146656;--tint:#e9f2ec}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.58 system-ui,sans-serif}
+main,nav{max-width:1024px;margin:auto;padding:0 clamp(18px,5vw,66px)}nav{display:flex;gap:1.25rem;align-items:baseline;flex-wrap:wrap;padding-top:1.2rem;padding-bottom:1.2rem;border-bottom:1px solid var(--line)}
+nav strong{margin-right:auto;letter-spacing:.12em;font-size:.79rem}a{color:var(--accent);text-underline-offset:.2em}a:focus-visible,summary:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+header{padding:3.2rem 0 1.8rem}h1,h2{font-family:Georgia,serif;font-weight:normal;line-height:1.1;letter-spacing:-.035em}h1{font-size:clamp(2.5rem,6.7vw,4.6rem);margin:.35rem 0 1rem;max-width:800px}h2{font-size:clamp(1.7rem,4vw,2.5rem);margin:0 0 1.1rem}
+.eyebrow,dt,.section-no{font:700 .75rem/1.5 system-ui;letter-spacing:.11em;text-transform:uppercase;color:var(--accent)}.deck{font-size:1.16rem;max-width:730px;color:var(--muted)}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);border-block:1px solid var(--line);margin:0}.metrics div{padding:1.1rem .7rem 1.2rem 0}.metrics dd{font:normal clamp(1.5rem,4.5vw,2.6rem)/1.2 Georgia;margin:.25rem 0 0}
+section{padding:2.2rem 0;border-bottom:1px solid var(--line)}.section-no{display:block;margin-bottom:.45rem}p{max-width:79ch}strong{font-weight:680}
+table{width:100%;border-collapse:collapse;margin:1rem 0;text-align:left}th,td{border-bottom:1px solid var(--line);padding:.55rem .75rem .55rem 0;vertical-align:top}thead th{color:var(--muted);font-size:.83rem}tbody th{font-weight:600}td.num,th.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.features tbody th{width:26%}.note{padding:.8rem 1.1rem;background:var(--tint);border-left:3px solid var(--accent)}pre{overflow:auto;background:#193832;color:#eff8f0;padding:1rem;border-radius:4px;line-height:1.6}code{font:.9em/1.45 ui-monospace,Consolas,monospace;overflow-wrap:anywhere}
+details{padding:.65rem 0}summary{cursor:pointer;color:var(--accent);font-weight:650}li{margin:.45rem 0}footer{padding:1.5rem 0 3rem;color:var(--muted);font-size:.9rem}.tablewrap{overflow-x:auto}
+@media(max-width:600px){header{padding:2rem 0 1rem}.metrics{grid-template-columns:1fr}.metrics div{display:flex;justify-content:space-between;align-items:center;padding:.45rem 0}.metrics dd{margin:0}.features tbody th{width:31%}nav{gap:.7rem;font-size:.9rem}}
+@media print{body{background:white;font-size:10.5pt}nav{display:none}header,section{padding:1rem 0}details{display:block}pre{white-space:pre-wrap;color:black;background:#eee}}
+</style>
+</head>
+<body>
+<nav aria-label="Contents"><strong>KU-SBB / MODEL RECORD</strong><a href="#features">Features</a><a href="#weights">Weights</a><a href="#validation">Validation</a><a href="#run">Run on CPU</a></nav>
+<main>
+<header><div class="eyebrow">Known-boundary structural break detection</div><h1>What changes when a series breaks?</h1>
+<p class="deck">For each series, the boundary is supplied. The model estimates whether the process that produced the observations changed there. Its most useful early discovery was a rhythm that changed phase even when the average and spread looked stable.</p></header>
+<dl class="metrics"><div><dt>Local out-of-fold AUC</dt><dd>0.87911421</dd></div><div><dt>User-reported leaderboard</dt><dd>0.88077</dd></div><div><dt>Test predictions</dt><dd>4,000</dd></div></dl>
+<section id="features"><span class="section-no">01 / Observations</span><h2>What the detectors measure</h2>
+<p>Training used 24,000 labelled competition series, split evenly between breaks and controls. Each row of the final model represents one whole series. Earlier models saw the observations, statistics calculated on either side of the boundary, and differences between those statistics.</p>
+<table class="features"><thead><tr><th scope="col">Feature family</th><th scope="col">Measurement and purpose</th></tr></thead><tbody>
+<tr><th scope="row">Level, scale and shape</th><td>Segment lengths, means, medians, variances, quantiles, skewness and tails. Distribution tests and successive-value histograms detect a shape change even when mean and variance agree.</td></tr>
+<tr><th scope="row">Oscillation</th><td>Fit sine and cosine terms across trial frequencies. Compare a wave continuing across the boundary with a new amplitude, phase or frequency. Run the sequence networks again on the observations left after removing the fitted wave. A shift from peaks to troughs can be strong evidence even when both halves have the same period.</td></tr>
+<tr><th scope="row">Serial dependence</th><td>Autocorrelations, fitted autoregressive coefficients, memory length and random-walk evidence. The prediction error after accounting for previous observations is called an <em>innovation</em>. Detectors compare its level, scale and distribution before and after the boundary.</td></tr>
+<tr><th scope="row">Trend and transient pulses</th><td>Compare a lasting step with a continuing slope or curved trend. Estimate the amplitude, width and location of a short bell-shaped pulse near the boundary. Such pulses occurred in both classes, so their presence alone was a poor reason to call a break.</td></tr>
+<tr><th scope="row">Volatility and shocks</th><td>Estimate whether large innovations cluster, how persistent their effect is and how the quantiles of the next innovation change after a large move. A change in clustering can leave the overall variance nearly constant.</td></tr>
+<tr><th scope="row">Two-peaked noise and order</th><td>Estimate the centers, widths, spacing and occupancy of two common levels. Sequence models examine both which level is visited and the movement around it. Additional detectors compare the order of signed and absolute movements, and joint ranks of observations 1, 3, 8 or 16 steps apart.</td></tr>
+</tbody></table>
+<p>Likelihood-based detectors compare a shared process across the boundary with alternatives that allow one or more parameters to change. Trees learn interactions among these measurements. Convolutional sequence networks and multilayer perceptrons contribute separate scores. Full series, reversed or sign-flipped views, and real crops supplied different views of the same source. Crop-aware models kept views of one source together in their training splits.</p>
+<p><a href="../clean/README.md">Original feature families</a> · <a href="../experiments/redesign/nested_rank.py">Claude’s source-rank tree</a> · <a href="../new%20weights/white_noise_signal_findings.md">Matched feature experiments</a></p></section>
+<section><span class="section-no">02 / Development</span><h2>How the score moved</h2>
+<table><thead><tr><th scope="col">Primary AUC</th><th scope="col">Change retained in the ensemble</th></tr></thead><tbody>
+<tr><th scope="row" class="num">0.853385</th><td>Original stack of tree and neural predictions. Regularized weights selected seven active groups and 20 nonzero coefficients. We also refitted neural output weights and the relative weights of different views.</td></tr>
+<tr><th scope="row" class="num">0.867148</th><td>Detected coherent oscillations, separated phase and amplitude changes, and rescored the residuals with sequence models. A further correction used innovations from persistent series.</td></tr>
+<tr><th scope="row" class="num">0.870943</th><td>Modelled trend and short pulses. Compared a tree on detrended evidence with one that also saw signals adjusted for recent observations and volatility.</td></tr>
+<tr><th scope="row" class="num">0.878684</th><td>Combined original estimators with noise-law, forecasting and sequence detectors, two-peak evidence, and Claude’s crop-aware trees. A 25% branch of this ensemble learned the original and physical detector weights jointly. This is the frozen parent used by the CPU trainer.</td></tr>
+<tr><th scope="row" class="num">0.879053</th><td>An alternative output layer reduced duplicate votes from multi-view trees already represented upstream.</td></tr>
+<tr><th scope="row" class="num">0.879114</th><td>The confirmed output layer refitted the 0.878684 parent, separating common votes from the four specific detector differences below. It beat the 0.879053 alternative on all seven output partitions.</td></tr>
+</tbody></table>
+<p>One matched comparison isolated the contribution of a <em>block</em> of volatility features. With the same tree training setup, adding that block raised AUC from 0.873302 to 0.874266. Recovery of the 821 historical white-noise-like misses rose from 69 to 78 at a 20% false-positive rate. Other milestones combine several changes, so their gains cannot be assigned to a single feature.</p>
+<p><a href="../new%20weights/mechanism_phase_ar_candidate/README.md">Oscillation milestone</a> · <a href="../new%20weights/hard_state_tree_candidate/README.md">State-tree baseline</a> · <a href="../new%20weights/wn_local_rank_first_layer_overall_candidate/README.md">Frozen parent</a></p></section>
+<section id="weights"><span class="section-no">03 / Training</span><h2>The 152 weights the CPU learns</h2>
+<p>The CPU trainer starts with each series’ parent score in log-odds. It learns an additive correction from detector outputs. The feature builder first puts detector scores on comparable scales using training-fold quantiles, centers them at similar parent scores, and computes principal components within each family. This lets many similar models contribute one shared vote while retaining disagreements.</p>
+<div class="tablewrap"><table><thead><tr><th scope="col">Columns, one-based</th><th scope="col">Count</th><th scope="col">Input to the final layer</th></tr></thead><tbody>
+<tr><th scope="row" class="num">1–4</th><td>4</td><td>One common component each for original model means, original model views, physical trees, and mechanism/sequence networks.</td></tr>
+<tr><th scope="row" class="num">5–48</th><td>44</td><td>Within-family principal components. A ridge projection removes the part explained by the common components from these and the next two groups.</td></tr>
+<tr><th scope="row" class="num">49–60</th><td>12</td><td>The first three components of each family interacted with the parent risk score.</td></tr>
+<tr><th scope="row" class="num">61–132</th><td>72</td><td>Those 12 components interacted with six measured conditions: pre-boundary whiteness, random-walk evidence, curve evidence, periodicity, pre-boundary volatility clustering and two-mode evidence.</td></tr>
+<tr><th scope="row" class="num">133–136</th><td>4</td><td>Differences between four paired detectors, adjusted for the common votes.</td></tr>
+<tr><th scope="row" class="num">137–152</th><td>16</td><td>Each paired difference interacted with whiteness, periodicity, volatility clustering and two-mode evidence.</td></tr>
+</tbody></table></div>
+<details><summary>Show the four detector pairs and their archive names</summary>
+<ol><li>Ordered signed and absolute movements versus the matching physical-only head. <code>law_ordered_paths − law_path_control</code></li>
+<li>Innovation quantiles after a shock versus its matching physical-only head. <code>law_shock_quantiles − law_shock_quantile_control</code></li>
+<li>Rank-dependence networks trained on two source partitions. <code>law_rank_dependence_s7 − law_rank_dependence_s29</code></li>
+<li>Claude’s tree with some physical inputs withheld versus its full source-loss tree. <code>claude_masked_physics − claude_source_loss</code></li></ol></details>
+<p>The optimizer starts every coefficient at zero. For each positive example it samples 32 negatives within 1.35 parent log-odds using seed 1729. Closer pairs receive more weight. The objective combines individual logistic loss (0.47), weighted pairwise logistic loss (pair mass normalized to 0.53 times the training count, temperature 0.55), and a squared-weight penalty of 84. L-BFGS-B fits the coefficients. Applying half the fitted correction limits the size of the edit.</p>
+<div class="note"><code>break_probability = sigmoid(parent_log_odds + features @ final_weights)</code></div>
+<p><a href="../experiments/weight_space/white_opinion_spectrum.py">Detector inventory and component construction</a> · <a href="../experiments/weight_space/white_shared_residual.py">Original final-layer recipe</a> · <a href="train.py">Portable optimizer</a></p></section>
+<section id="validation"><span class="section-no">04 / Evidence</span><h2>What was verified</h2>
+<p>The primary check uses five stratified folds with seed 7. Each fit sees 19,200 labels and predicts the other 4,800 series using its fold-specific features. Pooling the 24,000 held-out scores gives ROC-AUC <strong>0.8791142083333333</strong>. ROC-AUC measures how often a random break outranks a random no-break series. The final test fit uses all 24,000 labels and scores the 4,000 unlabelled series in sample-submission order.</p>
+<table><thead><tr><th scope="col">Primary local measure</th><th scope="col">0.870943 baseline</th><th scope="col">Confirmed model</th></tr></thead><tbody>
+<tr><th scope="row">821 historical positives vs. all 12,000 negatives</th><td>0.460677</td><td>0.498719</td></tr>
+<tr><th scope="row">Remaining 23,179 series</th><td>0.901074</td><td>0.907051</td></tr>
+<tr><th scope="row">Historical misses recovered at 20% false positives</th><td>42</td><td>88</td></tr>
+</tbody></table>
+<p>The historical miss IDs were used to audit recovery. They are absent from the CPU training pack as a predictor or cohort flag. All seven output-weight partitions reuse the same labelled series and archived base predictions. They measure sensitivity to the split. The <strong>0.88077</strong> leaderboard result was reported by the user after submission.</p>
+<details><summary>Show all seven output-weight comparisons</summary>
+<table><thead><tr><th scope="col">Seed</th><th scope="col">Previous head</th><th scope="col">Confirmed head</th></tr></thead><tbody>
+<tr><th scope="row">7</th><td>0.87905263</td><td>0.87911421</td></tr><tr><th scope="row">29</th><td>0.87897858</td><td>0.87903201</td></tr><tr><th scope="row">0</th><td>0.87853475</td><td>0.87861162</td></tr><tr><th scope="row">123</th><td>0.87844442</td><td>0.87850729</td></tr><tr><th scope="row">2024</th><td>0.87858956</td><td>0.87865568</td></tr><tr><th scope="row">11041</th><td>0.87908089</td><td>0.87913187</td></tr><tr><th scope="row">61817</th><td>0.87840496</td><td>0.87846669</td></tr></tbody></table></details>
+<p>A later trial on overlooked serially dependent series reached 0.879174 on seed 7 and lost on seed 29. That trial stayed separate from the submission documented here. <a href="../new%20weights/wn_local_rank_shared_residual_response_candidate/validation.json">Validation record</a> · <a href="../new%20weights/quiet_serial_trial/README.md">Separate trial</a></p></section>
+<section id="run"><span class="section-no">05 / Reproduction</span><h2>Run the exact CPU refit</h2>
+<p>From this folder, keep <a href="train.py">train.py</a> beside <a href="training_inputs.npz">training_inputs.npz</a> (166.5 MiB). The pack contains the original labels, IDs, train/validation indices, parent log-odds and fold-specific feature matrices. The earlier models’ training is preserved in their archived predictions. The portable run trains the final layer afresh. It needs one CPU thread and no network connection once the dependencies are installed.</p>
+<pre><code>python -m pip install -r requirements.txt
+python train.py</code></pre>
+<p>With the existing project environment on Windows, run this from the project root:</p>
+<pre><code>.\.venv-xpu\Scripts\python.exe .\cpu_0879\train.py</code></pre>
+<p><a href="run/submission.csv">run/submission.csv</a> contains <code>id,break_probability</code>. <a href="run/fit.npz">run/fit.npz</a> contains the 152 learned coefficients, the 24,000 training IDs and held-out logits, and their pooled AUC. The CPU refit reproduced every coefficient and held-out logit exactly in the tested Windows environment. Its submission was byte-identical to the confirmed CSV.</p>
+<p><strong>Verified submission SHA-256</strong><br><code>81be6dbdbcd0202876c0991950664e1f60ab34102fbbe63dec6f5ec254ca5064</code></p>
+<p><a href="requirements.txt">Tested dependency versions</a> · <a href="prepare_inputs.py">Rebuild the pack from the original project archives</a> · <a href="../new%20weights/wn_local_rank_shared_residual_response_candidate/submission.csv">Reference submission</a></p></section>
+<section id="raw"><span class="section-no">06 / From the original data</span><h2>Rebuild and train on CPU</h2>
+<p>The second path starts with <code>train_series.parquet</code>, <code>train_labels.csv</code>, <code>test_series.parquet</code> and <code>sample_submission.csv</code>. It builds 361 measurements per series and trains a LightGBM classifier. Its measured pooled five-fold ROC-AUC is <strong>0.86523822</strong>. The complete run took 168 seconds with four CPU workers on this machine. The exact ensemble refit above reproduces <strong>0.87911421</strong> using the saved upstream detector outputs.</p>
+<p>The feature builder reuses numerical detector functions from <code>experiments/weight_space</code>. Keep this folder inside the project when running it. It reads the four original data files and calculates the measurements afresh. All feature fitting occurs within one series. The binary training labels enter only when the five tree models and full-data tree are fitted.</p>
+<p>Measurements cover harmonic phase and frequency changes, removal of periodic components, autoregressive and random-walk evidence, robust linear and curved trends, trend clock resets, short pulses, volatility-adjusted innovations and multiresolution rank partitions. A compact density grid compares shared and changed location, spread and noise shape under Gaussian, Student, contaminated Gaussian and two-peak laws. Those density comparisons run on the observations, corrected observations and innovations.</p>
+<p>The tree settings are fixed across folds and the final fit. They use 720 trees, learning rate 0.025, 27 leaves, at least 58 observations per leaf, L2 penalty 6, feature sampling fraction 0.62 and 127 histogram bins. Five stratified folds use seed 7 and the official label-file row order. Each original series receives one held-out prediction.</p>
+<pre><code>python -m pip install -r cpu_0879/requirements_raw.txt
+python cpu_0879/train_raw.py --workers 4</code></pre>
+<p>Use the project root as the working directory. The existing Windows environment can run the script with <code>.\.venv-xpu\Scripts\python.exe .\cpu_0879\train_raw.py --workers 4</code>. The script explicitly selects CPU training. Use <code>--workers 1</code> for a single process, <code>--data</code> to point to the competition files, and <code>--out-dir</code> to choose the output folder.</p>
+<table><thead><tr><th scope="col">Fold</th><th scope="col">Held-out ROC-AUC</th></tr></thead><tbody><tr><td>1</td><td>0.86207830</td></tr><tr><td>2</td><td>0.85831007</td></tr><tr><td>3</td><td>0.86621580</td></tr><tr><td>4</td><td>0.87325938</td></tr><tr><td>5</td><td>0.86679514</td></tr></tbody></table>
+<p>The full-data model writes 4,000 probabilities in sample-submission order. The saved tree includes the exact feature names. The validation CSV records the source ID, true label, fold and held-out probability. This smaller model has its own predictions and score. <a href="train_raw.py">Raw-data trainer</a> · <a href="raw_features.py">Feature implementation</a> · <a href="raw_run/submission.csv">Raw-data submission</a> · <a href="raw_run/model.txt">Trained tree</a> · <a href="raw_run/validation.csv">Validation predictions</a></p>
+</section>
+<footer>KU-SBB · Confirmed submission and two CPU training paths</footer></main></body></html>

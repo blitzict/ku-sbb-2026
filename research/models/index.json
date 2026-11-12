@@ -1,0 +1,20 @@
+{
+  "v4": {
+    "folder": "v4_083313",
+    "leaderboard_auc": 0.83313,
+    "local_auc": 0.8383537152777778,
+    "description": "Original CPU XGBoost + LightGBM rank average"
+  },
+  "original": {
+    "folder": "ensemble_088077",
+    "leaderboard_auc": 0.88077,
+    "local_auc": 0.8791142083333333,
+    "description": "Confirmed multi-detector ensemble"
+  },
+  "mixed": {
+    "folder": "mixed_088078",
+    "leaderboard_auc": 0.88078,
+    "local_auc": 0.8790970625,
+    "description": "Confirmed ensemble plus v3 sim05 neural correction"
+  }
+}
